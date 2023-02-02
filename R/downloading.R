@@ -35,13 +35,13 @@
 #'
 #' # This won't work, as it can't guess whether you want project or data extraction
 #' #  files from the number "1".
-#' get_file(1, 87)
+#' get_remote_file(1, 87)
 #'
 #' # Need to provide a value to \code{data_type}.
-#' get_file(1, 87, data_type = 'extraction')
+#' get_remote_file(1, 87, data_type = 'extraction')
 #' }
 
-get_file <- function(file = NULL, project = NULL,
+get_remote_file <- function(file = NULL, project = NULL,
                      data_type = c(NA, 'extraction', 'project'),
                      url = NULL, out_dir = getwd(), overwrite = F, to_vue = F){
 
@@ -182,7 +182,7 @@ get_file <- function(file = NULL, project = NULL,
 #'      Passed to \code{httr::write_disk} via \code{\link{get_file}}.
 #'
 #' @export
-get_updates <- function(..., out_dir = getwd(), overwrite = F, to_vue = F){
+get_all_updated <- function(..., out_dir = getwd(), overwrite = F, to_vue = F){
 
   files <- list_files(...)
 

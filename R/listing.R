@@ -16,12 +16,12 @@
 #' @examples
 #' \dontrun{
 #' # List all projects, the default:
-#' matos_projects()
+#' get_matos_projects()
 #'
 #' # List your projects (which may contain some for which you do not have read access):
-#' matos_projects('mine', read_access = F)
+#' get_matos_projects('mine', read_access = F)
 #' }
-matos_projects <- function(what = c('all', 'mine'), read_access = T){
+get_matos_projects <- function(what = c('all', 'mine'), read_access = T){
 
   what <- match.arg(what)
 
@@ -83,7 +83,7 @@ matos_projects <- function(what = c('all', 'mine'), read_access = T){
 #'     is allowed, and will repair to the correct argument if spaces or the words
 #'     "data"/"file(s)" are included.
 #' @param detection_type one of NULL (default), "matched", "qualified", "sentinel_tag",
-#'     or "unqualified"; used in a call to \code{list_files} under the hood. If NULL,
+#'     or "unqualified"; used in a call to \code{list_project_files} under the hood. If NULL,
 #'     all detection types will be listed. Partial matching is allowed, and will repair
 #'     to the correct argument if spaces or the words "detection(s)" are included.
 #'     More information on data types can be found on \href{https://members.oceantrack.org/data/otn-detection-extract-documentation-matched-to-animals}{OTN's website}.
@@ -96,16 +96,16 @@ matos_projects <- function(what = c('all', 'mine'), read_access = T){
 #' @examples
 #' \dontrun{
 #' # Select using project number, this defaults to grabbing the data extraction files
-#' list_files(87)
+#' list_project_files(87)
 #'
 #' # Or, grab the project files
-#' list_files(project = 87, data_type = 'project')
+#' list_project_files(project = 87, data_type = 'project')
 #'
 #' # Select using project name
-#' list_files('umces boem offshore wind energy')
+#' list_project_files('umces boem offshore wind energy')
 #' }
 
-list_files <- function(project = NULL, data_type = c('extraction', 'project'),
+list_project_files <- function(project = NULL, data_type = c('extraction', 'project'),
                        detection_type = c('all', 'matched', 'qualified',
                                           'sentinel_tag', 'unqualified'),
                        since = NULL){
