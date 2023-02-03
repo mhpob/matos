@@ -93,33 +93,33 @@
 <div class="section level2">
 <h2 id="list-available-files">List available files<a class="anchor" aria-label="anchor" href="#list-available-files"></a>
 </h2>
-<p>First, <code>matos_projects</code> returns the <a href="https://matos.asascience.com/project" class="external-link">project page</a>, which is useful to figure out what URLs are associated with each project. You do not need MATOS permissions in order to view this page.</p>
+<p>First, <code>list_projects</code> returns the <a href="https://matos.asascience.com/project" class="external-link">project page</a>, which is useful to figure out what URLs are associated with each project. You do not need MATOS permissions in order to view this page.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhpob/matos" class="external-link">matos</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; By continuing, you are agreeing to the ACT Network MATOS User Agreement and Data Policy, Version 1.1:</span></span>
+<span><span class="co">#&gt; By continuing, you are agreeing to the ACT Network MATOS User Agreement and Data Policy, Version 1.2:</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; https://matos.asascience.com/static/MATOS.User.Agreement.V1.1.pdf</span></span>
 <span></span>
-<span><span class="va">all_projects</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/matos_projects.html">matos_projects</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">all_projects</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_projects.html">list_projects</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">all_projects</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                      name number</span></span>
-<span><span class="co">#&gt; 1                               ack array    168</span></span>
-<span><span class="co">#&gt; 2     apg atlantic and shortnose sturgeon    176</span></span>
-<span><span class="co">#&gt; 3 boem-de offshore wind energy area study     85</span></span>
-<span><span class="co">#&gt; 4                         brandywine shad    162</span></span>
-<span><span class="co">#&gt; 5      btwaves caribbean acoustic tagging     94</span></span>
-<span><span class="co">#&gt; 6                    cfcc marine tech cfr     98</span></span>
+<span><span class="co">#&gt;                                   name number</span></span>
+<span><span class="co">#&gt; 1                            ACK Array    168</span></span>
+<span><span class="co">#&gt; 2  APG Atlantic and Shortnose Sturgeon    176</span></span>
+<span><span class="co">#&gt; 3 ASI - White Shark Study, Montauk, NY    211</span></span>
+<span><span class="co">#&gt; 4                   ASI Acoustic Array    100</span></span>
+<span><span class="co">#&gt; 5              ASI Spinner Shark Study    227</span></span>
+<span><span class="co">#&gt; 6   ASI White Shark Study, Southern NE    232</span></span>
 <span><span class="co">#&gt;                                               url</span></span>
 <span><span class="co">#&gt; 1 https://matos.asascience.com/project/detail/168</span></span>
 <span><span class="co">#&gt; 2 https://matos.asascience.com/project/detail/176</span></span>
-<span><span class="co">#&gt; 3  https://matos.asascience.com/project/detail/85</span></span>
-<span><span class="co">#&gt; 4 https://matos.asascience.com/project/detail/162</span></span>
-<span><span class="co">#&gt; 5  https://matos.asascience.com/project/detail/94</span></span>
-<span><span class="co">#&gt; 6  https://matos.asascience.com/project/detail/98</span></span></code></pre></div>
-<p>I can also view the files that I’ve uploaded to my projects using <code>list_files</code>, but that requires logging in first.</p>
+<span><span class="co">#&gt; 3 https://matos.asascience.com/project/detail/211</span></span>
+<span><span class="co">#&gt; 4 https://matos.asascience.com/project/detail/100</span></span>
+<span><span class="co">#&gt; 5 https://matos.asascience.com/project/detail/227</span></span>
+<span><span class="co">#&gt; 6 https://matos.asascience.com/project/detail/232</span></span></code></pre></div>
+<p>I can also view the files that I’ve uploaded to my projects using <code>list_project_files</code>, but that requires logging in first.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">project_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_files.html">list_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>, data_type <span class="op">=</span> <span class="st">'project'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">project_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_project_files.html">list_project_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Please log in.</span></span>
 <span><span class="co">#&gt; Please enter password in TK window (Alt+Tab)</span></span>
 <span><span class="co">#&gt; Please enter password in TK window (Alt+Tab)</span></span>
@@ -148,23 +148,23 @@
 <span><span class="co">#&gt; 6 https://matos.asascience.com/projectfile/download/1814</span></span></code></pre></div>
 <p>I can also list any of my OTN node <em>Data Extraction Files</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ACT_MATOS_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_files.html">list_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>, data_type <span class="op">=</span> <span class="st">'extraction'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ACT_MATOS_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_extract_files.html">list_extract_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>, detection_type <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ACT_MATOS_files</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   project            file_type detection_type detection_year upload_date</span></span>
-<span><span class="co">#&gt; 1      87 Data Extraction File        matched           2017  2021-11-23</span></span>
-<span><span class="co">#&gt; 2      87 Data Extraction File        matched           2018  2021-08-17</span></span>
-<span><span class="co">#&gt; 3      87 Data Extraction File        matched           2019  2021-08-17</span></span>
-<span><span class="co">#&gt; 4      87 Data Extraction File        matched           2020  2021-11-23</span></span>
-<span><span class="co">#&gt; 5      87 Data Extraction File        matched           2021  2021-08-17</span></span>
-<span><span class="co">#&gt; 6      87 Data Extraction File      qualified           2016  2021-11-23</span></span>
-<span><span class="co">#&gt;                              file_name</span></span>
-<span><span class="co">#&gt; 1   proj87_matched_detections_2017.zip</span></span>
-<span><span class="co">#&gt; 2   proj87_matched_detections_2018.zip</span></span>
-<span><span class="co">#&gt; 3   proj87_matched_detections_2019.zip</span></span>
-<span><span class="co">#&gt; 4   proj87_matched_detections_2020.zip</span></span>
-<span><span class="co">#&gt; 5   proj87_matched_detections_2021.zip</span></span>
-<span><span class="co">#&gt; 6 proj87_qualified_detections_2016.zip</span></span>
+<span><span class="co">#&gt; 1      87 Data Extraction File        matched           2017  2022-11-02</span></span>
+<span><span class="co">#&gt; 2      87 Data Extraction File        matched           2018  2022-07-13</span></span>
+<span><span class="co">#&gt; 3      87 Data Extraction File        matched           2019  2022-11-02</span></span>
+<span><span class="co">#&gt; 4      87 Data Extraction File        matched           2020  2022-11-02</span></span>
+<span><span class="co">#&gt; 5      87 Data Extraction File        matched           2021  2022-11-02</span></span>
+<span><span class="co">#&gt; 6      87 Data Extraction File        matched           2022  2022-11-02</span></span>
+<span><span class="co">#&gt;                            file_name</span></span>
+<span><span class="co">#&gt; 1 proj87_matched_detections_2017.zip</span></span>
+<span><span class="co">#&gt; 2 proj87_matched_detections_2018.zip</span></span>
+<span><span class="co">#&gt; 3 proj87_matched_detections_2019.zip</span></span>
+<span><span class="co">#&gt; 4 proj87_matched_detections_2020.zip</span></span>
+<span><span class="co">#&gt; 5 proj87_matched_detections_2021.zip</span></span>
+<span><span class="co">#&gt; 6 proj87_matched_detections_2022.zip</span></span>
 <span><span class="co">#&gt;                                                                url</span></span>
 <span><span class="co">#&gt; 1 https://matos.asascience.com/projectfile/downloadExtraction/87_1</span></span>
 <span><span class="co">#&gt; 2 https://matos.asascience.com/projectfile/downloadExtraction/87_2</span></span>
@@ -182,19 +182,26 @@
 <span><span class="co">#&gt; [1] "https://matos.asascience.com/projectfile/download/375"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/get_file.html">get_file</a></span><span class="op">(</span>url <span class="op">=</span> <span class="va">project_files</span><span class="op">$</span><span class="va">url</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; File saved to C:\Users\darpa2\Analysis\matos\BOEM_metadata_deployment.xls</span></span></code></pre></div>
+<span><span class="co">#&gt; File saved to C:\Users\darpa2\Analysis\matos\BOEM_metadata_deployment.xls</span></span>
+<span><span class="co">#&gt; [1] "C:\\Users\\darpa2\\Analysis\\matos\\BOEM_metadata_deployment.xls"</span></span></code></pre></div>
 <p>I can download by using an index from the <code>ACT_MATOS_files</code> table above, here the file on the second row. Note that this means we have to specify what kind of data we’re looking for when identifying by index.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/get_file.html">get_file</a></span><span class="op">(</span>file <span class="op">=</span> <span class="fl">2</span>, project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>, data_type <span class="op">=</span> <span class="st">'extraction'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; File saved to C:\Users\darpa2\Analysis\matos\proj87_matched_detections_2018.zip</span></span>
-<span><span class="co">#&gt; File unzipped to C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv C:/Users/darpa2/Analysis/matos/data_description.txt</span></span></code></pre></div>
+<span><span class="co">#&gt; File unzipped to C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv C:/Users/darpa2/Analysis/matos/data_description.txt</span></span>
+<span><span class="co">#&gt; [1] "C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv"</span></span>
+<span><span class="co">#&gt; [2] "C:/Users/darpa2/Analysis/matos/data_description.txt"</span></span></code></pre></div>
 <p>If I download using a file name, <code>get_file</code> will use the file extension to figure out what kind of data I want, so explicitly identifying the data type is not needed. Since all data extraction files are zipped, the function assumes the correct data type.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/get_file.html">get_file</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">'proj87_matched_detections_2018.zip'</span>,</span>
 <span>         project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>,</span>
 <span>         overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in is.character(file) &amp;&amp; is.na(data_type): 'length(x) = 3 &gt; 1' in</span></span>
+<span><span class="co">#&gt; coercion to 'logical(1)'</span></span>
 <span><span class="co">#&gt; File saved to C:\Users\darpa2\Analysis\matos\proj87_matched_detections_2018.zip</span></span>
-<span><span class="co">#&gt; File unzipped to C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv C:/Users/darpa2/Analysis/matos/data_description.txt</span></span></code></pre></div>
+<span><span class="co">#&gt; File unzipped to C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv C:/Users/darpa2/Analysis/matos/data_description.txt</span></span>
+<span><span class="co">#&gt; [1] "C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv"</span></span>
+<span><span class="co">#&gt; [2] "C:/Users/darpa2/Analysis/matos/data_description.txt"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="search-and-download-tag-detections">Search and download tag detections<a class="anchor" aria-label="anchor" href="#search-and-download-tag-detections"></a>
