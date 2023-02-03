@@ -148,7 +148,8 @@
 <span><span class="co">#&gt; 6 https://matos.asascience.com/projectfile/download/1814</span></span></code></pre></div>
 <p>I can also list any of my OTN node <em>Data Extraction Files</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ACT_MATOS_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_extract_files.html">list_extract_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>, detection_type <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ACT_MATOS_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_extract_files.html">list_extract_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>,</span>
+<span>                                      detection_type <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ACT_MATOS_files</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   project            file_type detection_type detection_year upload_date</span></span>
@@ -181,23 +182,12 @@
 <code class="sourceCode R"><span><span class="va">project_files</span><span class="op">$</span><span class="va">url</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] "https://matos.asascience.com/projectfile/download/375"</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/get_file.html">get_file</a></span><span class="op">(</span>url <span class="op">=</span> <span class="va">project_files</span><span class="op">$</span><span class="va">url</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/get_project_file.html">get_project_file</a></span><span class="op">(</span>url <span class="op">=</span> <span class="va">project_files</span><span class="op">$</span><span class="va">url</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; File saved to C:\Users\darpa2\Analysis\matos\BOEM_metadata_deployment.xls</span></span>
 <span><span class="co">#&gt; [1] "C:\\Users\\darpa2\\Analysis\\matos\\BOEM_metadata_deployment.xls"</span></span></code></pre></div>
-<p>I can download by using an index from the <code>ACT_MATOS_files</code> table above, here the file on the second row. Note that this means we have to specify what kind of data we’re looking for when identifying by index.</p>
+<p>I can download by using an index from the <code>ACT_MATOS_files</code> table above, here the file on the second row.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/get_file.html">get_file</a></span><span class="op">(</span>file <span class="op">=</span> <span class="fl">2</span>, project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>, data_type <span class="op">=</span> <span class="st">'extraction'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; File saved to C:\Users\darpa2\Analysis\matos\proj87_matched_detections_2018.zip</span></span>
-<span><span class="co">#&gt; File unzipped to C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv C:/Users/darpa2/Analysis/matos/data_description.txt</span></span>
-<span><span class="co">#&gt; [1] "C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv"</span></span>
-<span><span class="co">#&gt; [2] "C:/Users/darpa2/Analysis/matos/data_description.txt"</span></span></code></pre></div>
-<p>If I download using a file name, <code>get_file</code> will use the file extension to figure out what kind of data I want, so explicitly identifying the data type is not needed. Since all data extraction files are zipped, the function assumes the correct data type.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/get_file.html">get_file</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">'proj87_matched_detections_2018.zip'</span>,</span>
-<span>         project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>,</span>
-<span>         overwrite <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in is.character(file) &amp;&amp; is.na(data_type): 'length(x) = 3 &gt; 1' in</span></span>
-<span><span class="co">#&gt; coercion to 'logical(1)'</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/get_extract_file.html">get_extract_file</a></span><span class="op">(</span>file <span class="op">=</span> <span class="fl">2</span>, project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; File saved to C:\Users\darpa2\Analysis\matos\proj87_matched_detections_2018.zip</span></span>
 <span><span class="co">#&gt; File unzipped to C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv C:/Users/darpa2/Analysis/matos/data_description.txt</span></span>
 <span><span class="co">#&gt; [1] "C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv"</span></span>
@@ -207,8 +197,8 @@
 <h2 id="search-and-download-tag-detections">Search and download tag detections<a class="anchor" aria-label="anchor" href="#search-and-download-tag-detections"></a>
 </h2>
 <p>Using the <code>tag_search</code> function, I can interface with MATOS’ <a href="https://matos.asascience.com/search" class="external-link">tag search page</a>. Be very careful with this function – it can take a <em>very</em>, <strong>VERY</strong> long time to return your files. This function downloads the requested CSV into your working directory, and, if <code>import = T</code> is used, reads it into your R session.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">my_detections</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tag_search.html">tag_search</a></span><span class="op">(</span>tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'A69-1601-254'</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">90</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">my_detections</span> <span class="op">&lt;-</span> <span class="fu">tag_search</span><span class="op">(</span>tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'A69-1601-254'</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">90</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                            start_date <span class="op">=</span> <span class="st">'03/01/2016'</span>,</span>
 <span>                            end_date <span class="op">=</span> <span class="st">'04/01/2016'</span>, </span>
 <span>                            import <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
@@ -231,13 +221,13 @@
 <li>glider deployment metadata</li>
 </ul>
 <p>If you don’t have one of these templates downloaded, you can download it through the package. For example:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/get_otn_template.html">get_otn_template</a></span><span class="op">(</span><span class="st">'glider'</span><span class="op">)</span></span></code></pre></div>
 <p>Then, get to uploading!</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/post_file.html">post_file</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>,</span>
-<span>          file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'this_is_a_dummy_file.csv'</span>, <span class="st">'so_is_this.csv'</span><span class="op">)</span>,</span>
-<span>          data_type <span class="op">=</span> <span class="st">'new_tags'</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/upload_file.html">upload_file</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>,</span>
+<span>            file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'this_is_a_dummy_file.csv'</span>, <span class="st">'so_is_this.csv'</span><span class="op">)</span>,</span>
+<span>            data_type <span class="op">=</span> <span class="st">'new_tags'</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="development">Development<a class="anchor" aria-label="anchor" href="#development"></a>
