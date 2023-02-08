@@ -41,7 +41,6 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/act-push-summary.html">Summarize your ACT data push</a>
     <a class="dropdown-item" href="../articles/introduction.html">Introduction</a>
   </div>
 </li>
@@ -88,17 +87,14 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB; font-style: italic;">&lt;https://matos.asascience.com/static/MATOS.User.Agreement.V1.1.pdf&gt;</span></span></span>
 <span><span class="co">#&gt; </span></span></code></pre></div>
-<pre><code><span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Login successful!</span></span></code></pre>
 <div class="section level2">
 <h2 id="list-available-files">List available files<a class="anchor" aria-label="anchor" href="#list-available-files"></a>
 </h2>
 <p>First, <code>list_projects</code> returns the <a href="https://matos.asascience.com/project" class="external-link">project page</a>, which is
 useful to figure out what URLs are associated with each project. You do
 not need MATOS permissions in order to view this page.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhpob/matos" class="external-link">matos</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">all_projects</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_projects.html">list_projects</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">all_projects</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_projects.html">list_projects</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">all_projects</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                   name number</span></span>
@@ -116,7 +112,10 @@ not need MATOS permissions in order to view this page.</p>
 <span><span class="co">#&gt; 5 https://matos.asascience.com/project/detail/227</span></span>
 <span><span class="co">#&gt; 6 https://matos.asascience.com/project/detail/232</span></span></code></pre></div>
 <p>I can also view the files that I’ve uploaded to my projects using
-<code>list_project_files</code>, but that requires logging in first.</p>
+<code>list_project_files</code>, but that requires logging in first. The
+family of <code>list_</code> functions in this package will prompt you
+to log in before moving on.</p>
+<pre><code><span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Login successful!</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">project_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_project_files.html">list_project_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span><span class="op">)</span></span>
 <span></span>

@@ -2,9 +2,8 @@ pandoc: 2.19.2
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  act-push-summary: act-push-summary.html
   introduction: introduction.html
-last_built: 2023-02-08T19:11Z
+last_built: 2023-02-08T20:44Z
 urls:
   reference: https://www.obrien.page/matos/reference
   article: https://www.obrien.page/matos/articles
