@@ -42,6 +42,16 @@
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="articles/act-push-summary.html">Summarize your ACT data push</a>
+    <a class="dropdown-item" href="articles/introduction.html">Introduction</a>
+  </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">Changelog</a>
+</li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -69,38 +79,6 @@
 <p>{matos} is an attempt at an API to the <a href="https://matos.asascience.com/" class="external-link">Mid-Atlantic Acoustic Telemetry Observing System website</a>, powered by a suite of <a href="https://httr.r-lib.org/" class="external-link">httr</a> and <a href="https://rvest.tidyverse.org/" class="external-link">rvest</a> functions. Because of this, it’s not necessarily fast or the best way to do things – we’re just pinging the website back and forth. Additionally, an internet connection is needed for pretty much anything to work.</p>
 <p>Please note that you will need a MATOS account, <a href="https://matos.asascience.com/account/signup" class="external-link">which you can sign up for here</a>, in order to interface with any project-specific files.</p>
 <div class="section level2">
-<h2 id="news">News!<a class="anchor" aria-label="anchor" href="#news"></a>
-</h2>
-<div class="section level3">
-<h3 id="id_2023-02-02">2023-02-02<a class="anchor" aria-label="anchor" href="#id_2023-02-02"></a>
-</h3>
-<ul>
-<li>The package has a pkgdown website at <a href="https://mhpob.github.io/matos/" class="uri">https://mhpob.github.io/matos/</a>
-</li>
-<li>
-<a href="https://mhpob.github.io/matos/reference/act_push_summary.html"><code>act_push_summary</code></a> is live! This currently only does receiver summaries, but tag summaries are coming soon.</li>
-<li>Most functions have been renamed following a LIST-GET workflow.
-<ul>
-<li>LIST your files to see what you have</li>
-<li>GET those files</li>
-<li>and also… UPLOAD. But that didn’t fit into the pithy saying.</li>
-</ul>
-</li>
-<li>A few functions, namely <code>list_files</code> and <code>get_file</code> have been split into functions with fewer options and clearer names (<code>list_extract_files</code> and <code>list_project_files</code>, e.g.). Hopefully this will make things more intuitive.</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="id_2021-04-12">2021-04-12<a class="anchor" aria-label="anchor" href="#id_2021-04-12"></a>
-</h3>
-<ul>
-<li>
-<code>get_updates</code>: A new function to download all files updated since a given date. Super useful after a data push!</li>
-<li>
-<code>list_files</code> now has a <code>since</code> argument, allowing you to only list the files that have been updated since a certain date.</li>
-</ul>
-</div>
-</div>
-<div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>This package is still in “throw things on the wall and see what sticks” phase (<em>“this package is currently undergoing heavy development”</em>). You can install the most-up-to-date version from GitHub:</p>
@@ -109,170 +87,9 @@
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mhpob/matos"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="list-available-files">List available files<a class="anchor" aria-label="anchor" href="#list-available-files"></a>
-</h2>
-<p>First, <code>list_projects</code> returns the <a href="https://matos.asascience.com/project" class="external-link">project page</a>, which is useful to figure out what URLs are associated with each project. You do not need MATOS permissions in order to view this page.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhpob/matos" class="external-link">matos</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; By continuing, you are agreeing to the ACT Network MATOS User Agreement and</span></span>
-<span><span class="co">#&gt; Data Policy, Version 1.2:</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; &lt;]8;;https://matos.asascience.com/static/MATOS.User.Agreement.V1.1.pdfhttps://matos.asascience.com/static/MATOS.User.Agreement.V1.1.pdf]8;;&gt;</span></span>
-<span><span class="co">#&gt; </span></span>
-<span></span>
-<span><span class="va">all_projects</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_projects.html">list_projects</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">all_projects</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                   name number</span></span>
-<span><span class="co">#&gt; 1                            ACK Array    168</span></span>
-<span><span class="co">#&gt; 2  APG Atlantic and Shortnose Sturgeon    176</span></span>
-<span><span class="co">#&gt; 3 ASI - White Shark Study, Montauk, NY    211</span></span>
-<span><span class="co">#&gt; 4                   ASI Acoustic Array    100</span></span>
-<span><span class="co">#&gt; 5              ASI Spinner Shark Study    227</span></span>
-<span><span class="co">#&gt; 6   ASI White Shark Study, Southern NE    232</span></span>
-<span><span class="co">#&gt;                                               url</span></span>
-<span><span class="co">#&gt; 1 https://matos.asascience.com/project/detail/168</span></span>
-<span><span class="co">#&gt; 2 https://matos.asascience.com/project/detail/176</span></span>
-<span><span class="co">#&gt; 3 https://matos.asascience.com/project/detail/211</span></span>
-<span><span class="co">#&gt; 4 https://matos.asascience.com/project/detail/100</span></span>
-<span><span class="co">#&gt; 5 https://matos.asascience.com/project/detail/227</span></span>
-<span><span class="co">#&gt; 6 https://matos.asascience.com/project/detail/232</span></span></code></pre></div>
-<p>I can also view the files that I’ve uploaded to my projects using <code>list_project_files</code>, but that requires logging in first.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">project_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_project_files.html">list_project_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ! Please log in.</span></span>
-<span><span class="co">#&gt; Please enter password in TK window (Alt+Tab)</span></span>
-<span><span class="co">#&gt; Please enter password in TK window (Alt+Tab)</span></span>
-<span><span class="co">#&gt; ✔ Login successful!</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">project_files</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   project                                file_type upload_date</span></span>
-<span><span class="co">#&gt; 1      87 Deployed Receivers – Deployment Metadata  2020-03-30</span></span>
-<span><span class="co">#&gt; 2      87               Tag Detections - .vfl file  2020-05-28</span></span>
-<span><span class="co">#&gt; 3      87               Tag Detections - .vfl file  2020-05-28</span></span>
-<span><span class="co">#&gt; 4      87               Tag Detections - .vfl file  2020-05-28</span></span>
-<span><span class="co">#&gt; 5      87               Tag Detections - .vfl file  2020-05-28</span></span>
-<span><span class="co">#&gt; 6      87               Tag Detections - .vfl file  2020-05-28</span></span>
-<span><span class="co">#&gt;                      file_name</span></span>
-<span><span class="co">#&gt; 1 BOEM_metadata_deployment.xls</span></span>
-<span><span class="co">#&gt; 2  VR2AR_546455_20170328_1.vrl</span></span>
-<span><span class="co">#&gt; 3  VR2AR_546456_20170328_1.vrl</span></span>
-<span><span class="co">#&gt; 4  VR2AR_546457_20170329_1.vrl</span></span>
-<span><span class="co">#&gt; 5  VR2AR_546458_20170329_1.vrl</span></span>
-<span><span class="co">#&gt; 6  VR2AR_546459_20170328_1.vrl</span></span>
-<span><span class="co">#&gt;                                                      url</span></span>
-<span><span class="co">#&gt; 1  https://matos.asascience.com/projectfile/download/375</span></span>
-<span><span class="co">#&gt; 2 https://matos.asascience.com/projectfile/download/1810</span></span>
-<span><span class="co">#&gt; 3 https://matos.asascience.com/projectfile/download/1811</span></span>
-<span><span class="co">#&gt; 4 https://matos.asascience.com/projectfile/download/1812</span></span>
-<span><span class="co">#&gt; 5 https://matos.asascience.com/projectfile/download/1813</span></span>
-<span><span class="co">#&gt; 6 https://matos.asascience.com/projectfile/download/1814</span></span></code></pre></div>
-<p>I can also list any of my OTN node <em>Data Extraction Files</em>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ACT_MATOS_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_extract_files.html">list_extract_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>,</span>
-<span>                                      detection_type <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ACT_MATOS_files</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   project            file_type detection_type detection_year upload_date</span></span>
-<span><span class="co">#&gt; 1      87 Data Extraction File        matched           2017  2022-11-02</span></span>
-<span><span class="co">#&gt; 2      87 Data Extraction File        matched           2018  2022-07-13</span></span>
-<span><span class="co">#&gt; 3      87 Data Extraction File        matched           2019  2022-11-02</span></span>
-<span><span class="co">#&gt; 4      87 Data Extraction File        matched           2020  2022-11-02</span></span>
-<span><span class="co">#&gt; 5      87 Data Extraction File        matched           2021  2022-11-02</span></span>
-<span><span class="co">#&gt; 6      87 Data Extraction File        matched           2022  2022-11-02</span></span>
-<span><span class="co">#&gt;                            file_name</span></span>
-<span><span class="co">#&gt; 1 proj87_matched_detections_2017.zip</span></span>
-<span><span class="co">#&gt; 2 proj87_matched_detections_2018.zip</span></span>
-<span><span class="co">#&gt; 3 proj87_matched_detections_2019.zip</span></span>
-<span><span class="co">#&gt; 4 proj87_matched_detections_2020.zip</span></span>
-<span><span class="co">#&gt; 5 proj87_matched_detections_2021.zip</span></span>
-<span><span class="co">#&gt; 6 proj87_matched_detections_2022.zip</span></span>
-<span><span class="co">#&gt;                                                                url</span></span>
-<span><span class="co">#&gt; 1 https://matos.asascience.com/projectfile/downloadExtraction/87_1</span></span>
-<span><span class="co">#&gt; 2 https://matos.asascience.com/projectfile/downloadExtraction/87_2</span></span>
-<span><span class="co">#&gt; 3 https://matos.asascience.com/projectfile/downloadExtraction/87_3</span></span>
-<span><span class="co">#&gt; 4 https://matos.asascience.com/projectfile/downloadExtraction/87_4</span></span>
-<span><span class="co">#&gt; 5 https://matos.asascience.com/projectfile/downloadExtraction/87_5</span></span>
-<span><span class="co">#&gt; 6 https://matos.asascience.com/projectfile/downloadExtraction/87_6</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="download-project-or-data-extraction-files">Download project or data extraction files<a class="anchor" aria-label="anchor" href="#download-project-or-data-extraction-files"></a>
-</h2>
-<p>There are a few ways to download the different types of files held by MATOS. I can download directly if I know the URL of the file:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">project_files</span><span class="op">$</span><span class="va">url</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] "https://matos.asascience.com/projectfile/download/375"</span></span>
-<span></span>
-<span><span class="fu"><a href="reference/get_project_file.html">get_project_file</a></span><span class="op">(</span>url <span class="op">=</span> <span class="va">project_files</span><span class="op">$</span><span class="va">url</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── Downloading files ───────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; ✔ File(s) saved to:</span></span>
-<span><span class="co">#&gt;    C:\Users\darpa2\Analysis\matos\BOEM_metadata_deployment.xls</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── Unzipping files ─────────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; [1] "C:\\Users\\darpa2\\Analysis\\matos\\BOEM_metadata_deployment.xls"</span></span></code></pre></div>
-<p>I can download by using an index from the <code>ACT_MATOS_files</code> table above, here the file on the second row.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/get_extract_file.html">get_extract_file</a></span><span class="op">(</span>file <span class="op">=</span> <span class="fl">2</span>, project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── Downloading files ───────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; ✔ File(s) saved to:</span></span>
-<span><span class="co">#&gt;    C:\Users\darpa2\Analysis\matos\proj87_matched_detections_2018.zip</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── Unzipping files ─────────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; ✔ File(s) unzipped to:</span></span>
-<span><span class="co">#&gt;    C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv</span></span>
-<span><span class="co">#&gt;    C:/Users/darpa2/Analysis/matos/data_description.txt</span></span>
-<span><span class="co">#&gt; [1] "C:/Users/darpa2/Analysis/matos/proj87_matched_detections_2018.csv"</span></span>
-<span><span class="co">#&gt; [2] "C:/Users/darpa2/Analysis/matos/data_description.txt"</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="search-and-download-tag-detections">Search and download tag detections<a class="anchor" aria-label="anchor" href="#search-and-download-tag-detections"></a>
-</h2>
-<p>Using the <code>tag_search</code> function, I can interface with MATOS’ <a href="https://matos.asascience.com/search" class="external-link">tag search page</a>. Be very careful with this function – it can take a <em>very</em>, <strong>VERY</strong> long time to return your files. This function downloads the requested CSV into your working directory, and, if <code>import = T</code> is used, reads it into your R session.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">my_detections</span> <span class="op">&lt;-</span> <span class="fu">tag_search</span><span class="op">(</span>tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'A69-1601-254'</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">90</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                            start_date <span class="op">=</span> <span class="st">'03/01/2016'</span>,</span>
-<span>                            end_date <span class="op">=</span> <span class="st">'04/01/2016'</span>, </span>
-<span>                            import <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="upload-files-to-matos">Upload files to MATOS<a class="anchor" aria-label="anchor" href="#upload-files-to-matos"></a>
-</h2>
-<p>There are times when you want to upload new data to MATOS. The currently accepted data types and formats are:</p>
-<ul>
-<li>newly-deployed transmitters (CSV/XLS(X))</li>
-<li>detection logs (CSV/VRL)</li>
-<li>receiver and glider deployment metadata (CSV/XLS(X))</li>
-<li>receiver events like temperature, tilt, etc. (CSV)</li>
-<li>glider GPS tracks (CSV)</li>
-</ul>
-<p>A few data types use designated Ocean Tracking Network templates:</p>
-<ul>
-<li>tag metadata</li>
-<li>receiver deployment metadata</li>
-<li>glider deployment metadata</li>
-</ul>
-<p>If you don’t have one of these templates downloaded, you can download it through the package. For example:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/get_otn_template.html">get_otn_template</a></span><span class="op">(</span><span class="st">'glider'</span><span class="op">)</span></span></code></pre></div>
-<p>Then, get to uploading!</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/upload_file.html">upload_file</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>,</span>
-<span>            file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'this_is_a_dummy_file.csv'</span>, <span class="st">'so_is_this.csv'</span><span class="op">)</span>,</span>
-<span>            data_type <span class="op">=</span> <span class="st">'new_tags'</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
 <h2 id="development">Development<a class="anchor" aria-label="anchor" href="#development"></a>
 </h2>
 <p>As is noted above, this package is undergoing a ton of development. If there’s something I missed, please <a href="https://github.com/mhpob/matos/issues" class="external-link">open an issue on GitHub</a> or <a href="mailto:obrien@umces.edu">email me (Mike O’Brien: obrien@umces.edu) directly</a>.</p>
-</div>
-<div class="section level2">
-<h2 id="notes">Notes<a class="anchor" aria-label="anchor" href="#notes"></a>
-</h2>
-<ul>
-<li>Sessions expire more-frequently than we would like. Because of this, you may often be prompted to log in. Just follow the instructions and crunch away.</li>
-</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
