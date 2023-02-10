@@ -25,9 +25,6 @@
     <loc>https://www.obrien.page/matos/news/index.html</loc>
   </url>
   <url>
-    <loc>https://www.obrien.page/matos/reference/act_push_summary.html</loc>
-  </url>
-  <url>
     <loc>https://www.obrien.page/matos/reference/clean_otn_deployment.html</loc>
   </url>
   <url>
@@ -59,6 +56,9 @@
   </url>
   <url>
     <loc>https://www.obrien.page/matos/reference/list_projects.html</loc>
+  </url>
+  <url>
+    <loc>https://www.obrien.page/matos/reference/make_receiver_push_summary.html</loc>
   </url>
   <url>
     <loc>https://www.obrien.page/matos/reference/matos.html</loc>
