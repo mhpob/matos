@@ -116,10 +116,10 @@ not need MATOS permissions in order to view this page.</p>
 family of <code>list_</code> functions in this package will prompt you
 to log in before moving on. Note that I’ll be entering my MATOS username
 and password behind the scenes here.</p>
-<pre><code><span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Please log in.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Login successful!</span></span></code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">project_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_project_files.html">list_project_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Please log in.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Login successful!</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">project_files</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   project                                file_type upload_date</span></span>
@@ -145,7 +145,7 @@ and password behind the scenes here.</p>
 <span><span class="co">#&gt; 6 https://matos.asascience.com/projectfile/download/1814</span></span></code></pre></div>
 <p>I can also list any of my OTN node <em>Data Extraction
 Files</em>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ACT_MATOS_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_extract_files.html">list_extract_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>,</span>
 <span>                                      detection_type <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
 <span></span>
@@ -177,7 +177,7 @@ Files</em>.</p>
 </h2>
 <p>There are a few ways to download the different types of files held by
 MATOS. I can download directly if I know the URL of the file:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">project_files</span><span class="op">$</span><span class="va">url</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] "https://matos.asascience.com/projectfile/download/375"</span></span>
 <span></span>
@@ -192,7 +192,7 @@ MATOS. I can download directly if I know the URL of the file:</p>
 <p>I can download by using an index from the
 <code>ACT_MATOS_files</code> table above, here the file on the second
 row.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_extract_file.html">get_extract_file</a></span><span class="op">(</span>file <span class="op">=</span> <span class="fl">2</span>, project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Downloading files</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────</span></span></span>
@@ -216,7 +216,7 @@ page</a>. Be very careful with this function – it can take a
 This function downloads the requested CSV into your working directory,
 and, if <code>import = T</code> is used, reads it into your R
 session.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_detections</span> <span class="op">&lt;-</span> <span class="fu">tag_search</span><span class="op">(</span>tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'A69-1601-254'</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">90</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                            start_date <span class="op">=</span> <span class="st">'03/01/2016'</span>,</span>
 <span>                            end_date <span class="op">=</span> <span class="st">'04/01/2016'</span>, </span>
@@ -242,10 +242,10 @@ currently accepted data types and formats are:</p>
 </ul>
 <p>If you don’t have one of these templates downloaded, you can download
 it through the package. For example:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_otn_template.html">get_otn_template</a></span><span class="op">(</span><span class="st">'glider'</span><span class="op">)</span></span></code></pre></div>
 <p>Then, get to uploading!</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/upload_file.html">upload_file</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span>,</span>
 <span>            file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'this_is_a_dummy_file.csv'</span>, <span class="st">'so_is_this.csv'</span><span class="op">)</span>,</span>
 <span>            data_type <span class="op">=</span> <span class="st">'new_tags'</span><span class="op">)</span></span></code></pre></div>
