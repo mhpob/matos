@@ -114,8 +114,10 @@ not need MATOS permissions in order to view this page.</p>
 <p>I can also view the files that I’ve uploaded to my projects using
 <code>list_project_files</code>, but that requires logging in first. The
 family of <code>list_</code> functions in this package will prompt you
-to log in before moving on.</p>
-<pre><code><span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Login successful!</span></span></code></pre>
+to log in before moving on. Note that I’ll be entering my MATOS username
+and password behind the scenes here.</p>
+<pre><code><span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Please log in.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Login successful!</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">project_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_project_files.html">list_project_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">'umces boem offshore wind energy'</span><span class="op">)</span></span>
 <span></span>
