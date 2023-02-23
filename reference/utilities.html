@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">matos</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.13</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,6 +26,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/introduction.html">Introduction</a>
     <a class="dropdown-item" href="../articles/data-push-summaries.html">Data Push Summaries</a>
+    <a class="dropdown-item" href="../articles/multiple-projects.html">`matos` for the power user</a>
   </div>
 </li>
 <li class="nav-item">
@@ -60,13 +61,15 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_file_list</span><span class="op">(</span><span class="va">project_number</span>, <span class="va">data_type</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">get_project_number</span><span class="op">(</span><span class="va">project</span><span class="op">)</span></span>
+<span><span class="fu">get_project_number</span><span class="op">(</span><span class="va">project_name</span>, matos_projects <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">get_project_name</span><span class="op">(</span><span class="va">project</span><span class="op">)</span></span>
+<span><span class="fu">get_project_name</span><span class="op">(</span><span class="va">project_number</span>, matos_projects <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">html_table_to_df</span><span class="op">(</span><span class="va">html_file_list</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">login_check</span><span class="op">(</span>url <span class="op">=</span> <span class="st">"https://matos.asascience.com/report/submit"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">project_check</span><span class="op">(</span><span class="va">project</span>, return_projects <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scrape_file_urls</span><span class="op">(</span><span class="va">html_file_list</span><span class="op">)</span></span>
 <span></span>
@@ -83,10 +86,15 @@
 <dd><p>one of "dataextractionfiles" or "projectfiles".</p></dd>
 
 
-<dt>project</dt>
+<dt>project_name</dt>
 <dd><p>Character string of the full MATOS project name. This will be the
 big name in bold at the top of your project page, not the "Project Title"
 below it. Will be coerced to all lower case, so capitalization doesn't matter.</p></dd>
+
+
+<dt>matos_projects</dt>
+<dd><p>Data frame. Used to pass the MATOS project list from
+<code>project_check</code>.</p></dd>
 
 
 <dt>html_file_list</dt>
@@ -96,6 +104,15 @@ below it. Will be coerced to all lower case, so capitalization doesn't matter.</
 
 <dt>url</dt>
 <dd><p>The (protected) URL that the overlapping function is trying to call.</p></dd>
+
+
+<dt>project</dt>
+<dd><p>MATOS projecct ID. Can be the name or number of the project.</p></dd>
+
+
+<dt>return_projects</dt>
+<dd><p>Logical. Do you want <code>project_check</code> to return the list
+of projects? Used to not ping the website too much in one function call.</p></dd>
 
 
 <dt>out_dir</dt>
@@ -128,6 +145,7 @@ project number by scraping the HTML of the main MATOS projects page.</p>
 into a R-usable data frame.</p>
 <p><code>login_check</code> pings protected URLs and calls <code>matos_login</code> when referred
 to the login page.</p>
+<p><code>project_check</code></p>
 <p><code>scrape_file_urls</code> is used internally by <code>html_table_to_df</code> to extract
 the URLs associates with each "Download" link.</p>
 <p><code>download_process</code> is used internally by <code>get_project_file</code> and
