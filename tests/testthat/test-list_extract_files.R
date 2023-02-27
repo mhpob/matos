@@ -11,7 +11,7 @@ test_that('no error in listing extract files', {
 })
 
 
-test_that('project with no files returns empty data frame'{
+test_that('project with no files returns empty data frame', {
   empty <- list_extract_files(160)
 
   expect_s3_class(empty, 'data.frame')
