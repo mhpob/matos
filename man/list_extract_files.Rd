@@ -16,7 +16,7 @@ list_extract_files(
 or the full name of the project (the big name in bold on your project page,
 *not* the "Project Title").}
 
-\item{detection_type}{one of "all" (default), "matched", "external",
+\item{detection_type}{one of, or a vector of, "all" (default), "matched", "external",
 "qualified", "sentinel_tag", or "unqualified". Partial matching is
 allowed, and will repair to the correct argument if spaces or the words
 "detection(s)" are included.
