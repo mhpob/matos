@@ -42,7 +42,6 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/introduction.html">Introduction</a>
-    <a class="dropdown-item" href="../articles/data-push-summaries.html">Data Push Summaries</a>
     <a class="dropdown-item" href="../articles/multiple-projects.html">`matos` for the power user</a>
   </div>
 </li>
@@ -228,13 +227,13 @@ files.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://future.apply.futureverse.org/reference/future_lapply.html" class="external-link">future_lapply</a></span><span class="op">(</span><span class="va">projects</span><span class="op">$</span><span class="va">number</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, </span>
 <span>              <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
-<span>                <span class="fu"><a href="../reference/make_receiver_push_summary.html">make_receiver_push_summary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>                <span class="fu"><a href="../reference/matos_receiver_summary.html">matos_receiver_summary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>              <span class="op">}</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://future.apply.futureverse.org/reference/future_lapply.html" class="external-link">future_lapply</a></span><span class="op">(</span><span class="va">projects</span><span class="op">$</span><span class="va">number</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, </span>
 <span>              <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
-<span>                <span class="fu">make_receiver_tag_summary</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>                <span class="fu"><a href="../reference/matos_tag_summary.html">matos_tag_summary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>              <span class="op">}</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -246,7 +245,7 @@ files.</p>
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Mike O’Brien.</p>
+<p>Developed by Michael O’Brien.</p>
 </div>
 
 <div class="pkgdown-footer-right">

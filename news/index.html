@@ -25,7 +25,6 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/introduction.html">Introduction</a>
-    <a class="dropdown-item" href="../articles/data-push-summaries.html">Data Push Summaries</a>
     <a class="dropdown-item" href="../articles/multiple-projects.html">`matos` for the power user</a>
   </div>
 </li>
@@ -52,6 +51,13 @@
       <small>Source: <a href="https://github.com/mhpob/matos/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3" id="matos-03">matos 0.3<a class="anchor" aria-label="anchor" href="#matos-03"></a></h2>
+<ul><li>The meat of what were <code>make_tag_push_summary</code> and <code>make_receiver_push_summary</code> have been moved over to a new package: <a href="https://otndo.obrien.page" class="external-link"><code>otndo</code></a>. These functions now wrap those in <code>otndo</code> and have been renamed <a href="https://matos.obrien.page/reference/matos_tag_summary.html" class="external-link"><code>matos_tag_summary</code></a> and <a href="https://matos.obrien.page/reference/matos_receiver_summary.html" class="external-link"><code>matos_receiver_summary</code></a>, respectively.</li>
+<li>
+<a href="https://matos.obrien.page/reference/list_extract_files.html" class="external-link"><code>list_extract_files</code></a> and <a href="https://matos.obrien.page/reference/list_project_files.html" class="external-link"><code>list_project_files</code></a> now accept vectors of different detection/file types to subset the returned data frame.</li>
+<li>Misc. tests have been added</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.13" id="matos-0213">matos 0.2.13<a class="anchor" aria-label="anchor" href="#matos-0213"></a></h2>
 <ul><li>
@@ -91,7 +97,7 @@
 <li>GET those files</li>
 <li>and also… UPLOAD. But that didn’t fit into the pithy saying.</li>
 </ul></li>
-<li>A few functions, namely <code>list_files</code> and <code>get_file</code> have been split into functions with fewer options and clearer names (<code>list_extract_files</code> and <code>list_project_files</code>, e.g.). Hopefully this will make things more intuitive.</li>
+<li>A few functions, namely <code>list_files</code> and <code>get_file</code> have been split into functions with fewer options and clearer names (<a href="https://matos.obrien.page/reference/list_extract_files.html" class="external-link"><code>list_extract_files</code></a> and <a href="https://matos.obrien.page/reference/list_project_files.html" class="external-link"><code>list_project_files</code></a>, e.g.). Hopefully this will make things more intuitive.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.1" id="matos-011">matos 0.1.1<a class="anchor" aria-label="anchor" href="#matos-011"></a></h2>
@@ -106,7 +112,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Mike O’Brien.</p>
+  <p></p><p>Developed by Michael O’Brien.</p>
 </div>
 
 <div class="pkgdown-footer-right">
