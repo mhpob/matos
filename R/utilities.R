@@ -364,3 +364,48 @@ download_process <- function(url, out_dir, overwrite, to_vue){
 
   file_loc
 }
+
+
+#' Place where functions live for the matos_*_summary family of functions
+#'
+#' @param type type of data: qualified or unqualified detections; or deployment metadata
+#' @param matos_project matos project number
+#' @param project_files qualified/unqualified detection files
+#' @param temp_dir location of temporary directory
+#'
+#' @keywords internal
+
+act_file_download <- function(type, temp_dir = NULL, matos_project = NULL,
+                              project_files = NULL){
+  cli::cli_alert_info(paste('Downloading', type, 'detections...'))
+
+
+  if(type == 'deployment'){
+    # list project files and select deployment metadata
+    files <- list_project_files(matos_project)
+
+    files <- files[grepl('Deployment', files$file_type),]
+  }else{
+    # select the appropriate detection type
+    files <- project_files[project_files$detection_type == type,]
+  }
+
+  # ping the server and download the file(s).
+  files <- lapply(files$url,
+                  function(.){
+                    get_extract_file(url = .,
+                                     out_dir = temp_dir)
+                  }
+  )
+
+
+  files <- unlist(files)
+
+  if(type != 'deployment'){
+    files <- grep('\\.csv$', files, value = T)
+  }
+
+  cli::cli_alert_success('   Done.')
+
+  files
+}

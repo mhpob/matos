@@ -20,6 +20,9 @@
 #' @param project Either the project number (the number in your project page URL)
 #'     or the full name of the project (the big name in bold on your project page,
 #'     *not* the "Project Title").
+#' @param file_type one of, or a vector of, "all" (default), "detections",
+#'    "receiver_metadata", or "tag_metadata". Partial matching is
+#'    allowed.
 #' @param since Only list files uploaded after this date. Optional, but must be
 #'      in YYYY-MM-DD format.
 #'
@@ -33,9 +36,40 @@
 #'
 #' # Or using the project name
 #' list_project_files('umces boem offshore wind energy')
+#'
+#' # List only the receiver deployment metadata files
+#' List_project_files(87, 'receiver_metadata')
+#'
+#' # List both the receiver and transmitter deployment metadata files
+#' List_project_files(87, c('receiver_metadata', 'tag_metadata'))
+#'
+#' # Cheat and use shorter names
+#' List_project_files(87, c('receiver', 'tag'))
 #' }
 
-list_project_files <- function(project = NULL, since = NULL){
+list_project_files <- function(project = NULL,
+                               file_type = c('all', 'detections',
+                                             'receiver_metadata',
+                                             'tag_metadata'),
+                               since = NULL){
+
+  # Check and coerce input args
+  file_type <- match.arg(file_type, c('all', 'detections',
+                                      'receiver_metadata',
+                                      'tag_metadata'), several.ok = TRUE)
+
+  file_type_fix <- function(provided_type){
+    switch(provided_type,
+           detections = 'Tag Detections - .vfl file',
+           receiver_metadata = 'Deployed Receivers \u2013 Deployment Metadata',
+           tag_metadata = 'Tagged Fish \u2013 Tag Metadata')
+  }
+
+  file_type <- sapply(
+    file_type,
+    file_type_fix,
+    USE.NAMES = F
+  )
 
   # Convert project name to number
   if(is.character(project)){
@@ -48,6 +82,9 @@ list_project_files <- function(project = NULL, since = NULL){
 
   files <- html_table_to_df(files_html)
 
+  if(all(file_type != 'all')){
+    files <- files[files$file_type %in% file_type,]
+  }
 
   if(!is.null(since)){
     files <- files[files$upload_date >= since, ]

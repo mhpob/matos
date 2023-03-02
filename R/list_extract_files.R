@@ -19,7 +19,7 @@
 #' @param project Either the project number (the number in your project page URL)
 #'     or the full name of the project (the big name in bold on your project page,
 #'     *not* the "Project Title").
-#' @param detection_type one of "all" (default), "matched", "external",
+#' @param detection_type one of, or a vector of, "all" (default), "matched", "external",
 #'    "qualified", "sentinel_tag", or "unqualified". Partial matching is
 #'    allowed, and will repair to the correct argument if spaces or the words
 #'    "detection(s)" are included.
@@ -50,10 +50,10 @@ list_extract_files <- function(project = NULL,
 
   # Check and coerce input args
   detection_type <- gsub(' |detection[s]', '', detection_type)
-  detection_type <- match.arg(detection_type)
+  detection_type <- match.arg(detection_type, several.ok = TRUE)
 
-  if(detection_type == 'external'){
-    detection_type <- 'matched_external_partners'
+  if('external' %in% detection_type){
+    detection_type[detection_type == 'external'] <- 'matched_external_partners'
   }
 
   # Make sure project exists
@@ -70,8 +70,8 @@ list_extract_files <- function(project = NULL,
 
   files <- html_table_to_df(files_html)
 
-  if(detection_type != 'all'){
-    files <- files[files$detection_type == detection_type,]
+  if(all(detection_type != 'all')){
+    files <- files[files$detection_type %in% detection_type,]
   }
 
   if(!is.null(since)){
