@@ -28,5 +28,4 @@ articles:
     navbar: ~
     contents:
     - introduction
-    - data-push-summaries
     - multiple-projects
