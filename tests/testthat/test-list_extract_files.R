@@ -25,14 +25,11 @@ test_that("returns correct classes", {
 
   expect_s3_class(extract_files, 'data.frame')
   expect_type(extract_files$project, 'character')
-  expect_type(projects$number, 'double')
-  expect_type(projects$url, 'character')
+  expect_equal(class(extract_files$upload_date), 'Date')
+  expect_type(extract_files$url, 'character')
 })
 
 
-test_that("lists all files", {
-  all_files <- list_extract_files(87)
-})
 
 test_that("lists matched files", {
   matched_files <- list_extract_files(87, detection_type = 'matched')

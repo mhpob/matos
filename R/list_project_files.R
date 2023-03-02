@@ -61,8 +61,8 @@ list_project_files <- function(project = NULL,
   file_type_fix <- function(provided_type){
     switch(provided_type,
            detections = 'Tag Detections - .vfl file',
-           receiver_metadata = 'Deployed Receivers – Deployment Metadata',
-           tag_metadata = 'Tagged Fish – Tag Metadata')
+           receiver_metadata = 'Deployed Receivers \u2013 Deployment Metadata',
+           tag_metadata = 'Tagged Fish \u2013 Tag Metadata')
   }
 
   file_type <- sapply(
