@@ -73,13 +73,13 @@ We can do the same by looping through receiver and transmitter push summaries. F
 ```{r eval=FALSE}
 future_lapply(projects$number[1:2], 
               function(x){
-                make_receiver_push_summary(x)
+                matos_receiver_summary(x)
               }
 )
 
 future_lapply(projects$number[1:2], 
               function(x){
-                make_receiver_tag_summary(x)
+                matos_tag_summary(x)
               }
 )
 ```
