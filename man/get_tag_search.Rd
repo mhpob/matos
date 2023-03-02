@@ -22,7 +22,7 @@ If no dates are provided, all tag detections are returned.}
 This function is an interface to
 \href{https://matos.asascience.com/search}{MATOS' tag search page},
 with the result of a CSV downloaded into your working directory. Be aware: these
-downloads can take a *long* time, especially if you have many tags or are
+downloads can take a \emph{long} time, especially if you have many tags or are
 searching over a long period of time.
 }
 \examples{

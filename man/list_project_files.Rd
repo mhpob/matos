@@ -13,7 +13,7 @@ list_project_files(
 \arguments{
 \item{project}{Either the project number (the number in your project page URL)
 or the full name of the project (the big name in bold on your project page,
-*not* the "Project Title").}
+\emph{not} the "Project Title").}
 
 \item{file_type}{one of, or a vector of, "all" (default), "detections",
 "receiver_metadata", or "tag_metadata". Partial matching is
@@ -27,21 +27,23 @@ A data frame with columns of "project", "file_type", "upload_date", and "file_na
 }
 \description{
 This function lists the file names, types, upload date, and URLs of MATOS
-project files -- basically everything you see in the *Project Files* section
+project files -- basically everything you see in the \emph{Project Files} section
 of your project page. Because it is from your project page, you will be
 prompted to log in.
 }
 \section{Details}{
 
 \code{list_project_files} is a wrapper around a web-scraping routine:
-1) find the project number if not provided, 2) download
+\enumerate{
+\item find the project number if not provided, 2) download
 the HTML table, 3) parse the URL for each file, and 4) combine the table and
 URLs into a data frame. This function is most useful when investigating what
 files you have available, and then downloading them with
 \code{\link{get_project_file}}.
+}
 
 \code{list_project_files} lists tag and receiver metadata files that have been
-uploaded by the user. These are the files listed on the *Project Files* section
+uploaded by the user. These are the files listed on the \emph{Project Files} section
 of your project page.
 }
 
