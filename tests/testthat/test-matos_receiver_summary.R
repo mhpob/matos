@@ -10,6 +10,3 @@ test_that('ACT projects are summarized', {
   expect_true(any(grepl('receiver_push_summary', list.files(getwd()))))
 
 })
-
-
-unlink(td, recursive = T)
