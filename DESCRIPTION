@@ -12,7 +12,8 @@ Imports:
     cli,
     httr,
     rvest,
-    getPass
+    getPass,
+    otndo
 Suggests:
     future.apply,
     testthat (>= 3.0.0),
