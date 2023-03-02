@@ -4,12 +4,20 @@
 \alias{list_project_files}
 \title{List MATOS project files}
 \usage{
-list_project_files(project = NULL, since = NULL)
+list_project_files(
+  project = NULL,
+  file_type = c("all", "detections", "receiver_metadata", "tag_metadata"),
+  since = NULL
+)
 }
 \arguments{
 \item{project}{Either the project number (the number in your project page URL)
 or the full name of the project (the big name in bold on your project page,
 *not* the "Project Title").}
+
+\item{file_type}{one of, or a vector of, "all" (default), "detections",
+"receiver_metadata", or "tag_metadata". Partial matching is
+allowed.}
 
 \item{since}{Only list files uploaded after this date. Optional, but must be
 in YYYY-MM-DD format.}
@@ -44,5 +52,14 @@ list_project_files(87)
 
 # Or using the project name
 list_project_files('umces boem offshore wind energy')
+
+# List only the receiver deployment metadata files
+List_project_files(87, 'receiver_metadata')
+
+# List both the receiver and transmitter deployment metadata files
+List_project_files(87, c('receiver_metadata', 'tag_metadata'))
+
+# Cheat and use shorter names
+List_project_files(87, c('receiver', 'tag'))
 }
 }
