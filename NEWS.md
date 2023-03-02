@@ -1,3 +1,9 @@
+# matos 0.3
+
+  - The meat of what were `make_tag_push_summary` and `make_receiver_push_summary` have been moved over to a new package: [`otndo`](https://otndo.obrien.page). These functions now wrap those in `otndo` and have been renamed [`matos_tag_summary`](https://matos.obrien.page/reference/matos_tag_summary.html) and [`matos_receiver_summary`](https://matos.obrien.page/reference/matos_receiver_summary.html), respectively.
+  - [`list_extract_files`](https://matos.obrien.page/reference/list_extract_files.html) and [`list_project_files`](https://matos.obrien.page/reference/list_project_files.html) now accept vectors of different detection/file types to subset the returned data frame.
+  - Misc. tests have been added
+
 # matos 0.2.13
 
   - [`matos_logoff`](https://matos.obrien.page/reference/matos_logoff.html), allowing you to log out of your MATOS session.
@@ -25,7 +31,7 @@
     - LIST your files to see what you have
     - GET those files
     - and also... UPLOAD. But that didn't fit into the pithy saying.
-  - A few functions, namely `list_files` and `get_file` have been split into functions with fewer options and clearer names (`list_extract_files` and `list_project_files`, e.g.). Hopefully this will make things more intuitive.
+  - A few functions, namely `list_files` and `get_file` have been split into functions with fewer options and clearer names ([`list_extract_files`](https://matos.obrien.page/reference/list_extract_files.html) and [`list_project_files`](https://matos.obrien.page/reference/list_project_files.html), e.g.). Hopefully this will make things more intuitive.
   
 # matos 0.1.1
   - `get_updates`: A new function to download all files updated since a given date. Super useful after a data push!
