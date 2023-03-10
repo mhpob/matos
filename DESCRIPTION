@@ -32,3 +32,4 @@ Depends:
     R (>= 4.1.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

@@ -36,13 +36,13 @@ before uploading.
 \code{upload_file} takes a project name or number, the file you want to upload,
 and the type of file you want to upload (defaulting to VRL transmitter detections).
 
+\if{html}{\out{<div class="sourceCode">}}\preformatted{If data_type is "new_tags", "receivers", or "glider", only CSV and XLS/XLSX
+files are accepted; if "detections", only VRL and CSV files are accepted;
+if "events" or "gps", only CSV is accepted.
 
-    If data_type is "new_tags", "receivers", or "glider", only CSV and XLS/XLSX
-    files are accepted; if "detections", only VRL and CSV files are accepted;
-    if "events" or "gps", only CSV is accepted.
-
-    Multiple files can be uploaded at once, but they must all be the same data type
-    and posted to the same project.
+Multiple files can be uploaded at once, but they must all be the same data type
+and posted to the same project.
+}\if{html}{\out{</div>}}
 }
 \examples{
 \dontrun{

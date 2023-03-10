@@ -27,16 +27,16 @@ Create summary reports of receiver project data from the OTN data push
 \section{No files provided}{
 
 
- If you only provide your ACT project number or title and leave all of the
- arguments as their defaults, this function will ask you to log in then proceed
- to download all of the necessary files. If you provide already-downloaded files
- you can speed up this process substantially.
+If you only provide your ACT project number or title and leave all of the
+arguments as their defaults, this function will ask you to log in then proceed
+to download all of the necessary files. If you provide already-downloaded files
+you can speed up this process substantially.
 }
 
 \section{Output}{
 
 
- This function creates an HTML report that can be viewed in your web browser.
+This function creates an HTML report that can be viewed in your web browser.
 }
 
 \examples{
