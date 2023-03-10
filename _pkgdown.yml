@@ -2,6 +2,10 @@ url: https://www.obrien.page/matos/
 template:
   bootstrap: 5
 
+authors:
+  Michael O'Brien:
+    href: "https://www.obrien.page"
+
 reference:
 - title: Listing
   desc: Functions to list your MATOS files or projects
@@ -29,3 +33,4 @@ articles:
     contents:
     - introduction
     - multiple-projects
+    - matos-otndo

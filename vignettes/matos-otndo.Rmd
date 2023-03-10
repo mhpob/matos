@@ -1,0 +1,53 @@
+---
+title: "Summarizing with otndo"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Summarizing with otndo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(matos)
+```
+
+## ACT members
+
+If you're an ACT member, the first thing you'll want to do is list the projects for which you have access.
+
+```{r}
+list_my_projects(read_access = T)
+```
+
+From here, you can just provide your project name or number and let it rip. Below, I provide the number associated with "UMCES BOEM Offshore Wind Energy".
+
+```{r, eval=FALSE}
+matos_receiver_summary(87)
+```
+
+
+This function does a bit of data cleaning on the front end and then runs everything through a [Quarto](https://quarto.org/) or [RMarkdown](https://rmarkdown.rstudio.com/) report. The functions use Quarto by default, but RMarkdown will be selected if:
+
+1.  Quarto is not installed on the computer, or
+2.  the `rmd` argument is set to `TRUE`.
+
+```{r, eval=FALSE}
+# Compiles with Quarto (default)
+matos_receiver_summary(87, rmd = F)
+
+# Compiles with RMarkdown
+matos_receiver_summary(87, rmd = T)
+```
+
+Functionality is identical for `matos_tag_summary`:
+
+```{r, eval=FALSE}
+matos_tag_summary(87)
+```
