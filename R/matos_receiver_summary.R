@@ -57,12 +57,10 @@ matos_receiver_summary <- function(
   if(is.numeric(matos_project)){
     project_number <- matos_project
     project_name <- get_project_name(matos_project)
-    project_code <- paste0('PROJ', project_number)
   }
   if(is.character(matos_project)){
     project_name <- matos_project
     project_number <- get_project_number(matos_project)
-    project_code <- paste0('PROJ', project_number)
   }
 
 
