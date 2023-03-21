@@ -47,7 +47,7 @@ test_that("lists qualified detections", {
   expect_equal(unique(qualified_files$detection_type), 'qualified')
 })
 test_that("lists sentinel detections", {
-  sentinel_files <- list_extract_files(87, detection_type = 'sentinel_tag')
+  sentinel_files <- list_extract_files(87, detection_type = 'sentinel')
 
   expect_equal(unique(sentinel_files$detection_type), 'sentinel_tag')
 })
