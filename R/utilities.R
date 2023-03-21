@@ -235,7 +235,7 @@ html_table_to_df <- function(html_file_list){
 
     # Parse file name for data extraction files
     if(grepl('dataextractionfiles', html_file_list$url)){
-      df <- data.frame(detection_type = gsub('.*_(.+?)_.*', '\\1', '\\1',
+      df <- data.frame(detection_type = gsub('.*_(.+?)_.*', '\\1',
                                              df$file_name),
                        detection_year = as.numeric(
                          gsub('.*_|.zip', '', df$file_name)
