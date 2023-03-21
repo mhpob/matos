@@ -6,7 +6,7 @@
 \usage{
 list_extract_files(
   project = NULL,
-  detection_type = c("all", "matched", "external", "qualified", "sentinel_tag",
+  detection_type = c("all", "matched", "external", "qualified", "sentinel",
     "unqualified"),
   since = NULL
 )
