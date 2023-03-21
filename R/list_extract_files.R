@@ -55,6 +55,9 @@ list_extract_files <- function(project = NULL,
   if('external' %in% detection_type){
     detection_type[detection_type == 'external'] <- 'matched_external_partners'
   }
+  if('sentinel' %in% detection_type){
+    detection_type[detection_type == 'sentinel'] <- 'sentinel_tag'
+  }
 
   # Make sure project exists
   matos_projects <- project_check(project, return_projects = T)
