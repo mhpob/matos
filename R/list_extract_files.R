@@ -44,7 +44,7 @@
 
 list_extract_files <- function(project = NULL,
                                detection_type = c('all', 'matched', 'external',
-                                                  'qualified', 'sentinel_tag',
+                                                  'qualified', 'sentinel',
                                                   'unqualified'),
                                since = NULL){
 
