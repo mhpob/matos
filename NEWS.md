@@ -1,3 +1,6 @@
+# matos 0.3.003
+  - Fix [`upload_file`](https://matos.obrien.page/reference/upload_file.html) to actually allow multiple uploads
+
 # matos 0.3
 
   - The meat of what were `make_tag_push_summary` and `make_receiver_push_summary` have been moved over to a new package: [`otndo`](https://otndo.obrien.page). These functions now wrap those in `otndo` and have been renamed [`matos_tag_summary`](https://matos.obrien.page/reference/matos_tag_summary.html) and [`matos_receiver_summary`](https://matos.obrien.page/reference/matos_receiver_summary.html), respectively.

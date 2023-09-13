@@ -80,21 +80,21 @@ upload_file <- function(project, file,
   }
 
   ## Check that file extensions match the expected file type.
-  if(data_type %in% c('receivers', 'new_tags', 'glider') &&
+  if(any(data_type %in% c('receivers', 'new_tags', 'glider')) &&
      any(grepl('xls|csv', file_extension) == F)){
 
     stop(paste0('File is not saved as the correct type: should be CSV, XLS, or XLSX. Namely:\n\n',
                paste(file[!grepl('xls|csv', file_extension)],
                      collapse = '\n')))
 
-  } else if(grepl('detections', data_type) &&
+  } else if(any(grepl('detections', data_type)) &&
             any(grepl('vrl|csv', file_extension) == F)){
 
     stop(paste0('File is not the correct type: should be VRL or CSV. Namely:\n\n',
                paste(file[!grepl('vrl|csv', file_extension)],
                      collapse = '\n')))
 
-  } else if(data_type %in% c('events', 'gps') &&
+  } else if(any(data_type %in% c('events', 'gps')) &&
             any(file_extension != 'csv')){
 
     stop(paste0('File is not saved as the correct type: should be CSV. Namely:\n\n',
