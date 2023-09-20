@@ -29,28 +29,41 @@ get_tag_search <- function(tags, start_date, end_date, import = F){
 
   cat('Downloading data. Please note that this can take a while!\n')
 
-  search <- httr::POST(
-    'https://matos.asascience.com/search/searchtags',
-    body = list(
-      startDate = start_date,
-      endDate = end_date,
-      tagSearch = paste(tags, collapse = ',')
-    ),
-    httr::write_disk(paste('MATOS_Export',
-                           time_of_query$year + 1900,
-                           time_of_query$mon + 1,
-                           time_of_query$mday,
-                           time_of_query$hour,
-                           paste0(time_of_query$min, '.csv'),
-                           sep = "_"))
-  )
+  # search <- httr::POST(
+  #   'https://matos.asascience.com/search/searchtags',
+  #   body = list(
+      # startDate = start_date,
+      # endDate = end_date,
+      # tagSearch = paste(tags, collapse = ',')
+  #   ),
+  #   httr::write_disk(paste('MATOS_Export',
+  #                          time_of_query$year + 1900,
+  #                          time_of_query$mon + 1,
+  #                          time_of_query$mday,
+  #                          time_of_query$hour,
+  #                          paste0(time_of_query$min, '.csv'),
+  #                          sep = "_"))
+  # )
+  search <- 'https://matos.asascience.com/search/searchtags' |>
+    httr2::request() |>
+    httr2::req_body_form(startDate = start_date,
+                         endDate = end_date,
+                         tagSearch = paste(tags, collapse = ',')) |>
+    httr2::req_progress() |>
+    httr2::req_perform(path = paste('MATOS_Export',
+                                    time_of_query$year + 1900,
+                                    time_of_query$mon + 1,
+                                    time_of_query$mday,
+                                    time_of_query$hour,
+                                    paste0(time_of_query$min, '.csv'),
+                                    sep = "_"))
 
-  cat('Download complete. File saved to', file.path(search$content))
+  cat('Download complete. File saved to', file.path(search$body[1]))
 
   if(import == T){
     cat('\nReading file into R...')
 
-    read.csv(file.path(search$content))
+    read.csv(file.path($body[1]))
 
     cat('\nCompleted!')
   }
