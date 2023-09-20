@@ -28,10 +28,10 @@ matos_login <- function(){
 
   # If no secret is present, we enter interactive mode
   if(username == ''){
-    username = getPass::getPass('Username:', noblank = T)
+    username = askpass::askpass('Username:')
   }
   if(password == ''){
-    password = getPass::getPass('Password:', noblank = T)
+    password = askpass::askpass('Password:')
   }
 
   credentials <- list(
