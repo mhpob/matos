@@ -12,7 +12,7 @@ Imports:
     cli,
     httr,
     rvest,
-    getPass,
+    askpass,
     otndo
 Suggests:
     future.apply,

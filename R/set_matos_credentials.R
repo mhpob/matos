@@ -27,8 +27,8 @@ set_matos_credentials <- function(overwrite = FALSE){
     cli::cli_abort("Some MATOS credentials already exist. You can overwrite them with the argument overwrite=TRUE.")
   }
 
-  username <- getPass::getPass('Username:', noblank = T)
-  password <- getPass::getPass('Password:', noblank = T)
+  username <- askpass::askpass('Username:')
+  password <- askpass::askpass('Password:')
 
   username <- paste0("MATOS_USER='", username, "'")
   password <- paste0("MATOS_PASS='", password, "'")
