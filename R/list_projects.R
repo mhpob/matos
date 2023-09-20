@@ -27,11 +27,12 @@ list_projects <- function(what = c('all', 'mine'), read_access = T){
 
   if(what == 'all'){
 
-    project_list <- httr::GET(
+    project_list <- httr2::request(
       'https://matos.asascience.com/project'
     )
+    project_list <- httr2::req_perform(project_list)
 
-    projects_info <- httr::content(project_list)
+    projects_info <- httr2::resp_body_html(project_list)
     projects_info <- rvest::html_node(projects_info, '.project_list')
     projects_info <- rvest::html_nodes(projects_info, 'a')
 
