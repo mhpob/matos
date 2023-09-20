@@ -34,56 +34,18 @@ matos_login <- function(){
     password = askpass::askpass('Password:')
   }
 
-  credentials <- list(
-    UserName = username,
-    Password = password
-  )
+  login_response <- httr2::request('https://matos.asascience.com/account/login') |>
+    httr2::req_body_form(UserName = username,
+                  Password = password) |>
+    httr2::req_cookie_preserve(file.path(tempdir(), 'cookie_jar')) |>
+    httr2::req_perform()
 
-  login_response <- httr::POST(
-    'https://matos.asascience.com/account/login',
-    body = credentials,
-    encode = 'form'
-  )
-
-  if(grepl('login', login_response)){
+  if(httr2::resp_url_path(login_response) == '/account/login'){
         cli::cli_abort('Login unsuccessful.',
                        'i' = 'Please re-run the funtion and try again.')
       } else{
         cli::cli_alert_success('Login successful!')
       }
-
-
-
-
-  # if('rstudioapi' %in% installed.packages()){
-  #   if(grepl('login', login_response)){
-  #     rstudioapi::showDialog('Login unsuccessful :(',
-  #                            'Your username/password combination was not recognized.
-  #                            Please re-run the funtion and try again.')
-  #     cli::cli_abort('Login unsuccessful.',
-  #                    'i' = 'Please re-run the funtion and try again.')
-  #
-  #   } else{
-  #     rstudioapi::showDialog('Login successful!',
-  #                            'You are now logged into your MATOS profile.')
-  #     cli::cli_alert_success('Login successful!')
-  #   }
-  # } else{
-  #   if(grepl('login', login_response)){
-  #     tcltk::tk_messageBox('ok',
-  #                          'Your username/password combination was not recognized.
-  #                          Please re-run the funtion and try again.',
-  #                          caption = 'Login unuccessful :(')
-  #     cli::cli_abort('Login unsuccessful.',
-  #                    'i' = 'Please re-run the funtion and try again.')
-  #
-  #   } else{
-  #     tcltk::tk_messageBox('ok',
-  #                          'You are now logged into your MATOS profile.',
-  #                          caption = 'Login unuccessful !')
-  #     cli::cli_alert_success('Login successful!')
-  #   }
-  # }
 }
 
 #' Log out of your MATOS account
