@@ -7,7 +7,8 @@
 upload_file(
   project,
   file,
-  data_type = c("new_tags", "receivers", "detections", "events", "gps", "glider"),
+  data_type = c("new_tags", "receivers", "detections", "events", "gps", "glider",
+    "tag_specs", "receiver_specs"),
   print_response = F
 )
 }
@@ -20,7 +21,8 @@ directory, this can be just the filename and extension. You will need to
 provide the full file location if it is located elsewhere.}
 
 \item{data_type}{Character string. The data type that you are uploading. One of:
-"new_tags" (default), "receivers", "detections", "events", "gps", or "glider".}
+"new_tags" (default), "receivers", "detections", "events", "gps", "glider",
+"tag_specs", or "receiver_specs".}
 
 \item{print_response}{Logical. Do you want the POST response to be printed?
 Mostly useful for diagnostic purposes. Default is FALSE.}

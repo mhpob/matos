@@ -12,7 +12,8 @@
 #'     directory, this can be just the filename and extension. You will need to
 #'     provide the full file location if it is located elsewhere.
 #' @param data_type Character string. The data type that you are uploading. One of:
-#'     "new_tags" (default), "receivers", "detections", "events", "gps", or "glider".
+#'     "new_tags" (default), "receivers", "detections", "events", "gps", "glider",
+#'     "tag_specs", or "receiver_specs".
 #' @param print_response Logical. Do you want the POST response to be printed?
 #'      Mostly useful for diagnostic purposes. Default is FALSE.
 #'
@@ -48,7 +49,8 @@
 
 upload_file <- function(project, file,
                         data_type = c('new_tags', 'receivers', 'detections',
-                                      'events', 'gps', 'glider'),
+                                      'events', 'gps', 'glider', 'tag_specs',
+                                      'receiver_specs'),
                         print_response = F){
   # CHECKS
   ## Check that only one project and/or data_type are provided
@@ -133,8 +135,9 @@ upload_file <- function(project, file,
            events = 4,
            vrl_detections = 5,
            gps = 6,
-           glider = 7
-
+           glider = 7,
+           tag_specs = 8,
+           receiver_specs = 9
     )
   },
   USE.NAMES = F)
