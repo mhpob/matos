@@ -17,9 +17,11 @@ list_my_projects <- function(read_access = T){
 
   login_check(url)
 
-  site <- httr::GET(url)
+  site <- httr2::request(url) |>
+    httr2::req_cookie_preserve(file.path(tempdir(), 'cookie_jar')) |>
+    httr2::req_perform()
 
-  names <- httr::content(site)
+  names <- httr2::resp_body_html(site)
   names <- rvest::html_node(names, xpath = '//*[@id="selProject"]')
   names <- rvest::html_nodes(names, 'option')
   names <- rvest::html_text(names)
@@ -32,15 +34,17 @@ list_my_projects <- function(read_access = T){
     # MATOS website issues code 302 and refers to project splash page if there is
     #   no read access. Capture which projects do this.
     files <- lapply(project_numbers, function(x){
-      httr::HEAD(
-        url = paste('https://matos.asascience.com/project',
-                    'dataextractionfiles',
-                    x, sep = '/'),
-
-        # Don't follow referred URL to save time
-        config = httr::config(followlocation = F)
-      )
+      httr2::request(
+        paste('https://matos.asascience.com/project',
+              'dataextractionfiles',
+              x, sep = '/')
+      ) |>
+        httr2::req_method('HEAD') |>
+        # Don't follow referred URL
+        httr2::req_options(followlocation = FALSE) |>
+        httr2::req_cookie_preserve(file.path(tempdir(), 'cookie_jar'))
     })
+    files <- httr2::multi_req_perform(files)
 
     # Select projects that weren't referred
     files <- sapply(files, function(x) x$status_code != 302)
