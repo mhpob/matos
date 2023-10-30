@@ -6,7 +6,6 @@
 \alias{get_project_number}
 \alias{get_project_name}
 \alias{html_table_to_df}
-\alias{login_check}
 \alias{project_check}
 \alias{scrape_file_urls}
 \alias{download_process}
@@ -19,8 +18,6 @@ get_project_number(project_name, matos_projects = NULL)
 get_project_name(project_number, matos_projects = NULL)
 
 html_table_to_df(html_file_list)
-
-login_check(url = "https://matos.asascience.com/report/submit")
 
 project_check(project, return_projects = FALSE)
 
@@ -43,12 +40,12 @@ below it. Will be coerced to all lower case, so capitalization doesn't matter.}
 \item{html_file_list}{Listed files in HTML form. Always the result of
 \code{get_file_list}}
 
-\item{url}{The (protected) URL that the overlapping function is trying to call.}
-
 \item{project}{MATOS projecct ID. Can be the name or number of the project.}
 
 \item{return_projects}{Logical. Do you want \code{project_check} to return the list
 of projects? Used to not ping the website too much in one function call.}
+
+\item{url}{The (protected) URL that the overlapping function is trying to call.}
 
 \item{out_dir}{Character. To what directory would you like your files downloaded?
 Defaults to the current working directory.}

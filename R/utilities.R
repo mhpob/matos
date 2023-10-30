@@ -57,9 +57,11 @@ matos_login <- function(){
 #'  matos_logoff()
 
 matos_logoff <- function(){
-  logoff_response <- httr::GET(
+  logoff_response <- httr2::request(
     'https://matos.asascience.com/account/logoff'
-  )
+  ) |>
+    httr2::req_cookie_preserve(file.path(tempdir(), 'cookie_jar')) |>
+    httr2::req_perform()
 
   cli::cli_alert_success('Logged out.')
 }
@@ -126,7 +128,8 @@ get_file_list <- function(project_number, data_type){
 
   login_check(url)
 
-  httr::GET(url)
+  httr2::request(url) |>
+    httr2::req_perform()
 }
 
 
@@ -159,7 +162,7 @@ get_project_name <- function(project_number, matos_projects = NULL){
 #'
 html_table_to_df <- function(html_file_list){
 
-  df <- httr::content(html_file_list, 'parsed')
+  df <- httr2::resp_body_html(html_file_list)
   df <- rvest::html_element(df, xpath = '//*[@id="content"]/table')
   df <- rvest::html_table(df)
   df <- data.frame(df)
@@ -216,16 +219,18 @@ html_table_to_df <- function(html_file_list){
 
 #' @rdname utilities
 #'
-login_check <- function(url = 'https://matos.asascience.com/report/submit'){
-
-  check_response <- httr::HEAD(url)
-
-  if(nrow(check_response$cookies) == 1){
-
-    matos_login()
-  }
-
-}
+# login_check <- function(url = 'https://matos.asascience.com/report/submit'){
+#
+#   check_response <- httr2::request(url) |>
+#     httr2::req_method('HEAD') |>
+#     httr2::req_perform()
+#
+#   if(nrow(check_response$cookies) == 1){
+#
+#     matos_login()
+#   }
+#
+# }
 
 #' @rdname utilities
 #'
