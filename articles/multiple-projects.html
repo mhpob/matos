@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">matos</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.005</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,12 +84,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhpob/matos" class="external-link">matos</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; By continuing, you are agreeing to the ACT Network MATOS User Agreement and</span></span>
-<span><span class="co">#&gt; Data Policy, Version 1.2:</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB; font-style: italic;">&lt;https://matos.asascience.com/static/MATOS.User.Agreement.V1.1.pdf&gt;</span></span></span>
-<span><span class="co">#&gt; </span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhpob/matos" class="external-link">matos</a></span><span class="op">)</span></span></code></pre></div>
 <p>If you’re a data manager for a lab that partakes in fish telemetry,
 you are likely balancing a number of projects at any one time. It can be
 pretty hard to keep track of what’s new when an OTN data push
@@ -97,24 +92,22 @@ occurs.</p>
 <p>For example, I have 12 projects for which I am responsible.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">projects</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_my_projects.html">list_my_projects</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Please log in.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Login successful!</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">projects</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                             name number</span></span>
 <span><span class="co">#&gt; 33      Maryland Department of Natural Resources     90</span></span>
-<span><span class="co">#&gt; 44              Navy Kennebec ME Telemetry Array    192</span></span>
-<span><span class="co">#&gt; 49         NCBO-MD DNR Chesapeake Backbone North    181</span></span>
-<span><span class="co">#&gt; 50           NCBO-VMRC Chesapeake Backbone South    164</span></span>
-<span><span class="co">#&gt; 114 UMCES Black Sea Bass &amp; Offshore Construction     97</span></span>
-<span><span class="co">#&gt; 115          UMCES BOEM Marine Mammal Monitoring    242</span></span>
+<span><span class="co">#&gt; 46              Navy Kennebec ME Telemetry Array    192</span></span>
+<span><span class="co">#&gt; 51         NCBO-MD DNR Chesapeake Backbone North    181</span></span>
+<span><span class="co">#&gt; 52           NCBO-VMRC Chesapeake Backbone South    164</span></span>
+<span><span class="co">#&gt; 118 UMCES Black Sea Bass &amp; Offshore Construction     97</span></span>
+<span><span class="co">#&gt; 119          UMCES BOEM Marine Mammal Monitoring    242</span></span>
 <span><span class="co">#&gt;                                                 url</span></span>
 <span><span class="co">#&gt; 33   https://matos.asascience.com/project/detail/90</span></span>
-<span><span class="co">#&gt; 44  https://matos.asascience.com/project/detail/192</span></span>
-<span><span class="co">#&gt; 49  https://matos.asascience.com/project/detail/181</span></span>
-<span><span class="co">#&gt; 50  https://matos.asascience.com/project/detail/164</span></span>
-<span><span class="co">#&gt; 114  https://matos.asascience.com/project/detail/97</span></span>
-<span><span class="co">#&gt; 115 https://matos.asascience.com/project/detail/242</span></span></code></pre></div>
+<span><span class="co">#&gt; 46  https://matos.asascience.com/project/detail/192</span></span>
+<span><span class="co">#&gt; 51  https://matos.asascience.com/project/detail/181</span></span>
+<span><span class="co">#&gt; 52  https://matos.asascience.com/project/detail/164</span></span>
+<span><span class="co">#&gt; 118  https://matos.asascience.com/project/detail/97</span></span>
+<span><span class="co">#&gt; 119 https://matos.asascience.com/project/detail/242</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="parallel">Parallel<a class="anchor" aria-label="anchor" href="#parallel"></a>
 </h2>
@@ -179,44 +172,44 @@ three files for demonstration purposes.</p>
 <span>                <span class="fu"><a href="../reference/get_extract_file.html">get_extract_file</a></span><span class="op">(</span>url <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
 <span>              <span class="op">}</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt;    /home/runner/work/matos/matos/vignettes/mddnr1nr_matched_detections_2015.zip </span></span>
-<span><span class="co">#&gt;    /home/runner/work/matos/matos/vignettes/mddnr1nr_matched_detections_2015.csv</span></span>
-<span><span class="co">#&gt;    /home/runner/work/matos/matos/vignettes/data_description.txt</span></span>
+<span><span class="co">#&gt;    C:\Users\darpa2\Analysis\matos\vignettes\mddnr1nr_matched_detections_2015.zip </span></span>
+<span><span class="co">#&gt;    C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2015.csv</span></span>
+<span><span class="co">#&gt;    C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Downloading files</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> File(s) saved to:</span></span>
+<span><span class="co">#&gt; ── Downloading files ─────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ✔ File(s) saved to:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Unzipping files</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> File(s) unzipped to:</span></span>
-<span><span class="co">#&gt;    /home/runner/work/matos/matos/vignettes/mddnr1nr_matched_detections_2016.zip </span></span>
-<span><span class="co">#&gt;    /home/runner/work/matos/matos/vignettes/mddnr1nr_matched_detections_2016.csv</span></span>
-<span><span class="co">#&gt;    /home/runner/work/matos/matos/vignettes/data_description.txt </span></span>
-<span><span class="co">#&gt;    /home/runner/work/matos/matos/vignettes/mddnr1nr_matched_detections_2017.zip </span></span>
-<span><span class="co">#&gt;    /home/runner/work/matos/matos/vignettes/mddnr1nr_matched_detections_2017.csv</span></span>
-<span><span class="co">#&gt;    /home/runner/work/matos/matos/vignettes/data_description.txt</span></span>
+<span><span class="co">#&gt; ── Unzipping files ───────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ✔ File(s) unzipped to:</span></span>
+<span><span class="co">#&gt;    C:\Users\darpa2\Analysis\matos\vignettes\mddnr1nr_matched_detections_2016.zip </span></span>
+<span><span class="co">#&gt;    C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2016.csv</span></span>
+<span><span class="co">#&gt;    C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Downloading files</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> File(s) saved to:</span></span>
+<span><span class="co">#&gt; ── Downloading files ─────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ✔ File(s) saved to:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Unzipping files</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> File(s) unzipped to:</span></span>
+<span><span class="co">#&gt; ── Unzipping files ───────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ✔ File(s) unzipped to:</span></span>
+<span><span class="co">#&gt;    C:\Users\darpa2\Analysis\matos\vignettes\mddnr1nr_matched_detections_2017.zip </span></span>
+<span><span class="co">#&gt;    C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2017.csv</span></span>
+<span><span class="co">#&gt;    C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Downloading files</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> File(s) saved to:</span></span>
+<span><span class="co">#&gt; ── Downloading files ─────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ✔ File(s) saved to:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Unzipping files</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> File(s) unzipped to:</span></span>
+<span><span class="co">#&gt; ── Unzipping files ───────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ✔ File(s) unzipped to:</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] "/home/runner/work/matos/matos/vignettes/mddnr1nr_matched_detections_2015.csv"</span></span>
-<span><span class="co">#&gt; [2] "/home/runner/work/matos/matos/vignettes/data_description.txt"                </span></span>
+<span><span class="co">#&gt; [1] "C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2015.csv"</span></span>
+<span><span class="co">#&gt; [2] "C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt"                </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1] "/home/runner/work/matos/matos/vignettes/mddnr1nr_matched_detections_2016.csv"</span></span>
-<span><span class="co">#&gt; [2] "/home/runner/work/matos/matos/vignettes/data_description.txt"                </span></span>
+<span><span class="co">#&gt; [1] "C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2016.csv"</span></span>
+<span><span class="co">#&gt; [2] "C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt"                </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; [1] "/home/runner/work/matos/matos/vignettes/mddnr1nr_matched_detections_2017.csv"</span></span>
-<span><span class="co">#&gt; [2] "/home/runner/work/matos/matos/vignettes/data_description.txt"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2017.csv"</span></span>
+<span><span class="co">#&gt; [2] "C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="summarizing">Summarizing<a class="anchor" aria-label="anchor" href="#summarizing"></a>

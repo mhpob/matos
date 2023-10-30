@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">matos</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.005</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,12 +83,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhpob/matos" class="external-link">matos</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; By continuing, you are agreeing to the ACT Network MATOS User Agreement and</span></span>
-<span><span class="co">#&gt; Data Policy, Version 1.2:</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB; font-style: italic;">&lt;https://matos.asascience.com/static/MATOS.User.Agreement.V1.1.pdf&gt;</span></span></span>
-<span><span class="co">#&gt; </span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhpob/matos" class="external-link">matos</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="act-members">ACT members<a class="anchor" aria-label="anchor" href="#act-members"></a>
 </h2>
@@ -96,38 +91,36 @@
 the projects for which you have access.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/list_my_projects.html">list_my_projects</a></span><span class="op">(</span>read_access <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Please log in.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Login successful!</span></span>
 <span><span class="co">#&gt;                                             name number</span></span>
 <span><span class="co">#&gt; 33      Maryland Department of Natural Resources     90</span></span>
-<span><span class="co">#&gt; 44              Navy Kennebec ME Telemetry Array    192</span></span>
-<span><span class="co">#&gt; 49         NCBO-MD DNR Chesapeake Backbone North    181</span></span>
-<span><span class="co">#&gt; 50           NCBO-VMRC Chesapeake Backbone South    164</span></span>
-<span><span class="co">#&gt; 114 UMCES Black Sea Bass &amp; Offshore Construction     97</span></span>
-<span><span class="co">#&gt; 115          UMCES BOEM Marine Mammal Monitoring    242</span></span>
-<span><span class="co">#&gt; 116              UMCES BOEM Offshore Wind Energy     87</span></span>
-<span><span class="co">#&gt; 117           UMCES Chesapeake Backbone, Mid-Bay    161</span></span>
-<span><span class="co">#&gt; 118  UMCES Lower Hudson Striped Bass Contingents    155</span></span>
-<span><span class="co">#&gt; 119   UMCES Potomac River Striped Bass Migration     60</span></span>
-<span><span class="co">#&gt; 120 UMCES Resident Hudson Striped Bass Migration    160</span></span>
-<span><span class="co">#&gt; 121           UMCES Striped Bass Thermal Squeeze    152</span></span>
-<span><span class="co">#&gt; 122                              UMCES TailWinds    240</span></span>
-<span><span class="co">#&gt; 123    UMCES-NYSDEC Hudson Striped Bass Spawning    127</span></span>
+<span><span class="co">#&gt; 46              Navy Kennebec ME Telemetry Array    192</span></span>
+<span><span class="co">#&gt; 51         NCBO-MD DNR Chesapeake Backbone North    181</span></span>
+<span><span class="co">#&gt; 52           NCBO-VMRC Chesapeake Backbone South    164</span></span>
+<span><span class="co">#&gt; 118 UMCES Black Sea Bass &amp; Offshore Construction     97</span></span>
+<span><span class="co">#&gt; 119          UMCES BOEM Marine Mammal Monitoring    242</span></span>
+<span><span class="co">#&gt; 120              UMCES BOEM Offshore Wind Energy     87</span></span>
+<span><span class="co">#&gt; 121           UMCES Chesapeake Backbone, Mid-Bay    161</span></span>
+<span><span class="co">#&gt; 122  UMCES Lower Hudson Striped Bass Contingents    155</span></span>
+<span><span class="co">#&gt; 123   UMCES Potomac River Striped Bass Migration     60</span></span>
+<span><span class="co">#&gt; 124 UMCES Resident Hudson Striped Bass Migration    160</span></span>
+<span><span class="co">#&gt; 125           UMCES Striped Bass Thermal Squeeze    152</span></span>
+<span><span class="co">#&gt; 126                              UMCES TailWinds    240</span></span>
+<span><span class="co">#&gt; 127    UMCES-NYSDEC Hudson Striped Bass Spawning    127</span></span>
 <span><span class="co">#&gt;                                                 url</span></span>
 <span><span class="co">#&gt; 33   https://matos.asascience.com/project/detail/90</span></span>
-<span><span class="co">#&gt; 44  https://matos.asascience.com/project/detail/192</span></span>
-<span><span class="co">#&gt; 49  https://matos.asascience.com/project/detail/181</span></span>
-<span><span class="co">#&gt; 50  https://matos.asascience.com/project/detail/164</span></span>
-<span><span class="co">#&gt; 114  https://matos.asascience.com/project/detail/97</span></span>
-<span><span class="co">#&gt; 115 https://matos.asascience.com/project/detail/242</span></span>
-<span><span class="co">#&gt; 116  https://matos.asascience.com/project/detail/87</span></span>
-<span><span class="co">#&gt; 117 https://matos.asascience.com/project/detail/161</span></span>
-<span><span class="co">#&gt; 118 https://matos.asascience.com/project/detail/155</span></span>
-<span><span class="co">#&gt; 119  https://matos.asascience.com/project/detail/60</span></span>
-<span><span class="co">#&gt; 120 https://matos.asascience.com/project/detail/160</span></span>
-<span><span class="co">#&gt; 121 https://matos.asascience.com/project/detail/152</span></span>
-<span><span class="co">#&gt; 122 https://matos.asascience.com/project/detail/240</span></span>
-<span><span class="co">#&gt; 123 https://matos.asascience.com/project/detail/127</span></span></code></pre></div>
+<span><span class="co">#&gt; 46  https://matos.asascience.com/project/detail/192</span></span>
+<span><span class="co">#&gt; 51  https://matos.asascience.com/project/detail/181</span></span>
+<span><span class="co">#&gt; 52  https://matos.asascience.com/project/detail/164</span></span>
+<span><span class="co">#&gt; 118  https://matos.asascience.com/project/detail/97</span></span>
+<span><span class="co">#&gt; 119 https://matos.asascience.com/project/detail/242</span></span>
+<span><span class="co">#&gt; 120  https://matos.asascience.com/project/detail/87</span></span>
+<span><span class="co">#&gt; 121 https://matos.asascience.com/project/detail/161</span></span>
+<span><span class="co">#&gt; 122 https://matos.asascience.com/project/detail/155</span></span>
+<span><span class="co">#&gt; 123  https://matos.asascience.com/project/detail/60</span></span>
+<span><span class="co">#&gt; 124 https://matos.asascience.com/project/detail/160</span></span>
+<span><span class="co">#&gt; 125 https://matos.asascience.com/project/detail/152</span></span>
+<span><span class="co">#&gt; 126 https://matos.asascience.com/project/detail/240</span></span>
+<span><span class="co">#&gt; 127 https://matos.asascience.com/project/detail/127</span></span></code></pre></div>
 <p>From here, you can just provide your project name or number and let
 it rip. Below, I provide the number associated with “UMCES BOEM Offshore
 Wind Energy”.</p>
