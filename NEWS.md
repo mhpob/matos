@@ -1,12 +1,7 @@
-# Minor fixes
-## matos 0.3.005
-  - Precompile vignettes to allow [r-universe](https://mhpob.r-universe.dev/matos) to build.
-
-## matos 0.3.004
-  - Fix broken link in [`set_matos_credentials`](https://matos.obrien.page/reference/set_matos_credentials.html) documentation.
-
-## matos 0.3.003
-  - Fix [`upload_file`](https://matos.obrien.page/reference/upload_file.html) to actually allow multiple uploads
+# matos 0.3.005
+  - Precompile vignettes to allow [r-universe](https://mhpob.r-universe.dev/matos) to build. (matos 0.3.005)
+  - Fix broken link in [`set_matos_credentials`](https://matos.obrien.page/reference/set_matos_credentials.html) documentation. (matos 0.3.004)
+  - Fix [`upload_file`](https://matos.obrien.page/reference/upload_file.html) to actually allow multiple uploads. (matos 0.3.003)
 
 # matos 0.3
 
