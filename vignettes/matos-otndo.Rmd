@@ -7,14 +7,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
-```{r setup}
+
+
+```r
 library(matos)
 ```
 
@@ -22,13 +18,45 @@ library(matos)
 
 If you're an ACT member, the first thing you'll want to do is list the projects for which you have access.
 
-```{r}
+
+```r
 list_my_projects(read_access = T)
+#>                                             name number
+#> 33      Maryland Department of Natural Resources     90
+#> 46              Navy Kennebec ME Telemetry Array    192
+#> 51         NCBO-MD DNR Chesapeake Backbone North    181
+#> 52           NCBO-VMRC Chesapeake Backbone South    164
+#> 118 UMCES Black Sea Bass & Offshore Construction     97
+#> 119          UMCES BOEM Marine Mammal Monitoring    242
+#> 120              UMCES BOEM Offshore Wind Energy     87
+#> 121           UMCES Chesapeake Backbone, Mid-Bay    161
+#> 122  UMCES Lower Hudson Striped Bass Contingents    155
+#> 123   UMCES Potomac River Striped Bass Migration     60
+#> 124 UMCES Resident Hudson Striped Bass Migration    160
+#> 125           UMCES Striped Bass Thermal Squeeze    152
+#> 126                              UMCES TailWinds    240
+#> 127    UMCES-NYSDEC Hudson Striped Bass Spawning    127
+#>                                                 url
+#> 33   https://matos.asascience.com/project/detail/90
+#> 46  https://matos.asascience.com/project/detail/192
+#> 51  https://matos.asascience.com/project/detail/181
+#> 52  https://matos.asascience.com/project/detail/164
+#> 118  https://matos.asascience.com/project/detail/97
+#> 119 https://matos.asascience.com/project/detail/242
+#> 120  https://matos.asascience.com/project/detail/87
+#> 121 https://matos.asascience.com/project/detail/161
+#> 122 https://matos.asascience.com/project/detail/155
+#> 123  https://matos.asascience.com/project/detail/60
+#> 124 https://matos.asascience.com/project/detail/160
+#> 125 https://matos.asascience.com/project/detail/152
+#> 126 https://matos.asascience.com/project/detail/240
+#> 127 https://matos.asascience.com/project/detail/127
 ```
 
 From here, you can just provide your project name or number and let it rip. Below, I provide the number associated with "UMCES BOEM Offshore Wind Energy".
 
-```{r, eval=FALSE}
+
+```r
 matos_receiver_summary(87)
 ```
 
@@ -38,7 +66,8 @@ This function does a bit of data cleaning on the front end and then runs everyth
 1.  Quarto is not installed on the computer, or
 2.  the `rmd` argument is set to `TRUE`.
 
-```{r, eval=FALSE}
+
+```r
 # Compiles with Quarto (default)
 matos_receiver_summary(87, rmd = F)
 
@@ -48,6 +77,7 @@ matos_receiver_summary(87, rmd = T)
 
 Functionality is identical for `matos_tag_summary`:
 
-```{r, eval=FALSE}
+
+```r
 matos_tag_summary(87)
 ```

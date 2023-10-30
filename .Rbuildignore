@@ -7,3 +7,7 @@
 ^docs$
 ^pkgdown$
 ^CNAME$
+^vignettes/introduction\.Rmd\.orig$
+^vignettes/matos-otndo.Rmd\.orig$
+^vignettes/multiple-projects.Rmd\.orig$
+^precompile\.R$
