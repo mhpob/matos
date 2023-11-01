@@ -11,6 +11,8 @@
 actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check](https://github.com/mhpob/matos/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mhpob/matos/actions/workflows/R-CMD-check.yaml)
+[![matos status
+badge](https://mhpob.r-universe.dev/badges/matos)](https://mhpob.r-universe.dev/matos)
 <!-- badges: end -->
 
 {matos} is an attempt at an API to the [Mid-Atlantic Acoustic Telemetry
