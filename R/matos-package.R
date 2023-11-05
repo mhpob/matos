@@ -10,7 +10,6 @@
 #' @importFrom utils download.file
 #' @importFrom utils txtProgressBar
 #' @importFrom utils setTxtProgressBar
-#' @importFrom memoise memoise
 #' @keywords internal
 "_PACKAGE"
 

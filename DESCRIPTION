@@ -13,7 +13,8 @@ Imports:
     httr,
     rvest,
     getPass,
-    otndo
+    otndo,
+    memoise
 Suggests:
     future.apply,
     testthat (>= 3.0.0),
