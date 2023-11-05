@@ -46,44 +46,11 @@ matos_login <- function(){
   )
 
   if(grepl('login', login_response)){
-        cli::cli_abort('Login unsuccessful.',
-                       'i' = 'Please re-run the funtion and try again.')
-      } else{
-        cli::cli_alert_success('Login successful!')
-      }
-
-
-
-
-  # if('rstudioapi' %in% installed.packages()){
-  #   if(grepl('login', login_response)){
-  #     rstudioapi::showDialog('Login unsuccessful :(',
-  #                            'Your username/password combination was not recognized.
-  #                            Please re-run the funtion and try again.')
-  #     cli::cli_abort('Login unsuccessful.',
-  #                    'i' = 'Please re-run the funtion and try again.')
-  #
-  #   } else{
-  #     rstudioapi::showDialog('Login successful!',
-  #                            'You are now logged into your MATOS profile.')
-  #     cli::cli_alert_success('Login successful!')
-  #   }
-  # } else{
-  #   if(grepl('login', login_response)){
-  #     tcltk::tk_messageBox('ok',
-  #                          'Your username/password combination was not recognized.
-  #                          Please re-run the funtion and try again.',
-  #                          caption = 'Login unuccessful :(')
-  #     cli::cli_abort('Login unsuccessful.',
-  #                    'i' = 'Please re-run the funtion and try again.')
-  #
-  #   } else{
-  #     tcltk::tk_messageBox('ok',
-  #                          'You are now logged into your MATOS profile.',
-  #                          caption = 'Login unuccessful !')
-  #     cli::cli_alert_success('Login successful!')
-  #   }
-  # }
+    cli::cli_abort('Login unsuccessful.',
+                   'i' = 'Please re-run the funtion and try again.')
+  } else{
+    cli::cli_alert_success('Login successful!')
+  }
 }
 
 #' Log out of your MATOS account
@@ -162,10 +129,11 @@ get_file_list <- function(project_number, data_type){
                data_type,
                project_number, sep = '/')
 
-  login_check(url)
+  matos:::login_check(url)
 
   httr::GET(url)
 }
+
 
 
 #' @rdname utilities
@@ -318,7 +286,7 @@ download_process <- function(url, out_dir, overwrite, to_vue){
     httr::write_disk(
       path = file.path(out_dir,
                        gsub('.*filename=|\\"', '',
-                           httr::headers(GET_header)$'content-disposition')),
+                            httr::headers(GET_header)$'content-disposition')),
       overwrite = overwrite)
   )
 
