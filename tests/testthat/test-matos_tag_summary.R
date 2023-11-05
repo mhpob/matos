@@ -1,5 +1,7 @@
 ## ACT project
 test_that('ACT projects are summarized', {
+  # skip test on Runiverse
+  skip_on_Runiverse()
 
   expect_no_error(
     matos_tag_summary(

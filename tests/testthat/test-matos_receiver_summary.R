@@ -1,5 +1,7 @@
 ## ACT project
 test_that('ACT projects are summarized', {
+  # skip test on Runiverse
+  skip_on_Runiverse()
 
   expect_no_error(
     matos_receiver_summary(
@@ -13,6 +15,8 @@ test_that('ACT projects are summarized', {
 
 ## ACT project with receiver deployment data in unlabeled sheet
 test_that('ACT project with unlabeled deployment sheet is summarized', {
+  # skip test on Runiverse
+  skip_on_Runiverse()
 
   expect_no_error(
     matos_receiver_summary(
