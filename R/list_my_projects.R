@@ -15,7 +15,7 @@
 list_my_projects <- function(read_access = T){
   url <- 'https://matos.asascience.com/report/submit'
 
-  login_check(url)
+  matos:::login_check(url)
 
   site <- httr::GET(url)
 
@@ -24,10 +24,10 @@ list_my_projects <- function(read_access = T){
   names <- rvest::html_nodes(names, 'option')
   names <- rvest::html_text(names)
 
-  all_projects <- list_projects()
+  all_projects <- matos:::list_projects()
 
   if(read_access == T){
-    project_numbers <- unique(unlist(sapply(names, get_project_number)))
+    project_numbers <- unique(unlist(sapply(names, matos:::get_project_number)))
 
     # MATOS website issues code 302 and refers to project splash page if there is
     #   no read access. Capture which projects do this.
