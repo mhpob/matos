@@ -1,25 +1,23 @@
-# matos 0.3.005
+# matos 0.4.00
+
+  - API calls are cached via the [memoise package](https://memoise.r-lib.org/index.html), meaning that MATOS is not queryed unless **absolutely** necessary. Big speed up when listing your files/projects!
+
+# matos 0.3
   - Precompile vignettes to allow [r-universe](https://mhpob.r-universe.dev/matos) to build. (matos 0.3.005)
   - Fix broken link in [`set_matos_credentials`](https://matos.obrien.page/reference/set_matos_credentials.html) documentation. (matos 0.3.004)
   - Fix [`upload_file`](https://matos.obrien.page/reference/upload_file.html) to actually allow multiple uploads. (matos 0.3.003)
-
-# matos 0.3
-
   - The meat of what were `make_tag_push_summary` and `make_receiver_push_summary` have been moved over to a new package: [`otndo`](https://otndo.obrien.page). These functions now wrap those in `otndo` and have been renamed [`matos_tag_summary`](https://matos.obrien.page/reference/matos_tag_summary.html) and [`matos_receiver_summary`](https://matos.obrien.page/reference/matos_receiver_summary.html), respectively.
   - [`list_extract_files`](https://matos.obrien.page/reference/list_extract_files.html) and [`list_project_files`](https://matos.obrien.page/reference/list_project_files.html) now accept vectors of different detection/file types to subset the returned data frame.
   - Misc. tests have been added
 
-# matos 0.2.13
-
-  - [`matos_logoff`](https://matos.obrien.page/reference/matos_logoff.html), allowing you to log out of your MATOS session.
-  - A draft vignette on how to manage multiple telemetry projects by using `matos` in parallel.
-  - [`make_receiver_push_summary`](https://matos.obrien.page/reference/make_receiver_push_summary.html) and [`make_tag_push_summary`](https://matos.obrien.page/reference/make_tag_push_summary.html) now scrape the OTN GeoServer in order to get a correct title for your project summaries!
-  - A more-informative error now appears if you try to find information on a project that doesn't exist.
-
 # matos 0.2.1
 
-  - The website has moved to [https://matos.obrien.page/](https://matos.obrien.page/).
-  - [`set_matos_credentials`](https://matos.obrien.page/reference/set_matos_credentials.html) 
+  - [`matos_logoff`](https://matos.obrien.page/reference/matos_logoff.html), allowing you to log out of your MATOS session. (matos 0.2.13)
+  - A draft vignette on how to manage multiple telemetry projects by using `matos` in parallel. (matos 0.2.13)
+  - [`make_receiver_push_summary`](https://matos.obrien.page/reference/make_receiver_push_summary.html) and [`make_tag_push_summary`](https://matos.obrien.page/reference/make_tag_push_summary.html) now scrape the OTN GeoServer in order to get a correct title for your project summaries! (matos 0.2.13)
+  - A more-informative error now appears if you try to find information on a project that doesn't exist. (matos 0.2.13)
+  - The website has moved to [https://matos.obrien.page/](https://matos.obrien.page/). (matos 0.2.1)
+  - [`set_matos_credentials`](https://matos.obrien.page/reference/set_matos_credentials.html)
     - *NEW* function!
     - Allows you to store your MATOS credentials in your [.Renviron](https://rstats.wtf/r-startup.html#renviron) for seamless log in.
   - [`make_tag_push_summary`](https://matos.obrien.page/reference/make_tag_push_summary.html)
