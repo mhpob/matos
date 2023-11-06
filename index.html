@@ -77,15 +77,46 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>{matos} is an attempt at an API to the <a href="https://matos.asascience.com/" class="external-link">Mid-Atlantic Acoustic Telemetry Observing System website</a>, powered by a suite of <a href="https://httr.r-lib.org/" class="external-link">httr</a> and <a href="https://rvest.tidyverse.org/" class="external-link">rvest</a> functions. Because of this, it’s not necessarily fast or the best way to do things – we’re just pinging the website back and forth. Additionally, an internet connection is needed for pretty much anything to work.</p>
+<p>{matos} is an API to the <a href="https://matos.asascience.com/" class="external-link">Mid-Atlantic Acoustic Telemetry Observing System website</a>, powered by a suite of <a href="https://httr.r-lib.org/" class="external-link">httr</a> and <a href="https://rvest.tidyverse.org/" class="external-link">rvest</a> functions.</p>
 <p>Please note that you will need a MATOS account, <a href="https://matos.asascience.com/account/signup" class="external-link">which you can sign up for here</a>, in order to interface with any project-specific files.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>This package is still in “throw things on the wall and see what sticks” phase (<em>“this package is currently undergoing heavy development”</em>). You can install the most-up-to-date version from GitHub:</p>
+<p>You can install the most-up-to-date version from <a href="https://mhpob.r-universe.dev/matos" class="external-link">R-universe</a> or <a href="https://github.com/mhpob/matos" class="external-link">GitHub</a>.</p>
+<p>R-universe:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
+<span>  <span class="st">'matos'</span>,</span>
+<span>  repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'https://mhpob.r-universe.dev'</span>,</span>
+<span>            <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>GitHub:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mhpob/matos"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+</h2>
+<p>There are functions to list, download, and upload files to MATOS – check out the vignettes for some worked examples. If you don’t want to read and just want to get your detection files, here are the bare bones to get you up and running:</p>
+<div class="section level3">
+<h3 id="list_my_projects">
+<code>list_my_projects</code><a class="anchor" aria-label="anchor" href="#list_my_projects"></a>
+</h3>
+<p>Logs you into the MATOS database and pings each project in turn to see if you have read/write access, listing those that you do.</p>
+</div>
+<div class="section level3">
+<h3 id="list_extract_files">
+<code>list_extract_files</code><a class="anchor" aria-label="anchor" href="#list_extract_files"></a>
+</h3>
+<p>Once you have a project name or number from <code>list_my_projects</code>, use this function to list all of the files containing Ocean Tracking Network matched detections.</p>
+</div>
+<div class="section level3">
+<h3 id="get_extract_file">
+<code>get_extract_file</code><a class="anchor" aria-label="anchor" href="#get_extract_file"></a>
+</h3>
+<p>Now that you have the URLs of the detection extract files from <code>list_extract_files</code>, put it in here to download the file to your computer.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="development">Development<a class="anchor" aria-label="anchor" href="#development"></a>
