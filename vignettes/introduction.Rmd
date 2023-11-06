@@ -12,11 +12,6 @@ vignette: >
 
 ```r
 library(matos)
-#> By continuing, you are agreeing to the ACT Network MATOS User Agreement and Data
-#> Policy, Version 1.2:
-#> 
-#> <https://matos.asascience.com/static/MATOS.User.Agreement.V1.1.pdf>
-#> 
 ```
 
 
@@ -89,20 +84,20 @@ ACT_MATOS_files <- list_extract_files(project = 'umces boem offshore wind energy
                                       detection_type = 'all')
 
 head(ACT_MATOS_files)
-#>   project            file_type detection_type detection_year upload_date
-#> 1      87 Data Extraction File        matched           2017  2023-07-06
-#> 2      87 Data Extraction File        matched           2018  2023-07-06
-#> 3      87 Data Extraction File        matched           2019  2023-07-06
-#> 4      87 Data Extraction File        matched           2020  2023-07-06
-#> 5      87 Data Extraction File        matched           2021  2023-07-06
-#> 6      87 Data Extraction File        matched           2022  2023-07-06
-#>                           file_name
-#> 1 mdwea_matched_detections_2017.zip
-#> 2 mdwea_matched_detections_2018.zip
-#> 3 mdwea_matched_detections_2019.zip
-#> 4 mdwea_matched_detections_2020.zip
-#> 5 mdwea_matched_detections_2021.zip
-#> 6 mdwea_matched_detections_2022.zip
+#>   project            file_type detection_type detection_year
+#> 1      87 Data Extraction File        matched           2017
+#> 2      87 Data Extraction File        matched           2018
+#> 3      87 Data Extraction File        matched           2019
+#> 4      87 Data Extraction File        matched           2020
+#> 5      87 Data Extraction File        matched           2021
+#> 6      87 Data Extraction File        matched           2022
+#>   upload_date                         file_name
+#> 1  2023-07-06 mdwea_matched_detections_2017.zip
+#> 2  2023-07-06 mdwea_matched_detections_2018.zip
+#> 3  2023-07-06 mdwea_matched_detections_2019.zip
+#> 4  2023-07-06 mdwea_matched_detections_2020.zip
+#> 5  2023-07-06 mdwea_matched_detections_2021.zip
+#> 6  2023-07-06 mdwea_matched_detections_2022.zip
 #>                                                                url
 #> 1 https://matos.asascience.com/projectfile/downloadExtraction/87_1
 #> 2 https://matos.asascience.com/projectfile/downloadExtraction/87_2
@@ -124,11 +119,11 @@ project_files$url[1]
 
 get_project_file(url = project_files$url[1])
 #> 
-#> ── Downloading files ─────────────────────────────────────────────────────────────
+#> ── Downloading files ──────────────────────────────────────────────
 #> ✔ File(s) saved to:
 #>    C:\Users\darpa2\Analysis\matos\vignettes\BOEM_metadata_deployment.xls
 #> 
-#> ── Unzipping files ───────────────────────────────────────────────────────────────
+#> ── Unzipping files ────────────────────────────────────────────────
 #> [1] "C:\\Users\\darpa2\\Analysis\\matos\\vignettes\\BOEM_metadata_deployment.xls"
 ```
 
@@ -138,11 +133,11 @@ I can download by using an index from the `ACT_MATOS_files` table above, here th
 ```r
 get_extract_file(file = 2, project = 'umces boem offshore wind energy')
 #> 
-#> ── Downloading files ─────────────────────────────────────────────────────────────
+#> ── Downloading files ──────────────────────────────────────────────
 #> ✔ File(s) saved to:
 #>    C:\Users\darpa2\Analysis\matos\vignettes\mdwea_matched_detections_2018.zip
 #> 
-#> ── Unzipping files ───────────────────────────────────────────────────────────────
+#> ── Unzipping files ────────────────────────────────────────────────
 #> ✔ File(s) unzipped to:
 #>    C:/Users/darpa2/Analysis/matos/vignettes/mdwea_matched_detections_2018.csv
 #>    C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt
