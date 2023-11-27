@@ -36,51 +36,50 @@
 #' list_extract_files(87)
 #'
 #' # Or, just grab the matched receiver detections
-#' list_files(project = 87, detection_type = 'qualified')
+#' list_files(project = 87, detection_type = "qualified")
 #'
 #' # OR list files using the project name
-#' list_files('umces boem offshore wind energy')
+#' list_files("umces boem offshore wind energy")
 #' }
-
 list_extract_files <- function(project = NULL,
-                               detection_type = c('all', 'matched', 'external',
-                                                  'qualified', 'sentinel',
-                                                  'unqualified'),
-                               since = NULL){
-
+                               detection_type = c(
+                                 "all", "matched", "external",
+                                 "qualified", "sentinel",
+                                 "unqualified"
+                               ),
+                               since = NULL) {
   # Check and coerce input args
-  detection_type <- gsub(' |detection[s]', '', detection_type)
+  detection_type <- gsub(" |detection[s]", "", detection_type)
   detection_type <- match.arg(detection_type, several.ok = TRUE)
 
-  if('external' %in% detection_type){
-    detection_type[detection_type == 'external'] <- 'matched_external_partners'
+  if ("external" %in% detection_type) {
+    detection_type[detection_type == "external"] <- "matched_external_partners"
   }
-  if('sentinel' %in% detection_type){
-    detection_type[detection_type == 'sentinel'] <- 'sentinel_tag'
+  if ("sentinel" %in% detection_type) {
+    detection_type[detection_type == "sentinel"] <- "sentinel_tag"
   }
 
   # Make sure project exists
   matos_projects <- project_check(project, return_projects = T)
 
   # Convert project name to number
-  if(is.character(project)){
+  if (is.character(project)) {
     project <- get_project_number(project, matos_projects)
   }
 
   # Scrape table and list files
   # This calls login_check() under the hood
-  files_html <- get_file_list(project, data_type = 'dataextractionfiles')
+  files_html <- get_file_list(project, data_type = "dataextractionfiles")
 
   files <- html_table_to_df(files_html)
 
-  if(all(detection_type != 'all')){
-    files <- files[files$detection_type %in% detection_type,]
+  if (all(detection_type != "all")) {
+    files <- files[files$detection_type %in% detection_type, ]
   }
 
-  if(!is.null(since)){
+  if (!is.null(since)) {
     files <- files[files$upload_date >= since, ]
   }
 
   files
-
 }

@@ -35,34 +35,37 @@
 #' list_project_files(87)
 #'
 #' # Or using the project name
-#' list_project_files('umces boem offshore wind energy')
+#' list_project_files("umces boem offshore wind energy")
 #'
 #' # List only the receiver deployment metadata files
-#' List_project_files(87, 'receiver_metadata')
+#' List_project_files(87, "receiver_metadata")
 #'
 #' # List both the receiver and transmitter deployment metadata files
-#' List_project_files(87, c('receiver_metadata', 'tag_metadata'))
+#' List_project_files(87, c("receiver_metadata", "tag_metadata"))
 #'
 #' # Cheat and use shorter names
-#' List_project_files(87, c('receiver', 'tag'))
+#' List_project_files(87, c("receiver", "tag"))
 #' }
-
 list_project_files <- function(project = NULL,
-                               file_type = c('all', 'detections',
-                                             'receiver_metadata',
-                                             'tag_metadata'),
-                               since = NULL){
-
+                               file_type = c(
+                                 "all", "detections",
+                                 "receiver_metadata",
+                                 "tag_metadata"
+                               ),
+                               since = NULL) {
   # Check and coerce input args
-  file_type <- match.arg(file_type, c('all', 'detections',
-                                      'receiver_metadata',
-                                      'tag_metadata'), several.ok = TRUE)
+  file_type <- match.arg(file_type, c(
+    "all", "detections",
+    "receiver_metadata",
+    "tag_metadata"
+  ), several.ok = TRUE)
 
-  file_type_fix <- function(provided_type){
+  file_type_fix <- function(provided_type) {
     switch(provided_type,
-           detections = 'Tag Detections - .vfl file',
-           receiver_metadata = 'Deployed Receivers \u2013 Deployment Metadata',
-           tag_metadata = 'Tagged Fish \u2013 Tag Metadata')
+      detections = "Tag Detections - .vfl file",
+      receiver_metadata = "Deployed Receivers \u2013 Deployment Metadata",
+      tag_metadata = "Tagged Fish \u2013 Tag Metadata"
+    )
   }
 
   file_type <- sapply(
@@ -72,21 +75,21 @@ list_project_files <- function(project = NULL,
   )
 
   # Convert project name to number
-  if(is.character(project)){
+  if (is.character(project)) {
     project <- get_project_number(project)
   }
 
   # Scrape table and list files
   # This calls login_check() under the hood
-  files_html <- get_file_list(project, data_type = 'downloadfiles')
+  files_html <- get_file_list(project, data_type = "downloadfiles")
 
   files <- html_table_to_df(files_html)
 
-  if(all(file_type != 'all')){
-    files <- files[files$file_type %in% file_type,]
+  if (all(file_type != "all")) {
+    files <- files[files$file_type %in% file_type, ]
   }
 
-  if(!is.null(since)){
+  if (!is.null(since)) {
     files <- files[files$upload_date >= since, ]
   }
 

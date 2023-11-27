@@ -1,5 +1,5 @@
 ## ACT project
-test_that('ACT projects are summarized', {
+test_that("ACT projects are summarized", {
   # skip test on Runiverse
   skip_on_Runiverse()
 
@@ -9,12 +9,11 @@ test_that('ACT projects are summarized', {
     )
   )
 
-  expect_true(any(grepl('receiver_push_summary', list.files(getwd()))))
-
+  expect_true(any(grepl("receiver_push_summary", list.files(getwd()))))
 })
 
 ## ACT project with receiver deployment data in unlabeled sheet
-test_that('ACT project with unlabeled deployment sheet is summarized', {
+test_that("ACT project with unlabeled deployment sheet is summarized", {
   # skip test on Runiverse
   skip_on_Runiverse()
 
@@ -24,6 +23,5 @@ test_that('ACT project with unlabeled deployment sheet is summarized', {
     )
   )
 
-  expect_true(any(grepl('receiver_push_summary', list.files(getwd()))))
-
+  expect_true(any(grepl("receiver_push_summary", list.files(getwd()))))
 })

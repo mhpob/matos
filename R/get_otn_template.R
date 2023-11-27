@@ -15,11 +15,10 @@
 #' get_otn_template()
 #'
 #' # Glider metadata template downloaded to downloads folder
-#' get_otn_template('glider', 'c:/users/myusername/downloads/glider_metadata.xlsx')
+#' get_otn_template("glider", "c:/users/myusername/downloads/glider_metadata.xlsx")
 #' }
-get_otn_template <- function(template_type = c('tag', 'receiver', 'glider'),
-                             dest_file = NULL){
-
+get_otn_template <- function(template_type = c("tag", "receiver", "glider"),
+                             dest_file = NULL) {
   # Check that arguments are correct
   template_type <- match.arg(template_type)
 
@@ -28,13 +27,15 @@ get_otn_template <- function(template_type = c('tag', 'receiver', 'glider'),
 
   # Convert template type to filename (as of 2020-11-02)
   template_file <- switch(template_type,
-                          tag = 'otn_metadata_deployment.xlsx',
-                          receiver = 'otn_metadata_tagging.xlsx',
-                          glider = 'glider-deployment-metadata-v2.xlsx')
+    tag = "otn_metadata_deployment.xlsx",
+    receiver = "otn_metadata_tagging.xlsx",
+    glider = "glider-deployment-metadata-v2.xlsx"
+  )
 
 
   # Download the file
-  download.file(paste('https://matos.asascience.com/static', template_file, sep = '/'),
-                destfile = ifelse(is.null(dest_file), template_file, dest_file),
-                mode = 'wb')
+  download.file(paste("https://matos.asascience.com/static", template_file, sep = "/"),
+    destfile = ifelse(is.null(dest_file), template_file, dest_file),
+    mode = "wb"
+  )
 }

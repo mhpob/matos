@@ -19,34 +19,33 @@
 #' list_projects()
 #'
 #' # List your projects (which may contain some for which you do not have read access):
-#' list_projects('mine', read_access = F)
+#' list_projects("mine", read_access = F)
 #' }
-list_projects <- function(what = c('all', 'mine'), read_access = T){
-
+list_projects <- function(what = c("all", "mine"), read_access = T) {
   what <- match.arg(what)
 
-  if(what == 'all'){
-
+  if (what == "all") {
     project_list <- httr::GET(
-      'https://matos.asascience.com/project'
+      "https://matos.asascience.com/project"
     )
 
     projects_info <- httr::content(project_list)
-    projects_info <- rvest::html_node(projects_info, '.project_list')
-    projects_info <- rvest::html_nodes(projects_info, 'a')
+    projects_info <- rvest::html_node(projects_info, ".project_list")
+    projects_info <- rvest::html_nodes(projects_info, "a")
 
-    urls <- rvest::html_attr(projects_info, 'href')
+    urls <- rvest::html_attr(projects_info, "href")
 
     projects <- data.frame(
       name = rvest::html_text(projects_info, trim = T),
-      number = as.numeric(gsub('.*detail/', '', urls)),
-      url = paste0('https://matos.asascience.com',
-                   urls)
+      number = as.numeric(gsub(".*detail/", "", urls)),
+      url = paste0(
+        "https://matos.asascience.com",
+        urls
+      )
     )
-
   }
 
-  if(what == 'mine'){
+  if (what == "mine") {
     projects <- list_my_projects(read_access = read_access)
   }
 

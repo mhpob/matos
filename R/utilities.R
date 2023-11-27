@@ -17,21 +17,19 @@
 #' matos_login()
 #' # ...then follow the on-screen prompts
 #' }
-
-matos_login <- function(){
-
+matos_login <- function() {
   # This uses a secret to allow vignettes to build and tests to run
-  username <- Sys.getenv('MATOS_USER')
-  password <- Sys.getenv('MATOS_PASS')
+  username <- Sys.getenv("MATOS_USER")
+  password <- Sys.getenv("MATOS_PASS")
 
-  cli::cli_alert_warning('Please log in.')
+  cli::cli_alert_warning("Please log in.")
 
   # If no secret is present, we enter interactive mode
-  if(username == ''){
-    username = getPass::getPass('Username:', noblank = T)
+  if (username == "") {
+    username <- getPass::getPass("Username:", noblank = T)
   }
-  if(password == ''){
-    password = getPass::getPass('Password:', noblank = T)
+  if (password == "") {
+    password <- getPass::getPass("Password:", noblank = T)
   }
 
   credentials <- list(
@@ -40,16 +38,17 @@ matos_login <- function(){
   )
 
   login_response <- httr::POST(
-    'https://matos.asascience.com/account/login',
+    "https://matos.asascience.com/account/login",
     body = credentials,
-    encode = 'form'
+    encode = "form"
   )
 
-  if(grepl('login', login_response)){
-    cli::cli_abort('Login unsuccessful.',
-                   'i' = 'Please re-run the funtion and try again.')
-  } else{
-    cli::cli_alert_success('Login successful!')
+  if (grepl("login", login_response)) {
+    cli::cli_abort("Login unsuccessful.",
+      "i" = "Please re-run the funtion and try again."
+    )
+  } else {
+    cli::cli_alert_success("Login successful!")
   }
 }
 
@@ -59,14 +58,13 @@ matos_login <- function(){
 #'
 #' @export
 #' @examples
-#'  matos_logoff()
-
-matos_logoff <- function(){
+#' matos_logoff()
+matos_logoff <- function() {
   logoff_response <- httr::GET(
-    'https://matos.asascience.com/account/logoff'
+    "https://matos.asascience.com/account/logoff"
   )
 
-  cli::cli_alert_success('Logged out.')
+  cli::cli_alert_success("Logged out.")
 }
 
 
@@ -123,11 +121,12 @@ matos_logoff <- function(){
 #'
 #' @name utilities
 
-get_file_list <- function(project_number, data_type){
-
-  url <- paste('https://matos.asascience.com/project',
-               data_type,
-               project_number, sep = '/')
+get_file_list <- function(project_number, data_type) {
+  url <- paste("https://matos.asascience.com/project",
+    data_type,
+    project_number,
+    sep = "/"
+  )
 
   matos:::login_check(url)
 
@@ -138,81 +137,92 @@ get_file_list <- function(project_number, data_type){
 
 #' @rdname utilities
 #'
-get_project_number <- function(project_name, matos_projects = NULL){
-  if(is.null(matos_projects)){
+get_project_number <- function(project_name, matos_projects = NULL) {
+  if (is.null(matos_projects)) {
     matos_projects <- list_projects()
   }
 
   matos_projects_clean <- tolower(matos_projects$name)
   project_name_clean <- tolower(trimws(project_name))
 
-  matos_projects[matos_projects_clean == project_name_clean,]$number
+  matos_projects[matos_projects_clean == project_name_clean, ]$number
 }
 
 
 #' @rdname utilities
 #'
-get_project_name <- function(project_number, matos_projects = NULL){
-  if(is.null(matos_projects)){
+get_project_name <- function(project_number, matos_projects = NULL) {
+  if (is.null(matos_projects)) {
     matos_projects <- list_projects()
   }
 
-  matos_projects[matos_projects$number == project_number,]$name
+  matos_projects[matos_projects$number == project_number, ]$name
 }
 
 
 #' @rdname utilities
 #'
-html_table_to_df <- function(html_file_list){
-
-  df <- httr::content(html_file_list, 'parsed')
+html_table_to_df <- function(html_file_list) {
+  df <- httr::content(html_file_list, "parsed")
   df <- rvest::html_element(df, xpath = '//*[@id="content"]/table')
   df <- rvest::html_table(df)
   df <- data.frame(df)
-  names(df) <- tolower(gsub('\\.', '_', names(df)))
+  names(df) <- tolower(gsub("\\.", "_", names(df)))
 
-  df <- df[, names(df) != 'var_4']
-  df$upload_date <- as.Date(df$upload_date, format = '%m/%d/%Y')
+  df <- df[, names(df) != "var_4"]
+  df$upload_date <- as.Date(df$upload_date, format = "%m/%d/%Y")
 
   # Make a blank data frame if there are no files to be listed.
-  if(nrow(df) == 0){
-    df <- cbind(df,
-                data.frame(project = character(),
-                           url = character())
+  if (nrow(df) == 0) {
+    df <- cbind(
+      df,
+      data.frame(
+        project = character(),
+        url = character()
+      )
     )
 
-    if(grepl('dataextractionfiles', html_file_list$url)){
-      df <- cbind(df,
-                  data.frame(
-                    detection_type = character(),
-                    detection_year = numeric()
-                  ))
-      df <- df[, c('project', 'file_type', 'detection_type', 'detection_year',
-                   'upload_date', 'file_name', 'url')]
-    }else{
-      df <- df[, c('project', 'file_type', 'upload_date', 'file_name', 'url')]
+    if (grepl("dataextractionfiles", html_file_list$url)) {
+      df <- cbind(
+        df,
+        data.frame(
+          detection_type = character(),
+          detection_year = numeric()
+        )
+      )
+      df <- df[, c(
+        "project", "file_type", "detection_type", "detection_year",
+        "upload_date", "file_name", "url"
+      )]
+    } else {
+      df <- df[, c("project", "file_type", "upload_date", "file_name", "url")]
     }
-
-  }else{
+  } else {
     # otherwise continue to parse
-    df$project <- gsub('.*/', '', html_file_list$url)
+    df$project <- gsub(".*/", "", html_file_list$url)
 
     urls <- scrape_file_urls(html_file_list)
 
     df <- cbind(df, url = urls)
 
     # Parse file name for data extraction files
-    if(grepl('dataextractionfiles', html_file_list$url)){
-      df <- data.frame(detection_type = gsub('.*_(.*)+_detections.*', '\\1',
-                                             df$file_name),
-                       detection_year = as.numeric(
-                         gsub('.*_|.zip', '', df$file_name)
-                       ),
-                       df)
-      df <- df[, c('project', 'file_type', 'detection_type', 'detection_year',
-                   'upload_date', 'file_name', 'url')]
-    }else{
-      df <- df[, c('project', 'file_type', 'upload_date', 'file_name', 'url')]
+    if (grepl("dataextractionfiles", html_file_list$url)) {
+      df <- data.frame(
+        detection_type = gsub(
+          ".*_(.*)+_detections.*", "\\1",
+          df$file_name
+        ),
+        detection_year = as.numeric(
+          gsub(".*_|.zip", "", df$file_name)
+        ),
+        df
+      )
+      df <- df[, c(
+        "project", "file_type", "detection_type", "detection_year",
+        "upload_date", "file_name", "url"
+      )]
+    } else {
+      df <- df[, c("project", "file_type", "upload_date", "file_name", "url")]
     }
   }
 
@@ -222,113 +232,120 @@ html_table_to_df <- function(html_file_list){
 
 #' @rdname utilities
 #'
-login_check <- function(url = 'https://matos.asascience.com/report/submit'){
-
+login_check <- function(url = "https://matos.asascience.com/report/submit") {
   check_response <- httr::HEAD(url)
 
-  if(nrow(check_response$cookies) == 1){
-
+  if (nrow(check_response$cookies) == 1) {
     matos_login()
   }
-
 }
 
 #' @rdname utilities
 #'
-project_check <- function(project, return_projects = FALSE){
+project_check <- function(project, return_projects = FALSE) {
   matos_projects <- list_projects()
 
-  if(is.character(project)){
+  if (is.character(project)) {
     matos_projects_clean <- tolower(matos_projects$name)
     search_project_clean <- tolower(trimws(project))
 
-    if(!(search_project_clean %in% matos_projects_clean)){
-      cli::cli_abort(paste(project,
-                           'was not found among the MATOS project names.'))
+    if (!(search_project_clean %in% matos_projects_clean)) {
+      cli::cli_abort(paste(
+        project,
+        "was not found among the MATOS project names."
+      ))
     }
   }
 
-  if(is.numeric(project)){
-    if(!(project %in% matos_projects$number)){
-      cli::cli_abort(paste(project,
-                           'was not found among the MATOS project numbers.'))
+  if (is.numeric(project)) {
+    if (!(project %in% matos_projects$number)) {
+      cli::cli_abort(paste(
+        project,
+        "was not found among the MATOS project numbers."
+      ))
     }
   }
 
-  if(return_projects == TRUE){
+  if (return_projects == TRUE) {
     matos_projects
   }
 }
 
 #' @rdname utilities
 #'
-scrape_file_urls <- function(html_file_list){
-  urls <- httr::content(html_file_list, 'parsed')
-  urls <- rvest::html_node(urls, 'body')
-  urls <- rvest::html_nodes(urls, 'a')
-  urls <- rvest::html_attr(urls, 'href')
+scrape_file_urls <- function(html_file_list) {
+  urls <- httr::content(html_file_list, "parsed")
+  urls <- rvest::html_node(urls, "body")
+  urls <- rvest::html_nodes(urls, "a")
+  urls <- rvest::html_attr(urls, "href")
 
-  urls <- grep('projectfile', urls, value = T)
+  urls <- grep("projectfile", urls, value = T)
 
-  paste0('https://matos.asascience.com', urls)
+  paste0("https://matos.asascience.com", urls)
 }
 
 #' @rdname utilities
 #'
-download_process <- function(url, out_dir, overwrite, to_vue){
-
+download_process <- function(url, out_dir, overwrite, to_vue) {
   cli::cli_h1("Downloading files")
 
   GET_header <- httr::GET(url)
 
-  response <-  httr::GET(
+  response <- httr::GET(
     url,
     httr::write_disk(
-      path = file.path(out_dir,
-                       gsub('.*filename=|\\"', '',
-                            httr::headers(GET_header)$'content-disposition')),
-      overwrite = overwrite)
+      path = file.path(
+        out_dir,
+        gsub(
+          '.*filename=|\\"', "",
+          httr::headers(GET_header)$"content-disposition"
+        )
+      ),
+      overwrite = overwrite
+    )
   )
 
   file_loc <- file.path(response$content)
 
-  cli::cli_alert_success('\nFile(s) saved to:')
-  cat('  ', paste(file_loc, collapse = '\n   '), '\n')
+  cli::cli_alert_success("\nFile(s) saved to:")
+  cat("  ", paste(file_loc, collapse = "\n   "), "\n")
 
 
   cli::cli_h1("Unzipping files")
 
-  if(grepl('zip', file_loc)){
+  if (grepl("zip", file_loc)) {
     file_loc <- unzip(file_loc, exdir = out_dir, setTimes = FALSE)
 
-    cli::cli_alert_success('\nFile(s) unzipped to:')
-    cat('  ', paste(file_loc, collapse = '\n   '), '\n')
+    cli::cli_alert_success("\nFile(s) unzipped to:")
+    cat("  ", paste(file_loc, collapse = "\n   "), "\n")
   }
 
-  if(isTRUE(to_vue)){
-
+  if (isTRUE(to_vue)) {
     cli::cli_h1("Converting to VUE CSV format")
 
-    file_csv <- grep('.csv', file_loc, value = T)
+    file_csv <- grep(".csv", file_loc, value = T)
     matos <- read.csv(
       file_csv
     )
 
 
-    matos$transmitter.name <- ''
-    matos$transmitter.serial <- ''
+    matos$transmitter.name <- ""
+    matos$transmitter.serial <- ""
 
-    matos <- matos[, c('datecollected', 'receiver', 'tagname', 'transmitter.name',
-                       'transmitter.serial', 'sensorraw', 'sensorunit', 'station',
-                       'latitude', 'longitude')]
+    matos <- matos[, c(
+      "datecollected", "receiver", "tagname", "transmitter.name",
+      "transmitter.serial", "sensorraw", "sensorunit", "station",
+      "latitude", "longitude"
+    )]
 
-    names(matos) <- c('Date and Time (UTC)', 'Receiver', 'Transmitter',
-                      'Transmitter Name', 'Transmitter Serial', 'Sensor Value',
-                      'Sensor Unit', 'Station Name', 'Latitude', 'Longitude')
+    names(matos) <- c(
+      "Date and Time (UTC)", "Receiver", "Transmitter",
+      "Transmitter Name", "Transmitter Serial", "Sensor Value",
+      "Sensor Unit", "Station Name", "Latitude", "Longitude"
+    )
 
     write.csv(matos, file_csv, row.names = F)
-    cli::cli_alert_success('CSV converted to VUE format.')
-
+    cli::cli_alert_success("CSV converted to VUE format.")
   }
 
   file_loc
@@ -345,36 +362,39 @@ download_process <- function(url, out_dir, overwrite, to_vue){
 #' @keywords internal
 
 act_file_download <- function(type, temp_dir = NULL, matos_project = NULL,
-                              project_files = NULL){
-  cli::cli_alert_info(paste('Downloading', type, 'detections...'))
+                              project_files = NULL) {
+  cli::cli_alert_info(paste("Downloading", type, "detections..."))
 
 
-  if(type == 'deployment'){
+  if (type == "deployment") {
     # list project files and select deployment metadata
     files <- list_project_files(matos_project)
 
-    files <- files[grepl('Deployment', files$file_type),]
-  }else{
+    files <- files[grepl("Deployment", files$file_type), ]
+  } else {
     # select the appropriate detection type
-    files <- project_files[project_files$detection_type == type,]
+    files <- project_files[project_files$detection_type == type, ]
   }
 
   # ping the server and download the file(s).
-  files <- lapply(files$url,
-                  function(.){
-                    get_extract_file(url = .,
-                                     out_dir = temp_dir)
-                  }
+  files <- lapply(
+    files$url,
+    function(.) {
+      get_extract_file(
+        url = .,
+        out_dir = temp_dir
+      )
+    }
   )
 
 
   files <- unlist(files)
 
-  if(type != 'deployment'){
-    files <- grep('\\.csv$', files, value = T)
+  if (type != "deployment") {
+    files <- grep("\\.csv$", files, value = T)
   }
 
-  cli::cli_alert_success('   Done.')
+  cli::cli_alert_success("   Done.")
 
   files
 }

@@ -34,9 +34,11 @@ You can install the most-up-to-date version from [R-universe](https://mhpob.r-un
 R-universe:
 ```{r eval=FALSE}
 install.packages(
-  'matos',
-  repos = c('https://mhpob.r-universe.dev',
-            'https://cloud.r-project.org')
+  "matos",
+  repos = c(
+    "https://mhpob.r-universe.dev",
+    "https://cloud.r-project.org"
+  )
 )
 ```
 

@@ -26,27 +26,25 @@
 #' matos_receiver_summary(87, deployment = "my_master_deployment_metadata.xlsx")
 #'
 #' # Get a summary fo what has changed since a particular date:
-#' matos_receiver_summary(87, since = '2022-05-01')
+#' matos_receiver_summary(87, since = "2022-05-01")
 #' }
-
 matos_receiver_summary <- function(
     matos_project = NULL,
     qualified = NULL,
     unqualified = NULL,
     deployment = NULL,
-    ...
-){
-  if(is.null(matos_project) &
-     any(is.null(qualified), is.null(unqualified), is.null(deployment))){
-    cli::cli_abort('Must provide an ACT/MATOS project or at least one each of qualified detections, unqualified detections, and deployment.')
+    ...) {
+  if (is.null(matos_project) &
+    any(is.null(qualified), is.null(unqualified), is.null(deployment))) {
+    cli::cli_abort("Must provide an ACT/MATOS project or at least one each of qualified detections, unqualified detections, and deployment.")
   }
 
 
   # Create a temporary directory to store intermediate files
-  td <- file.path(tempdir(), 'matos_files')
+  td <- file.path(tempdir(), "matos_files")
 
   # remove previous files. Needed if things errored out.
-  if(file.exists(td)){
+  if (file.exists(td)) {
     unlink(td, recursive = T)
   }
 
@@ -54,53 +52,59 @@ matos_receiver_summary <- function(
 
   # Project ----
   ##  Find project name
-  if(is.numeric(matos_project)){
+  if (is.numeric(matos_project)) {
     project_number <- matos_project
     project_name <- get_project_name(matos_project)
   }
-  if(is.character(matos_project)){
+  if (is.character(matos_project)) {
     project_name <- matos_project
     project_number <- get_project_number(matos_project)
   }
 
 
-  if(any(is.null(qualified), is.null(unqualified))){
-    cli::cli_alert_info('Finding extraction files...')
-    project_files <- list_extract_files(project_number, 'all')
-    cli::cli_alert_success('   Files found.')
+  if (any(is.null(qualified), is.null(unqualified))) {
+    cli::cli_alert_info("Finding extraction files...")
+    project_files <- list_extract_files(project_number, "all")
+    cli::cli_alert_success("   Files found.")
   }
 
 
 
   # Qualified detections ----
   ##  Download qualified detections if not provided
-  if(is.null(qualified)){
-    qualified <- act_file_download(type = 'qualified',
-                                   project_files = project_files,
-                                   temp_dir = td)
+  if (is.null(qualified)) {
+    qualified <- act_file_download(
+      type = "qualified",
+      project_files = project_files,
+      temp_dir = td
+    )
   }
 
   # Unqualified detections ----
   ##  Download unqualified detections if not provided
-  if(is.null(unqualified)){
-    unqualified <- act_file_download(type = 'unqualified',
-                                     project_files = project_files,
-                                     temp_dir = td)
+  if (is.null(unqualified)) {
+    unqualified <- act_file_download(
+      type = "unqualified",
+      project_files = project_files,
+      temp_dir = td
+    )
   }
 
   # Deployment log ----
   ##  Download deployment metadata if not provided
-  if(is.null(deployment)){
-    deployment <- act_file_download(type = 'deployment',
-                                    matos_project = matos_project,
-                                    temp_dir = td)
+  if (is.null(deployment)) {
+    deployment <- act_file_download(
+      type = "deployment",
+      matos_project = matos_project,
+      temp_dir = td
+    )
   }
 
 
-  otndo::make_receiver_push_summary(qualified = qualified,
-                                    unqualified = unqualified,
-                                    deployment = deployment,
-                                    ...)
-
-
+  otndo::make_receiver_push_summary(
+    qualified = qualified,
+    unqualified = unqualified,
+    deployment = deployment,
+    ...
+  )
 }
