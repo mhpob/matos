@@ -12,28 +12,26 @@
 #'      CSV export?
 #'
 #' @export
-get_extract_updates <- function(..., out_dir = getwd(), overwrite = F, to_vue = F){
-
+get_extract_updates <- function(..., out_dir = getwd(), overwrite = F, to_vue = F) {
   files <- list_extract_files(...)
 
-  if(nrow(files) == 0){
-
-    print('No files uploaded since the provided date.')
-
-  } else{
+  if (nrow(files) == 0) {
+    print("No files uploaded since the provided date.")
+  } else {
     pb <- txtProgressBar(min = 0, max = length(files$url), style = 3)
-    for(i in seq_along(files$url)){
-      cat('\n')
+    for (i in seq_along(files$url)) {
+      cat("\n")
 
-      get_extract_file(url = files$url[i],
-                       out_dir = out_dir, overwrite = overwrite,
-                       to_vue = to_vue)
+      get_extract_file(
+        url = files$url[i],
+        out_dir = out_dir, overwrite = overwrite,
+        to_vue = to_vue
+      )
 
-      cat('\n')
+      cat("\n")
 
       setTxtProgressBar(pb, i)
     }
     close(pb)
   }
-
 }

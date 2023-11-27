@@ -1,4 +1,4 @@
-test_that('no error in listing projects', {
+test_that("no error in listing projects", {
   # skip test on Runiverse
   skip_on_Runiverse()
 
@@ -14,8 +14,8 @@ test_that("returns correct classes", {
 
   projects <- list_projects()
 
-  expect_s3_class(projects, 'data.frame')
-  expect_type(projects$name, 'character')
-  expect_type(projects$number, 'double')
-  expect_type(projects$url, 'character')
+  expect_s3_class(projects, "data.frame")
+  expect_type(projects$name, "character")
+  expect_type(projects$number, "double")
+  expect_type(projects$url, "character")
 })

@@ -1,5 +1,5 @@
 ## ACT project
-test_that('ACT projects are summarized', {
+test_that("ACT projects are summarized", {
   # skip test on Runiverse
   skip_on_Runiverse()
 
@@ -9,6 +9,5 @@ test_that('ACT projects are summarized', {
     )
   )
 
-  expect_true(any(grepl('tag_push_summary', list.files(getwd()))))
-
+  expect_true(any(grepl("tag_push_summary", list.files(getwd()))))
 })

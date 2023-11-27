@@ -12,4 +12,3 @@
 #' @importFrom utils setTxtProgressBar
 #' @keywords internal
 "_PACKAGE"
-

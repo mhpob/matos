@@ -11,24 +11,22 @@
 #'
 #' # Yup, that's it!
 #' }
-
-set_matos_credentials <- function(overwrite = FALSE){
-
+set_matos_credentials <- function(overwrite = FALSE) {
   home <- Sys.getenv("HOME")
   renv_path <- file.path(home, ".Renviron")
 
-  if(!file.exists(renv_path)){
+  if (!file.exists(renv_path)) {
     file.create(renv_path)
   }
 
   renv <- readLines(renv_path)
 
-  if(any(grepl("MATOS", renv)) & overwrite == F){
+  if (any(grepl("MATOS", renv)) & overwrite == F) {
     cli::cli_abort("Some MATOS credentials already exist. You can overwrite them with the argument overwrite=TRUE.")
   }
 
-  username <- getPass::getPass('Username:', noblank = T)
-  password <- getPass::getPass('Password:', noblank = T)
+  username <- getPass::getPass("Username:", noblank = T)
+  password <- getPass::getPass("Password:", noblank = T)
 
   username <- paste0("MATOS_USER='", username, "'")
   password <- paste0("MATOS_PASS='", password, "'")
