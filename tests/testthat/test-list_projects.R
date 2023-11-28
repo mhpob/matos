@@ -1,12 +1,13 @@
-flatten_names <- function(x){
+flatten_names <- function(x) {
   hold <- tolower(x)
-  gsub("[,\\(\\)_ /:'&\\.]|-", '', hold)
+  gsub("[,\\(\\)_ /:'&\\.]|-", "", hold)
 }
-fuzzy_match_fun <- function(a, b){
+fuzzy_match_fun <- function(a, b) {
   hold <- sapply(a, agrep, b,
-                 max.distance = 0.25,
-                 value = TRUE,
-                 ignore.case = TRUE)
+    max.distance = 0.25,
+    value = TRUE,
+    ignore.case = TRUE
+  )
   hold[sapply(hold, length) > 0]
 }
 
@@ -50,9 +51,9 @@ test_that("merge doesn't match multiple OTN projects.", {
 })
 
 otn_dangler <- otn_metadata[!otn_metadata$names %in%
-                              exact_matches$names,]
+  exact_matches$names, ]
 matos_dangler <- matos_projects[!matos_projects$names %in%
-                                  exact_matches$names,]
+  exact_matches$names, ]
 
 otn_in_matos <- fuzzy_match_fun(otn_dangler, matos_dangler)
 matos_in_otn <- fuzzy_match_fun(matos_dangler, otn_dangler)

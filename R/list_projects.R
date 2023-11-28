@@ -62,9 +62,9 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     # Merge MATOS and OTN data
     ## Flatten and remove special characters to aid in matching
-    flatten_names <- function(x){
+    flatten_names <- function(x) {
       hold <- tolower(x)
-      gsub("[,\\(\\)_ /:'&\\.]|-", '', hold)
+      gsub("[,\\(\\)_ /:'&\\.]|-", "", hold)
     }
 
     projects$match_names <- flatten_names(projects$name)
@@ -73,26 +73,28 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     ## Match MATOS and OTN projects
     exact_matches <- merge(projects, otn_metadata,
-                           by = 'match_names')
+      by = "match_names"
+    )
 
     ### Throw an error if there are multiple matches
-    if(length(unique(exact_matches$match_names)) != nrow(exact_matches)){
-      stop('MATOS has matched multiple OTN project names.')
+    if (length(unique(exact_matches$match_names)) != nrow(exact_matches)) {
+      stop("MATOS has matched multiple OTN project names.")
     }
 
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-                                  exact_matches$shortname,]
-    matos_dangler <- projects[!projects$name %in% exact_matches$name,]
+      exact_matches$shortname, ]
+    matos_dangler <- projects[!projects$name %in% exact_matches$name, ]
 
 
     ## Use agrep for fuzzy matching
-    fuzzy_match_fun <- function(a, b){
+    fuzzy_match_fun <- function(a, b) {
       hold <- sapply(a, agrep, b,
-                     max.distance = 0.25,
-                     value = TRUE,
-                     ignore.case = TRUE)
+        max.distance = 0.25,
+        value = TRUE,
+        ignore.case = TRUE
+      )
       hold[sapply(hold, length) > 0]
     }
 
@@ -115,15 +117,18 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     ## Select metadata of fuzzy matches
     otn_match <- merge(otn_metadata, fuzzy_matches,
-                       by.x = 'shortname', by.y = 'otn')
+      by.x = "shortname", by.y = "otn"
+    )
     matos_match <- merge(projects, fuzzy_matches,
-                         by.x = 'name', by.y = 'matos')
+      by.x = "name", by.y = "matos"
+    )
 
     ## Merge keys
     fuzzy_matches <- merge(matos_match, otn_match,
-                           by.x = c('otn', 'name'),
-                           by.y = c('shortname', 'matos'))
-    names(fuzzy_matches)[names(fuzzy_matches) == 'otn'] <- 'shortname'
+      by.x = c("otn", "name"),
+      by.y = c("shortname", "matos")
+    )
+    names(fuzzy_matches)[names(fuzzy_matches) == "otn"] <- "shortname"
 
     ## Combine matches
     matches <- merge(exact_matches, fuzzy_matches, all = T)
@@ -131,21 +136,23 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
     ## Move names around
     projects <- merge(
       projects[, 1:3],
-      matches[,!grepl('^match', names(matches))],
+      matches[, !grepl("^match", names(matches))],
       all = T
     )
 
-    projects$collectioncode <- gsub('ACT\\.', '', projects$collectioncode)
+    projects$collectioncode <- gsub("ACT\\.", "", projects$collectioncode)
 
-    projects <- projects[, c('name', 'collectioncode', 'number', 'url',
-                             'status', 'longname', 'citation', 'website',
-                             'collaborationtype', 'locality', 'abstract')]
+    projects <- projects[, c(
+      "name", "collectioncode", "number", "url",
+      "status", "longname", "citation", "website",
+      "collaborationtype", "locality", "abstract"
+    )]
 
-    missing_otn <- projects[!complete.cases(projects),]
+    missing_otn <- projects[!complete.cases(projects), ]
 
-    if(nrow(missing_otn) != 0){
+    if (nrow(missing_otn) != 0) {
       cli::cli_alert_info(
-        'These projects are missing metadata as they have not yet synced with OTN: {.val {missing_otn$name}}',
+        "These projects are missing metadata as they have not yet synced with OTN: {.val {missing_otn$name}}",
         wrap = TRUE
       )
     }

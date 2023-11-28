@@ -6,10 +6,10 @@
     )
   )
 
-  if(!curl::has_internet()){
+  if (!curl::has_internet()) {
     packageStartupMessage(
       cli::cli_alert_warning(
-        'No internet connection detected. Package functionality will be limited.'
+        "No internet connection detected. Package functionality will be limited."
       )
     )
   }
