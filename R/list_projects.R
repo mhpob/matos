@@ -1,9 +1,12 @@
 #' List MATOS projects
 #'
-#' By default, this function scrapes the table found at \url{https://matos.asascience.com/project}.
-#' This table provides not only the full name of the project, but also the MATOS
-#' project number and project page URL. You do not need to log in via \code{matos_login}
-#' or have any permissions to view/download this table.
+#' This function scrapes the table found at \url{https://matos.asascience.com/project}
+#' and combines it with project metadata stored on the
+#' \href{https://members.oceantrack.org/geoserver/web/}{Ocean Tracking Network Geoserver}.
+#' This table provides the full name of the project, collection code, MATOS
+#' project number, MATOS project page URL, project status, full name, citation,
+#' website, project type, area, and abstract. You do not need to log in
+#' via \code{matos_login} or have any permissions to view/download this table.
 #'
 #' @param what What list of projects do you want returned: all projects ("all",
 #'      default) or your projects ("mine")?
@@ -25,6 +28,7 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
   what <- match.arg(what)
 
   if (what == "all") {
+    # Download and parse MATOS project page
     project_list <- httr::GET(
       "https://matos.asascience.com/project"
     )
@@ -43,6 +47,108 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
         urls
       )
     )
+
+
+    # Pull ACT metadata from OTN database as it's a bit faster
+    otn_metadata <- paste0(
+      "https://members.oceantrack.org/geoserver/otn/ows?service=WFS&",
+      "version=1.0.0&request=GetFeature&typeName=otn:",
+      "otn_resources_metadata",
+      "&outputFormat=csv&CQL_FILTER=strMatches(node,'ACT')=true"
+    ) |>
+      URLencode() |>
+      read.csv()
+
+
+    # Merge MATOS and OTN data
+    ## Flatten and remove special characters to aid in matching
+    flatten_names <- function(x){
+      hold <- tolower(x)
+      gsub("[,\\(\\)_ /:'&\\.]|-", '', hold)
+    }
+
+    projects$match_names <- flatten_names(projects$name)
+    otn_metadata$match_names <- flatten_names(otn_metadata$shortname)
+
+
+    ## Match MATOS and OTN projects
+    exact_matches <- merge(projects, otn_metadata,
+                           by = 'match_names')
+
+    ### Throw an error if there are multiple matches
+    if(length(unique(exact_matches$match_names)) != nrow(exact_matches)){
+      stop('MATOS has matched multiple OTN project names.')
+    }
+
+
+    ## Find which are left over from the OTN and MATOS data sets
+    otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
+                                  exact_matches$shortname,]
+    matos_dangler <- projects[!projects$name %in% exact_matches$name,]
+
+
+    ## Use agrep for fuzzy matching
+    fuzzy_match_fun <- function(a, b){
+      hold <- sapply(a, agrep, b,
+                     max.distance = 0.25,
+                     value = TRUE,
+                     ignore.case = TRUE)
+      hold[sapply(hold, length) > 0]
+    }
+
+    ## Fuzzy match OTN names with MATOS names and vice versa
+    otn_in_matos <- fuzzy_match_fun(otn_dangler$shortname, matos_dangler$name)
+    matos_in_otn <- fuzzy_match_fun(matos_dangler$name, otn_dangler$shortname)
+
+    ## Create keys
+    otn_in_matos <- data.frame(
+      matos = unlist(otn_in_matos, use.names = F),
+      otn = names(otn_in_matos)
+    )
+    matos_in_otn <- data.frame(
+      matos = names(matos_in_otn),
+      otn = unlist(matos_in_otn, use.names = F)
+    )
+
+    ## Merge matches
+    fuzzy_matches <- merge(otn_in_matos, matos_in_otn, all = T)
+
+    ## Select metadata of fuzzy matches
+    otn_match <- merge(otn_metadata, fuzzy_matches,
+                       by.x = 'shortname', by.y = 'otn')
+    matos_match <- merge(projects, fuzzy_matches,
+                         by.x = 'name', by.y = 'matos')
+
+    ## Merge keys
+    fuzzy_matches <- merge(matos_match, otn_match,
+                           by.x = c('otn', 'name'),
+                           by.y = c('shortname', 'matos'))
+    names(fuzzy_matches)[names(fuzzy_matches) == 'otn'] <- 'shortname'
+
+    ## Combine matches
+    matches <- merge(exact_matches, fuzzy_matches, all = T)
+
+    ## Move names around
+    projects <- merge(
+      projects[, 1:3],
+      matches[,!grepl('^match', names(matches))],
+      all = T
+    )
+
+    projects$collectioncode <- gsub('ACT\\.', '', projects$collectioncode)
+
+    projects <- projects[, c('name', 'collectioncode', 'number', 'url',
+                             'status', 'longname', 'citation', 'website',
+                             'collaborationtype', 'locality', 'abstract')]
+
+    missing_otn <- projects[!complete.cases(projects),]
+
+    if(nrow(missing_otn) != 0){
+      cli::cli_alert_info(
+        'These projects are missing metadata as they have not yet synced with OTN: {.val {missing_otn$name}}',
+        wrap = TRUE
+      )
+    }
   }
 
   if (what == "mine") {

@@ -1,3 +1,48 @@
+test_that("agrep doesn't match multiple OTN projects", {
+  flatten_names <- function(x){
+    hold <- tolower(x)
+    gsub("[,\\(\\)_ /:'&\\.]|-", '', hold)
+  }
+  fuzzy_match_fun <- function(a, b){
+    hold <- sapply(a, agrep, b,
+                   max.distance = 0.25,
+                   value = TRUE,
+                   ignore.case = TRUE)
+    hold[sapply(hold, length) > 0]
+  }
+
+
+  matos_projects <- httr::GET(
+    "https://matos.asascience.com/project"
+  )
+
+  matos_projects <- httr::content(matos_projects)
+  matos_projects <- rvest::html_node(matos_projects, ".project_list")
+  matos_projects <- rvest::html_nodes(matos_projects, "a")
+  matos_projects <- rvest::html_text(matos_projects, trim = T)
+
+  matos_projects <- flatten_names(matos_projects)
+
+  otn_metadata <- paste0(
+    "https://members.oceantrack.org/geoserver/otn/ows?service=WFS&",
+    "version=1.0.0&request=GetFeature&typeName=otn:",
+    "otn_resources_metadata",
+    "&outputFormat=csv&CQL_FILTER=strMatches(node,'ACT')=true"
+  ) |>
+    URLencode() |>
+    read.csv()
+
+  otn_metadata <- flatten_names(otn_metadata$shortname)
+
+  exact_matches <- merge(projects, otn_metadata,
+                         by = 'match_names')
+
+  expect_equal(
+    length(unique(exact_matches$match_names)),
+    nrow(exact_matches)
+  )
+})
+
 test_that("no error in listing projects", {
   # skip test on Runiverse
   skip_on_Runiverse()
