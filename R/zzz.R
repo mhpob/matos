@@ -5,6 +5,14 @@
       "{.url https://matos.asascience.com/static/MATOS.User.Agreement.V1.1.pdf}"
     )
   )
+
+  if(!curl::has_internet()){
+    packageStartupMessage(
+      cli::cli_alert_warning(
+        'No internet connection detected. Package functionality will be limited.'
+      )
+    )
+  }
 }
 
 .onLoad <- function(libname, pkgname) {

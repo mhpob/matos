@@ -10,11 +10,12 @@ Description: This package provides HTML-scaping functions to interact with the
   of data and the downloading and posting of files.
 Imports:
     cli,
-    httr,
-    rvest,
+    curl,
     getPass,
+    httr,
+    memoise,
     otndo,
-    memoise
+    rvest
 Suggests:
     future.apply,
     testthat (>= 3.0.0),
