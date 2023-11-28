@@ -29,6 +29,6 @@ Download Ocean-Tracking-Network-style metadata templates
 get_otn_template()
 
 # Glider metadata template downloaded to downloads folder
-get_otn_template('glider', 'c:/users/myusername/downloads/glider_metadata.xlsx')
+get_otn_template("glider", "c:/users/myusername/downloads/glider_metadata.xlsx")
 }
 }

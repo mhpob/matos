@@ -10,5 +10,5 @@ matos_logoff()
 This function takes no arguments -- just tells MATOS that you want to log out. Useful if you're changing users or on a public computer and would like to protect your projects.
 }
 \examples{
- matos_logoff()
+matos_logoff()
 }

@@ -47,19 +47,25 @@ and posted to the same project.
 \examples{
 \dontrun{
 # Newly tagged fish, the default
-upload_file(87, 'your_tagged_fish.xls')
-upload_file(87, 'your_tagged_fish.xls', 'new_tags')
+upload_file(87, "your_tagged_fish.xls")
+upload_file(87, "your_tagged_fish.xls", "new_tags")
 
 # Transmitter detections
-upload_file('umces boem offshore wind energy',
-      'c:/wherever/your_CSV_detections.csv',
-      'detections')
-upload_file('umces boem offshore wind energy',
-      'c:/wherever/your_VRL_detections.vrl',
-      'detections')
+upload_file(
+  "umces boem offshore wind energy",
+  "c:/wherever/your_CSV_detections.csv",
+  "detections"
+)
+upload_file(
+  "umces boem offshore wind energy",
+  "c:/wherever/your_VRL_detections.vrl",
+  "detections"
+)
 
 # Receiver metadata
-upload_file('umces boem offshore wind energy',
-      'your_receiver_metadata.xlsx', 'receivers')
+upload_file(
+  "umces boem offshore wind energy",
+  "your_receiver_metadata.xlsx", "receivers"
+)
 }
 }

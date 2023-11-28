@@ -22,6 +22,6 @@ Create summary reports of receiver project data from the OTN data push
 matos_tag_summary(87)
 
 # Or provide an optional date to summarize "What's New".
-matos_tag_summary(87, since = '2018-11-01')
+matos_tag_summary(87, since = "2018-11-01")
 }
 }

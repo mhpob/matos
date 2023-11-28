@@ -53,15 +53,15 @@ of your project page.
 list_project_files(87)
 
 # Or using the project name
-list_project_files('umces boem offshore wind energy')
+list_project_files("umces boem offshore wind energy")
 
 # List only the receiver deployment metadata files
-List_project_files(87, 'receiver_metadata')
+List_project_files(87, "receiver_metadata")
 
 # List both the receiver and transmitter deployment metadata files
-List_project_files(87, c('receiver_metadata', 'tag_metadata'))
+List_project_files(87, c("receiver_metadata", "tag_metadata"))
 
 # Cheat and use shorter names
-List_project_files(87, c('receiver', 'tag'))
+List_project_files(87, c("receiver", "tag"))
 }
 }

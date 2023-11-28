@@ -55,9 +55,9 @@ are files listed on the \emph{Data Extraction Files} page.
 list_extract_files(87)
 
 # Or, just grab the matched receiver detections
-list_files(project = 87, detection_type = 'qualified')
+list_files(project = 87, detection_type = "qualified")
 
 # OR list files using the project name
-list_files('umces boem offshore wind energy')
+list_files("umces boem offshore wind energy")
 }
 }

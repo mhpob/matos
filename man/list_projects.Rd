@@ -15,10 +15,13 @@ for which you have file-read permission? Defaults to TRUE, though there
 is significant speed up if switched to FALSE.}
 }
 \description{
-By default, this function scrapes the table found at \url{https://matos.asascience.com/project}.
-This table provides not only the full name of the project, but also the MATOS
-project number and project page URL. You do not need to log in via \code{matos_login}
-or have any permissions to view/download this table.
+This function scrapes the table found at \url{https://matos.asascience.com/project}
+and combines it with project metadata stored on the
+\href{https://members.oceantrack.org/geoserver/web/}{Ocean Tracking Network Geoserver}.
+This table provides the full name of the project, collection code, MATOS
+project number, MATOS project page URL, project status, full name, citation,
+website, project type, area, and abstract. You do not need to log in
+via \code{matos_login} or have any permissions to view/download this table.
 }
 \examples{
 \dontrun{
@@ -26,6 +29,6 @@ or have any permissions to view/download this table.
 list_projects()
 
 # List your projects (which may contain some for which you do not have read access):
-list_projects('mine', read_access = F)
+list_projects("mine", read_access = F)
 }
 }

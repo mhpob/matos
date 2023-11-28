@@ -27,8 +27,10 @@ searching over a long period of time.
 }
 \examples{
 \dontrun{
-get_tag_search(tags = paste0('A69-1601-254', seq(60, 90, 1)),
-           start_date = '03/01/2016',
-           end_date = '04/01/2016')
+get_tag_search(
+  tags = paste0("A69-1601-254", seq(60, 90, 1)),
+  start_date = "03/01/2016",
+  end_date = "04/01/2016"
+)
 }
 }

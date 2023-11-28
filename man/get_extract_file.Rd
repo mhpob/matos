@@ -37,7 +37,7 @@ conjunction with \code{\link{list_extract_files}}.
 \examples{
 \dontrun{
 # If you know the direct URL to your file, you don't need the file or project names:
-get_extract_file(url = 'https://matos.asascience.com/projectfile/download/327')
+get_extract_file(url = "https://matos.asascience.com/projectfile/download/327")
 
 get_extract_file(file = 1, project = 87)
 }
