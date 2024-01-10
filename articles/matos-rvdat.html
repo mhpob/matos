@@ -90,6 +90,11 @@ Connect programs and clicking a bunch of buttons, or you can do it
 programmatically and reproducibly by combining <code>matos</code> and <a href="https://rvdat.obrien.page" class="external-link"><code>rvdat</code></a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mhpob/matos" class="external-link">matos</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; By continuing, you are agreeing to the ACT Network MATOS User</span></span>
+<span><span class="co">#&gt; Agreement and Data Policy, Version 1.2:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; &lt;https://matos.asascience.com/static/MATOS.User.Agreement.V1.1.pdf&gt;</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rvdat.obrien.page" class="external-link">rvdat</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="download-the-data">Download the data<a class="anchor" aria-label="anchor" href="#download-the-data"></a>
@@ -114,6 +119,11 @@ tilt are logged within the VRL/VDAT files, and so will be under the
 <span>  project <span class="op">=</span> <span class="st">"UMCES Chesapeake Backbone, Mid-Bay"</span>,</span>
 <span>  file_type <span class="op">=</span> <span class="st">"detections"</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ These projects are missing metadata as they have not yet synced</span></span>
+<span><span class="co">#&gt; with OTN: "BTWaves Caribbean Acoustic Tagging", "CT DEEP Array</span></span>
+<span><span class="co">#&gt; (2022-2026)", "ERDC_Brunswick", "SBU Eco-Pod", "SBU Landscape Lab</span></span>
+<span><span class="co">#&gt; Array", "SBU NY Ocean Indicators", "UNH - Rainbow smelt", and "WCS</span></span>
+<span><span class="co">#&gt; New York Sand Tiger Shark Study"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">detection_files</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   project                  file_type upload_date</span></span>
@@ -145,7 +155,11 @@ tilt are logged within the VRL/VDAT files, and so will be under the
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── Downloading files ──────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; Error: Path exists and overwrite is FALSE</span></span>
+<span><span class="co">#&gt; ✔ File(s) saved to:</span></span>
+<span><span class="co">#&gt;    C:\Users\darpa2\AppData\Local\Temp\Rtmpo3atQK\VR2AR_546323_20231012_1.vrl</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── Unzipping files ────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; [1] "C:\\Users\\darpa2\\AppData\\Local\\Temp\\Rtmpo3atQK\\VR2AR_546323_20231012_1.vrl"</span></span>
 <span></span>
 <span><span class="va">vrl_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, pattern <span class="op">=</span> <span class="st">"vrl$"</span>, full.names <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -160,104 +174,22 @@ into a folder of CSV files, each one representing one data type.</p>
 <span>  outdir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; ✔ File converted:</span></span>
-<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpIZHMcr/VR2AR_546323_20231012_1.vrl</span></span>
+<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\Rtmpo3atQK/VR2AR_546323_20231012_1.vrl</span></span>
 <span><span class="co">#&gt; ℹ Files saved in:</span></span>
-<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpIZHMcr/VR2AR_546323_20231012_1[20240110-17-14-23-xxxxxx].csv-fathom-split</span></span></code></pre></div>
+<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\Rtmpo3atQK/VR2AR_546323_20231012_1.csv-fathom-split</span></span></code></pre></div>
 <p>There are quite a few files in there, but for this we’re going to
 focus on the temperature records stored in <code>TEMP.csv</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, pattern <span class="op">=</span> <span class="st">"fathom-split"</span>, full.names <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   [1] "ATTITUDE.csv"         "ATTITUDE.csv"        </span></span>
-<span><span class="co">#&gt;   [3] "ATTITUDE.csv"         "ATTITUDE.csv"        </span></span>
-<span><span class="co">#&gt;   [5] "ATTITUDE.csv"         "ATTITUDE.csv"        </span></span>
-<span><span class="co">#&gt;   [7] "ATTITUDE.csv"         "ATTITUDE.csv"        </span></span>
-<span><span class="co">#&gt;   [9] "ATTITUDE.csv"         "ATTITUDE.csv"        </span></span>
-<span><span class="co">#&gt;  [11] "ATTITUDE.csv"         "ATTITUDE.csv"        </span></span>
-<span><span class="co">#&gt;  [13] "BATTERY.csv"          "BATTERY.csv"         </span></span>
-<span><span class="co">#&gt;  [15] "BATTERY.csv"          "BATTERY.csv"         </span></span>
-<span><span class="co">#&gt;  [17] "BATTERY.csv"          "BATTERY.csv"         </span></span>
-<span><span class="co">#&gt;  [19] "BATTERY.csv"          "BATTERY.csv"         </span></span>
-<span><span class="co">#&gt;  [21] "BATTERY.csv"          "BATTERY.csv"         </span></span>
-<span><span class="co">#&gt;  [23] "BATTERY.csv"          "BATTERY.csv"         </span></span>
-<span><span class="co">#&gt;  [25] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     </span></span>
-<span><span class="co">#&gt;  [27] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     </span></span>
-<span><span class="co">#&gt;  [29] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     </span></span>
-<span><span class="co">#&gt;  [31] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     </span></span>
-<span><span class="co">#&gt;  [33] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     </span></span>
-<span><span class="co">#&gt;  [35] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     </span></span>
-<span><span class="co">#&gt;  [37] "CFG_STUDY.csv"        "CFG_STUDY.csv"       </span></span>
-<span><span class="co">#&gt;  [39] "CFG_STUDY.csv"        "CFG_STUDY.csv"       </span></span>
-<span><span class="co">#&gt;  [41] "CFG_STUDY.csv"        "CFG_STUDY.csv"       </span></span>
-<span><span class="co">#&gt;  [43] "CFG_STUDY.csv"        "CFG_STUDY.csv"       </span></span>
-<span><span class="co">#&gt;  [45] "CFG_STUDY.csv"        "CFG_STUDY.csv"       </span></span>
-<span><span class="co">#&gt;  [47] "CFG_STUDY.csv"        "CFG_STUDY.csv"       </span></span>
-<span><span class="co">#&gt;  [49] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" </span></span>
-<span><span class="co">#&gt;  [51] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" </span></span>
-<span><span class="co">#&gt;  [53] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" </span></span>
-<span><span class="co">#&gt;  [55] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" </span></span>
-<span><span class="co">#&gt;  [57] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" </span></span>
-<span><span class="co">#&gt;  [59] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" </span></span>
-<span><span class="co">#&gt;  [61] "CLOCK_REF.csv"        "CLOCK_REF.csv"       </span></span>
-<span><span class="co">#&gt;  [63] "CLOCK_REF.csv"        "CLOCK_REF.csv"       </span></span>
-<span><span class="co">#&gt;  [65] "CLOCK_REF.csv"        "CLOCK_REF.csv"       </span></span>
-<span><span class="co">#&gt;  [67] "CLOCK_REF.csv"        "CLOCK_REF.csv"       </span></span>
-<span><span class="co">#&gt;  [69] "CLOCK_REF.csv"        "CLOCK_REF.csv"       </span></span>
-<span><span class="co">#&gt;  [71] "CLOCK_REF.csv"        "CLOCK_REF.csv"       </span></span>
-<span><span class="co">#&gt;  [73] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"</span></span>
-<span><span class="co">#&gt;  [75] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"</span></span>
-<span><span class="co">#&gt;  [77] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"</span></span>
-<span><span class="co">#&gt;  [79] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"</span></span>
-<span><span class="co">#&gt;  [81] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"</span></span>
-<span><span class="co">#&gt;  [83] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"</span></span>
-<span><span class="co">#&gt;  [85] "DEPTH.csv"            "DEPTH.csv"           </span></span>
-<span><span class="co">#&gt;  [87] "DEPTH.csv"            "DEPTH.csv"           </span></span>
-<span><span class="co">#&gt;  [89] "DEPTH.csv"            "DEPTH.csv"           </span></span>
-<span><span class="co">#&gt;  [91] "DEPTH.csv"            "DEPTH.csv"           </span></span>
-<span><span class="co">#&gt;  [93] "DEPTH.csv"            "DEPTH.csv"           </span></span>
-<span><span class="co">#&gt;  [95] "DEPTH.csv"            "DEPTH.csv"           </span></span>
-<span><span class="co">#&gt;  [97] "DET.csv"              "DET.csv"             </span></span>
-<span><span class="co">#&gt;  [99] "DET.csv"              "DET.csv"             </span></span>
-<span><span class="co">#&gt; [101] "DET.csv"              "DET.csv"             </span></span>
-<span><span class="co">#&gt; [103] "DET.csv"              "DET.csv"             </span></span>
-<span><span class="co">#&gt; [105] "DET.csv"              "DET.csv"             </span></span>
-<span><span class="co">#&gt; [107] "DET.csv"              "DET.csv"             </span></span>
-<span><span class="co">#&gt; [109] "DIAG.csv"             "DIAG.csv"            </span></span>
-<span><span class="co">#&gt; [111] "DIAG.csv"             "DIAG.csv"            </span></span>
-<span><span class="co">#&gt; [113] "DIAG.csv"             "DIAG.csv"            </span></span>
-<span><span class="co">#&gt; [115] "DIAG.csv"             "DIAG.csv"            </span></span>
-<span><span class="co">#&gt; [117] "DIAG.csv"             "DIAG.csv"            </span></span>
-<span><span class="co">#&gt; [119] "DIAG.csv"             "DIAG.csv"            </span></span>
-<span><span class="co">#&gt; [121] "EVENT.csv"            "EVENT.csv"           </span></span>
-<span><span class="co">#&gt; [123] "EVENT.csv"            "EVENT.csv"           </span></span>
-<span><span class="co">#&gt; [125] "EVENT.csv"            "EVENT.csv"           </span></span>
-<span><span class="co">#&gt; [127] "EVENT.csv"            "EVENT.csv"           </span></span>
-<span><span class="co">#&gt; [129] "EVENT.csv"            "EVENT.csv"           </span></span>
-<span><span class="co">#&gt; [131] "EVENT.csv"            "EVENT.csv"           </span></span>
-<span><span class="co">#&gt; [133] "EVENT_INIT.csv"       "EVENT_INIT.csv"      </span></span>
-<span><span class="co">#&gt; [135] "EVENT_INIT.csv"       "EVENT_INIT.csv"      </span></span>
-<span><span class="co">#&gt; [137] "EVENT_INIT.csv"       "EVENT_INIT.csv"      </span></span>
-<span><span class="co">#&gt; [139] "EVENT_INIT.csv"       "EVENT_INIT.csv"      </span></span>
-<span><span class="co">#&gt; [141] "EVENT_INIT.csv"       "EVENT_INIT.csv"      </span></span>
-<span><span class="co">#&gt; [143] "EVENT_INIT.csv"       "EVENT_INIT.csv"      </span></span>
-<span><span class="co">#&gt; [145] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   </span></span>
-<span><span class="co">#&gt; [147] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   </span></span>
-<span><span class="co">#&gt; [149] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   </span></span>
-<span><span class="co">#&gt; [151] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   </span></span>
-<span><span class="co">#&gt; [153] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   </span></span>
-<span><span class="co">#&gt; [155] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   </span></span>
-<span><span class="co">#&gt; [157] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    </span></span>
-<span><span class="co">#&gt; [159] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    </span></span>
-<span><span class="co">#&gt; [161] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    </span></span>
-<span><span class="co">#&gt; [163] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    </span></span>
-<span><span class="co">#&gt; [165] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    </span></span>
-<span><span class="co">#&gt; [167] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    </span></span>
-<span><span class="co">#&gt; [169] "TEMP.csv"             "TEMP.csv"            </span></span>
-<span><span class="co">#&gt; [171] "TEMP.csv"             "TEMP.csv"            </span></span>
-<span><span class="co">#&gt; [173] "TEMP.csv"             "TEMP.csv"            </span></span>
-<span><span class="co">#&gt; [175] "TEMP.csv"             "TEMP.csv"            </span></span>
-<span><span class="co">#&gt; [177] "TEMP.csv"             "TEMP.csv"            </span></span>
-<span><span class="co">#&gt; [179] "TEMP.csv"             "TEMP.csv"</span></span>
+<span><span class="co">#&gt;  [1] "ATTITUDE.csv"         "BATTERY.csv"         </span></span>
+<span><span class="co">#&gt;  [3] "CFG_CHANNEL.csv"      "CFG_STUDY.csv"       </span></span>
+<span><span class="co">#&gt;  [5] "CFG_TRANSMITTER.csv"  "CLOCK_REF.csv"       </span></span>
+<span><span class="co">#&gt;  [7] "DATA_SOURCE_FILE.csv" "DEPTH.csv"           </span></span>
+<span><span class="co">#&gt;  [9] "DET.csv"              "DIAG.csv"            </span></span>
+<span><span class="co">#&gt; [11] "EVENT.csv"            "EVENT_INIT.csv"      </span></span>
+<span><span class="co">#&gt; [13] "EVENT_OFFLOAD.csv"    "HEALTH_VR2AR.csv"    </span></span>
+<span><span class="co">#&gt; [15] "TEMP.csv"</span></span>
 <span></span>
 <span><span class="va">bwt_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, pattern <span class="op">=</span> <span class="st">"TEMP"</span>, full.names <span class="op">=</span> <span class="cn">T</span>, recursive <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -267,14 +199,37 @@ focus on the temperature records stored in <code>TEMP.csv</code>.</p>
 <p>Let’s read in the data.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">bwt_file</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in file(file, "rt"): invalid 'description' argument</span></span></code></pre></div>
+<span><span class="co">#&gt; Error in read.table(file = file, header = header, sep = sep, quote = quote, : more columns than column names</span></span></code></pre></div>
 <p>An error, oh no! Let’s see what’s causing it.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">bwt_file</span>,</span>
 <span>  header <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  nrows <span class="op">=</span> <span class="fl">5</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in file(file, "rt"): invalid 'description' argument</span></span></code></pre></div>
+<span><span class="co">#&gt;               V1                  V2</span></span>
+<span><span class="co">#&gt; 1 VEMCO DATA LOG               2.0.0</span></span>
+<span><span class="co">#&gt; 2      TEMP_DESC   Device Time (UTC)</span></span>
+<span><span class="co">#&gt; 3           TEMP 2022-05-04 16:00:00</span></span>
+<span><span class="co">#&gt; 4           TEMP 2022-05-04 17:00:00</span></span>
+<span><span class="co">#&gt; 5           TEMP 2022-05-04 18:00:00</span></span>
+<span><span class="co">#&gt;                                   V3              V4</span></span>
+<span><span class="co">#&gt; 1 vdat-7.0.0-20231107-14c992-release                </span></span>
+<span><span class="co">#&gt; 2                               Time Time Offset (h)</span></span>
+<span><span class="co">#&gt; 3                                                   </span></span>
+<span><span class="co">#&gt; 4                                                   </span></span>
+<span><span class="co">#&gt; 5                                                   </span></span>
+<span><span class="co">#&gt;                    V5       V6            V7              V8</span></span>
+<span><span class="co">#&gt; 1                                                           </span></span>
+<span><span class="co">#&gt; 2 Time Correction (s)    Model Serial Number Ambient (deg C)</span></span>
+<span><span class="co">#&gt; 3                     VR2AR-69        546323          13.558</span></span>
+<span><span class="co">#&gt; 4                     VR2AR-69        546323          12.869</span></span>
+<span><span class="co">#&gt; 5                     VR2AR-69        546323          12.827</span></span>
+<span><span class="co">#&gt;                 V9</span></span>
+<span><span class="co">#&gt; 1                 </span></span>
+<span><span class="co">#&gt; 2 Internal (deg C)</span></span>
+<span><span class="co">#&gt; 3                 </span></span>
+<span><span class="co">#&gt; 4                 </span></span>
+<span><span class="co">#&gt; 5</span></span></code></pre></div>
 <p>Ah, the data doesn’t really start until the second row. Skip the
 first one and take a look.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -282,23 +237,29 @@ first one and take a look.</p>
 <span>  <span class="va">bwt_file</span>,</span>
 <span>  skip <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in file(file, "rt"): invalid 'description' argument</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bwt</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   tempdesc       devicetimeutc time timeoffseth timecorrections</span></span>
-<span><span class="co">#&gt; 1     TEMP 2022-05-04 16:00:00   NA          NA              NA</span></span>
-<span><span class="co">#&gt; 2     TEMP 2022-05-04 17:00:00   NA          NA              NA</span></span>
-<span><span class="co">#&gt; 3     TEMP 2022-05-04 18:00:00   NA          NA              NA</span></span>
-<span><span class="co">#&gt; 4     TEMP 2022-05-04 19:00:00   NA          NA              NA</span></span>
-<span><span class="co">#&gt; 5     TEMP 2022-05-04 20:00:00   NA          NA              NA</span></span>
-<span><span class="co">#&gt; 6     TEMP 2022-05-04 21:00:00   NA          NA              NA</span></span>
-<span><span class="co">#&gt;      model serialnumber ambientdegc internaldegc</span></span>
-<span><span class="co">#&gt; 1 VR2AR-69       546323      13.558           NA</span></span>
-<span><span class="co">#&gt; 2 VR2AR-69       546323      12.869           NA</span></span>
-<span><span class="co">#&gt; 3 VR2AR-69       546323      12.827           NA</span></span>
-<span><span class="co">#&gt; 4 VR2AR-69       546323      12.806           NA</span></span>
-<span><span class="co">#&gt; 5 VR2AR-69       546323      12.806           NA</span></span>
-<span><span class="co">#&gt; 6 VR2AR-69       546323      12.827           NA</span></span></code></pre></div>
+<span><span class="co">#&gt;   TEMP_DESC   Device.Time..UTC. Time Time.Offset..h.</span></span>
+<span><span class="co">#&gt; 1      TEMP 2022-05-04 16:00:00   NA              NA</span></span>
+<span><span class="co">#&gt; 2      TEMP 2022-05-04 17:00:00   NA              NA</span></span>
+<span><span class="co">#&gt; 3      TEMP 2022-05-04 18:00:00   NA              NA</span></span>
+<span><span class="co">#&gt; 4      TEMP 2022-05-04 19:00:00   NA              NA</span></span>
+<span><span class="co">#&gt; 5      TEMP 2022-05-04 20:00:00   NA              NA</span></span>
+<span><span class="co">#&gt; 6      TEMP 2022-05-04 21:00:00   NA              NA</span></span>
+<span><span class="co">#&gt;   Time.Correction..s.    Model Serial.Number Ambient..deg.C.</span></span>
+<span><span class="co">#&gt; 1                  NA VR2AR-69        546323          13.558</span></span>
+<span><span class="co">#&gt; 2                  NA VR2AR-69        546323          12.869</span></span>
+<span><span class="co">#&gt; 3                  NA VR2AR-69        546323          12.827</span></span>
+<span><span class="co">#&gt; 4                  NA VR2AR-69        546323          12.806</span></span>
+<span><span class="co">#&gt; 5                  NA VR2AR-69        546323          12.806</span></span>
+<span><span class="co">#&gt; 6                  NA VR2AR-69        546323          12.827</span></span>
+<span><span class="co">#&gt;   Internal..deg.C.</span></span>
+<span><span class="co">#&gt; 1               NA</span></span>
+<span><span class="co">#&gt; 2               NA</span></span>
+<span><span class="co">#&gt; 3               NA</span></span>
+<span><span class="co">#&gt; 4               NA</span></span>
+<span><span class="co">#&gt; 5               NA</span></span>
+<span><span class="co">#&gt; 6               NA</span></span></code></pre></div>
 <p>Great! The data are in. I’m going to clean up the names a little bit
 and convert the time column from a character string to POSIX time.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -339,9 +300,7 @@ and convert the time column from a character string to POSIX time.</p>
 <span>  data <span class="op">=</span> <span class="va">bwt</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"l"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figures/rvdat-bwt-1.png" alt=""><p class="caption">plot of chunk bwt</p>
-</div>
+<p><img src="figures/rvdat-bwt-1.png"></p>
 </div>
 <div class="section level2">
 <h2 id="other-variables">Other variables<a class="anchor" aria-label="anchor" href="#other-variables"></a>
@@ -369,54 +328,38 @@ example, receiver tilt, located in <code>ATTITUDE.csv</code>.</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">tilt</span> <span class="op">&lt;-</span> <span class="fu">env_import</span><span class="op">(</span><span class="st">"ATTITUDE"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in file(file, "rt"): invalid 'description' argument</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tiltdeg</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">tilt</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figures/rvdat-tilt-1.png" alt=""><p class="caption">plot of chunk tilt</p>
-</div>
+<p><img src="figures/rvdat-tilt-1.png"></p>
 <p>Depth, in <code>DEPTH.csv</code>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">depth</span> <span class="op">&lt;-</span> <span class="fu">env_import</span><span class="op">(</span><span class="st">"DEPTH"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in file(file, "rt"): invalid 'description' argument</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">depthm</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">depth</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figures/rvdat-depth-1.png" alt=""><p class="caption">plot of chunk depth</p>
-</div>
+<p><img src="figures/rvdat-depth-1.png"></p>
 <p>Battery, in <code>BATTERY.csv</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">battery</span> <span class="op">&lt;-</span> <span class="fu">env_import</span><span class="op">(</span><span class="st">"BATTERY"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in file(file, "rt"): invalid 'description' argument</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">batteryvoltagev</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">battery</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figures/rvdat-battery-1.png" alt=""><p class="caption">plot of chunk battery</p>
-</div>
+<p><img src="figures/rvdat-battery-1.png"></p>
 <p>Noise, which is actually in the diagnostic file
 <code>DIAG.csv</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diagnostics</span> <span class="op">&lt;-</span> <span class="fu">env_import</span><span class="op">(</span><span class="st">"DIAG"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in file(file, "rt"): invalid 'description' argument</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">noisemeanmv</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">diagnostics</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figures/rvdat-noise-1.png" alt="plot of chunk noise">
-Hourly summaries of pings and detections are also in the diagnositc
-file:</p>
+<p><img src="figures/rvdat-noise-1.png"> Hourly summaries of pings and
+detections are also in the diagnositc file:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppmdetections</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">diagnostics</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figures/rvdat-detections-1.png" alt=""><p class="caption">plot of chunk detections</p>
-</div>
+<p><img src="figures/rvdat-detections-1.png"></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppmpings</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">diagnostics</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figures/rvdat-detections-2.png" alt=""><p class="caption">plot of chunk detections</p>
-</div>
+<p><img src="figures/rvdat-detections-2.png"></p>
 <p>But are really located in <code>DET.csv</code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dets</span> <span class="op">&lt;-</span> <span class="fu">env_import</span><span class="op">(</span><span class="st">"DET"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in file(file, "rt"): invalid 'description' argument</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dets</span><span class="op">[</span>, <span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   detdesc       devicetimeutc time timeoffseth timecorrections</span></span>
