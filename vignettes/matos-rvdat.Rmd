@@ -15,6 +15,11 @@ We often want to extract the environmental data that some of our receivers log. 
 
 ```r
 library(matos)
+#> By continuing, you are agreeing to the ACT Network MATOS User
+#> Agreement and Data Policy, Version 1.2:
+#> 
+#> <https://matos.asascience.com/static/MATOS.User.Agreement.V1.1.pdf>
+#> 
 library(rvdat)
 ```
 
@@ -44,6 +49,11 @@ detection_files <- list_project_files(
   project = "UMCES Chesapeake Backbone, Mid-Bay",
   file_type = "detections"
 )
+#> ℹ These projects are missing metadata as they have not yet synced
+#> with OTN: "BTWaves Caribbean Acoustic Tagging", "CT DEEP Array
+#> (2022-2026)", "ERDC_Brunswick", "SBU Eco-Pod", "SBU Landscape Lab
+#> Array", "SBU NY Ocean Indicators", "UNH - Rainbow smelt", and "WCS
+#> New York Sand Tiger Shark Study"
 
 head(detection_files)
 #>   project                  file_type upload_date
@@ -79,7 +89,11 @@ get_project_file(
 )
 #> 
 #> ── Downloading files ──────────────────────────────────────────────
-#> Error: Path exists and overwrite is FALSE
+#> ✔ File(s) saved to:
+#>    C:\Users\darpa2\AppData\Local\Temp\Rtmpo3atQK\VR2AR_546323_20231012_1.vrl
+#> 
+#> ── Unzipping files ────────────────────────────────────────────────
+#> [1] "C:\\Users\\darpa2\\AppData\\Local\\Temp\\Rtmpo3atQK\\VR2AR_546323_20231012_1.vrl"
 
 vrl_file <- list.files(tempdir(), pattern = "vrl$", full.names = T)
 ```
@@ -95,9 +109,9 @@ vdat_to_folder(
   outdir = tempdir()
 )
 #> ✔ File converted:
-#>   C:\Users\darpa2\AppData\Local\Temp\RtmpIZHMcr/VR2AR_546323_20231012_1.vrl
+#>   C:\Users\darpa2\AppData\Local\Temp\Rtmpo3atQK/VR2AR_546323_20231012_1.vrl
 #> ℹ Files saved in:
-#>   C:\Users\darpa2\AppData\Local\Temp\RtmpIZHMcr/VR2AR_546323_20231012_1[20240110-17-14-23-xxxxxx].csv-fathom-split
+#>   C:\Users\darpa2\AppData\Local\Temp\Rtmpo3atQK/VR2AR_546323_20231012_1.csv-fathom-split
 ```
 
 There are quite a few files in there, but for this we're going to focus on the temperature records stored in `TEMP.csv`.
@@ -106,96 +120,14 @@ There are quite a few files in there, but for this we're going to focus on the t
 ```r
 list.files(tempdir(), pattern = "fathom-split", full.names = T) |>
   list.files()
-#>   [1] "ATTITUDE.csv"         "ATTITUDE.csv"        
-#>   [3] "ATTITUDE.csv"         "ATTITUDE.csv"        
-#>   [5] "ATTITUDE.csv"         "ATTITUDE.csv"        
-#>   [7] "ATTITUDE.csv"         "ATTITUDE.csv"        
-#>   [9] "ATTITUDE.csv"         "ATTITUDE.csv"        
-#>  [11] "ATTITUDE.csv"         "ATTITUDE.csv"        
-#>  [13] "BATTERY.csv"          "BATTERY.csv"         
-#>  [15] "BATTERY.csv"          "BATTERY.csv"         
-#>  [17] "BATTERY.csv"          "BATTERY.csv"         
-#>  [19] "BATTERY.csv"          "BATTERY.csv"         
-#>  [21] "BATTERY.csv"          "BATTERY.csv"         
-#>  [23] "BATTERY.csv"          "BATTERY.csv"         
-#>  [25] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
-#>  [27] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
-#>  [29] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
-#>  [31] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
-#>  [33] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
-#>  [35] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
-#>  [37] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
-#>  [39] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
-#>  [41] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
-#>  [43] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
-#>  [45] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
-#>  [47] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
-#>  [49] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
-#>  [51] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
-#>  [53] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
-#>  [55] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
-#>  [57] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
-#>  [59] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
-#>  [61] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
-#>  [63] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
-#>  [65] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
-#>  [67] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
-#>  [69] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
-#>  [71] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
-#>  [73] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
-#>  [75] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
-#>  [77] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
-#>  [79] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
-#>  [81] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
-#>  [83] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
-#>  [85] "DEPTH.csv"            "DEPTH.csv"           
-#>  [87] "DEPTH.csv"            "DEPTH.csv"           
-#>  [89] "DEPTH.csv"            "DEPTH.csv"           
-#>  [91] "DEPTH.csv"            "DEPTH.csv"           
-#>  [93] "DEPTH.csv"            "DEPTH.csv"           
-#>  [95] "DEPTH.csv"            "DEPTH.csv"           
-#>  [97] "DET.csv"              "DET.csv"             
-#>  [99] "DET.csv"              "DET.csv"             
-#> [101] "DET.csv"              "DET.csv"             
-#> [103] "DET.csv"              "DET.csv"             
-#> [105] "DET.csv"              "DET.csv"             
-#> [107] "DET.csv"              "DET.csv"             
-#> [109] "DIAG.csv"             "DIAG.csv"            
-#> [111] "DIAG.csv"             "DIAG.csv"            
-#> [113] "DIAG.csv"             "DIAG.csv"            
-#> [115] "DIAG.csv"             "DIAG.csv"            
-#> [117] "DIAG.csv"             "DIAG.csv"            
-#> [119] "DIAG.csv"             "DIAG.csv"            
-#> [121] "EVENT.csv"            "EVENT.csv"           
-#> [123] "EVENT.csv"            "EVENT.csv"           
-#> [125] "EVENT.csv"            "EVENT.csv"           
-#> [127] "EVENT.csv"            "EVENT.csv"           
-#> [129] "EVENT.csv"            "EVENT.csv"           
-#> [131] "EVENT.csv"            "EVENT.csv"           
-#> [133] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
-#> [135] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
-#> [137] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
-#> [139] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
-#> [141] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
-#> [143] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
-#> [145] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
-#> [147] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
-#> [149] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
-#> [151] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
-#> [153] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
-#> [155] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
-#> [157] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
-#> [159] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
-#> [161] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
-#> [163] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
-#> [165] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
-#> [167] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
-#> [169] "TEMP.csv"             "TEMP.csv"            
-#> [171] "TEMP.csv"             "TEMP.csv"            
-#> [173] "TEMP.csv"             "TEMP.csv"            
-#> [175] "TEMP.csv"             "TEMP.csv"            
-#> [177] "TEMP.csv"             "TEMP.csv"            
-#> [179] "TEMP.csv"             "TEMP.csv"
+#>  [1] "ATTITUDE.csv"         "BATTERY.csv"         
+#>  [3] "CFG_CHANNEL.csv"      "CFG_STUDY.csv"       
+#>  [5] "CFG_TRANSMITTER.csv"  "CLOCK_REF.csv"       
+#>  [7] "DATA_SOURCE_FILE.csv" "DEPTH.csv"           
+#>  [9] "DET.csv"              "DIAG.csv"            
+#> [11] "EVENT.csv"            "EVENT_INIT.csv"      
+#> [13] "EVENT_OFFLOAD.csv"    "HEALTH_VR2AR.csv"    
+#> [15] "TEMP.csv"
 
 bwt_file <- list.files(tempdir(), pattern = "TEMP", full.names = T, recursive = T)
 ```
@@ -207,7 +139,7 @@ Let's read in the data.
 
 ```r
 read.csv(bwt_file)
-#> Error in file(file, "rt"): invalid 'description' argument
+#> Error in read.table(file = file, header = header, sep = sep, quote = quote, : more columns than column names
 ```
 
 An error, oh no! Let's see what's causing it.
@@ -218,7 +150,30 @@ read.csv(bwt_file,
   header = FALSE,
   nrows = 5
 )
-#> Error in file(file, "rt"): invalid 'description' argument
+#>               V1                  V2
+#> 1 VEMCO DATA LOG               2.0.0
+#> 2      TEMP_DESC   Device Time (UTC)
+#> 3           TEMP 2022-05-04 16:00:00
+#> 4           TEMP 2022-05-04 17:00:00
+#> 5           TEMP 2022-05-04 18:00:00
+#>                                   V3              V4
+#> 1 vdat-7.0.0-20231107-14c992-release                
+#> 2                               Time Time Offset (h)
+#> 3                                                   
+#> 4                                                   
+#> 5                                                   
+#>                    V5       V6            V7              V8
+#> 1                                                           
+#> 2 Time Correction (s)    Model Serial Number Ambient (deg C)
+#> 3                     VR2AR-69        546323          13.558
+#> 4                     VR2AR-69        546323          12.869
+#> 5                     VR2AR-69        546323          12.827
+#>                 V9
+#> 1                 
+#> 2 Internal (deg C)
+#> 3                 
+#> 4                 
+#> 5
 ```
 
 Ah, the data doesn't really start until the second row. Skip the first one and take a look.
@@ -229,23 +184,29 @@ bwt <- read.csv(
   bwt_file,
   skip = 1
 )
-#> Error in file(file, "rt"): invalid 'description' argument
 
 head(bwt)
-#>   tempdesc       devicetimeutc time timeoffseth timecorrections
-#> 1     TEMP 2022-05-04 16:00:00   NA          NA              NA
-#> 2     TEMP 2022-05-04 17:00:00   NA          NA              NA
-#> 3     TEMP 2022-05-04 18:00:00   NA          NA              NA
-#> 4     TEMP 2022-05-04 19:00:00   NA          NA              NA
-#> 5     TEMP 2022-05-04 20:00:00   NA          NA              NA
-#> 6     TEMP 2022-05-04 21:00:00   NA          NA              NA
-#>      model serialnumber ambientdegc internaldegc
-#> 1 VR2AR-69       546323      13.558           NA
-#> 2 VR2AR-69       546323      12.869           NA
-#> 3 VR2AR-69       546323      12.827           NA
-#> 4 VR2AR-69       546323      12.806           NA
-#> 5 VR2AR-69       546323      12.806           NA
-#> 6 VR2AR-69       546323      12.827           NA
+#>   TEMP_DESC   Device.Time..UTC. Time Time.Offset..h.
+#> 1      TEMP 2022-05-04 16:00:00   NA              NA
+#> 2      TEMP 2022-05-04 17:00:00   NA              NA
+#> 3      TEMP 2022-05-04 18:00:00   NA              NA
+#> 4      TEMP 2022-05-04 19:00:00   NA              NA
+#> 5      TEMP 2022-05-04 20:00:00   NA              NA
+#> 6      TEMP 2022-05-04 21:00:00   NA              NA
+#>   Time.Correction..s.    Model Serial.Number Ambient..deg.C.
+#> 1                  NA VR2AR-69        546323          13.558
+#> 2                  NA VR2AR-69        546323          12.869
+#> 3                  NA VR2AR-69        546323          12.827
+#> 4                  NA VR2AR-69        546323          12.806
+#> 5                  NA VR2AR-69        546323          12.806
+#> 6                  NA VR2AR-69        546323          12.827
+#>   Internal..deg.C.
+#> 1               NA
+#> 2               NA
+#> 3               NA
+#> 4               NA
+#> 5               NA
+#> 6               NA
 ```
 
 Great! The data are in. I'm going to clean up the names a little bit and convert the time column from a character string to POSIX time.
@@ -293,7 +254,7 @@ plot(ambientdegc ~ devicetimeutc,
 )
 ```
 
-![plot of chunk bwt](figures/rvdat-bwt-1.png)
+![](figures/rvdat-bwt-1.png)
 
 ## Other variables
 
@@ -321,48 +282,44 @@ env_import <- function(file) {
 }
 
 tilt <- env_import("ATTITUDE")
-#> Error in file(file, "rt"): invalid 'description' argument
 
 plot(tiltdeg ~ devicetimeutc, data = tilt, type = "l")
 ```
 
-![plot of chunk tilt](figures/rvdat-tilt-1.png)
+![](figures/rvdat-tilt-1.png)
 
 Depth, in `DEPTH.csv`:
 
 
 ```r
 depth <- env_import("DEPTH")
-#> Error in file(file, "rt"): invalid 'description' argument
 
 plot(depthm ~ devicetimeutc, data = depth)
 ```
 
-![plot of chunk depth](figures/rvdat-depth-1.png)
+![](figures/rvdat-depth-1.png)
 
 Battery, in `BATTERY.csv`:
 
 
 ```r
 battery <- env_import("BATTERY")
-#> Error in file(file, "rt"): invalid 'description' argument
 
 plot(batteryvoltagev ~ devicetimeutc, data = battery)
 ```
 
-![plot of chunk battery](figures/rvdat-battery-1.png)
+![](figures/rvdat-battery-1.png)
 
 Noise, which is actually in the diagnostic file `DIAG.csv`:
 
 
 ```r
 diagnostics <- env_import("DIAG")
-#> Error in file(file, "rt"): invalid 'description' argument
 
 plot(noisemeanmv ~ devicetimeutc, data = diagnostics)
 ```
 
-![plot of chunk noise](figures/rvdat-noise-1.png)
+![](figures/rvdat-noise-1.png)
 Hourly summaries of pings and detections are also in the diagnositc file:
 
 
@@ -370,20 +327,19 @@ Hourly summaries of pings and detections are also in the diagnositc file:
 plot(ppmdetections ~ devicetimeutc, data = diagnostics)
 ```
 
-![plot of chunk detections](figures/rvdat-detections-1.png)
+![](figures/rvdat-detections-1.png)
 
 ```r
 plot(ppmpings ~ devicetimeutc, data = diagnostics)
 ```
 
-![plot of chunk detections](figures/rvdat-detections-2.png)
+![](figures/rvdat-detections-2.png)
 
 But are really located in `DET.csv`.
 
 
 ```r
 dets <- env_import("DET")
-#> Error in file(file, "rt"): invalid 'description' argument
 
 head(dets[, ])
 #>   detdesc       devicetimeutc time timeoffseth timecorrections
