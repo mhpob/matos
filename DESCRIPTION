@@ -20,9 +20,11 @@ Suggests:
     future.apply,
     testthat (>= 3.0.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    rvdat
 Remotes:
-    mhpob/otndo
+    mhpob/otndo,
+    mhpob/rvdat
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
