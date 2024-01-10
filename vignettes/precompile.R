@@ -3,7 +3,15 @@
 # and this blog post https://ropensci.org/blog/2019/12/08/precompute-vignettes/
 
 library(knitr)
-knit("vignettes/_introduction.Rmd", "vignettes/introduction.Rmd")
-knit("vignettes/_matos-otndo.Rmd", "vignettes/matos-otndo.Rmd")
-knit("vignettes/_multiple-projects.Rmd", "vignettes/multiple-projects.Rmd")
-knit("vignettes/_matos-rvdat.Rmd", "vignettes/matos-rvdat.Rmd")
+
+# Need to change workind directory to get the figure paths correct.
+#   see Note section in ?knitr::knit
+orig_wd <- getwd()
+setwd("vignettes")
+
+knit("_introduction.Rmd", "introduction.Rmd")
+knit("_matos-otndo.Rmd", "matos-otndo.Rmd")
+knit("_multiple-projects.Rmd", "multiple-projects.Rmd")
+knit("_matos-rvdat.Rmd", "matos-rvdat.Rmd")
+
+setwd(orig_wd)

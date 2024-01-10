@@ -26,14 +26,14 @@ First, log into your MATOS account.
 ```r
 matos_login()
 #> ! Please log in.
-#> v Login successful!
+#> ✔ Login successful!
 ```
 
 Next, tell `rvdat` the location of the `vdat.exe` executable (check out the [`rvdat` documentation](https://rvdat.obrien.page) for more information on this).
 
 
 ```r
-vdat_here('vdat.exe')
+vdat_here("vdat.exe")
 ```
 
 Using `matos`, I'm going to find the VDAT files associated with the [Mid-Bay Chesapeake Backbone array](https://matos.asascience.com/project/detail/161). Note that things like temperature and tilt are logged within the VRL/VDAT files, and so will be under the "detections" file type.
@@ -41,8 +41,8 @@ Using `matos`, I'm going to find the VDAT files associated with the [Mid-Bay Che
 
 ```r
 detection_files <- list_project_files(
-  project = 'UMCES Chesapeake Backbone, Mid-Bay',
-  file_type = 'detections'
+  project = "UMCES Chesapeake Backbone, Mid-Bay",
+  file_type = "detections"
 )
 
 head(detection_files)
@@ -73,16 +73,15 @@ I'll download the first file into a temporary directory.
 
 
 ```r
-
 get_project_file(
   url = detection_files$url[1],
   out_dir = tempdir()
 )
 #> 
-#> -- Downloading files ----------------------------------------------
+#> ── Downloading files ──────────────────────────────────────────────
 #> Error: Path exists and overwrite is FALSE
 
-vrl_file <- list.files(tempdir(), pattern = 'vrl$', full.names = T)
+vrl_file <- list.files(tempdir(), pattern = "vrl$", full.names = T)
 ```
 
 ## Convert VRL using `rvdat`
@@ -94,44 +93,111 @@ Now, I'll use `rvdat::vdat_to_folder` to convert that file into a folder of CSV 
 vdat_to_folder(
   vrl_file,
   outdir = tempdir()
-) 
-#> v File converted:
-#>   C:\Users\darpa2\AppData\Local\Temp\RtmpqGwadc/VR2AR_546323_20231012_1.vrl
-#> i Files saved in:
-#>   C:\Users\darpa2\AppData\Local\Temp\RtmpqGwadc/VR2AR_546323_20231012_1[20240110-16-44-51-xxxxxx].csv-fathom-split
+)
+#> ✔ File converted:
+#>   C:\Users\darpa2\AppData\Local\Temp\RtmpIZHMcr/VR2AR_546323_20231012_1.vrl
+#> ℹ Files saved in:
+#>   C:\Users\darpa2\AppData\Local\Temp\RtmpIZHMcr/VR2AR_546323_20231012_1[20240110-17-14-23-xxxxxx].csv-fathom-split
 ```
 
 There are quite a few files in there, but for this we're going to focus on the temperature records stored in `TEMP.csv`.
 
 
 ```r
-list.files(tempdir(), pattern = 'fathom-split', full.names = T) |> 
+list.files(tempdir(), pattern = "fathom-split", full.names = T) |>
   list.files()
-#>  [1] "ATTITUDE.csv"         "ATTITUDE.csv"        
-#>  [3] "ATTITUDE.csv"         "BATTERY.csv"         
-#>  [5] "BATTERY.csv"          "BATTERY.csv"         
-#>  [7] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
-#>  [9] "CFG_CHANNEL.csv"      "CFG_STUDY.csv"       
-#> [11] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
-#> [13] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
-#> [15] "CFG_TRANSMITTER.csv"  "CLOCK_REF.csv"       
-#> [17] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
-#> [19] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
-#> [21] "DATA_SOURCE_FILE.csv" "DEPTH.csv"           
-#> [23] "DEPTH.csv"            "DEPTH.csv"           
-#> [25] "DET.csv"              "DET.csv"             
-#> [27] "DET.csv"              "DIAG.csv"            
-#> [29] "DIAG.csv"             "DIAG.csv"            
-#> [31] "EVENT.csv"            "EVENT.csv"           
-#> [33] "EVENT.csv"            "EVENT_INIT.csv"      
-#> [35] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
-#> [37] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
-#> [39] "EVENT_OFFLOAD.csv"    "HEALTH_VR2AR.csv"    
-#> [41] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
-#> [43] "TEMP.csv"             "TEMP.csv"            
-#> [45] "TEMP.csv"
+#>   [1] "ATTITUDE.csv"         "ATTITUDE.csv"        
+#>   [3] "ATTITUDE.csv"         "ATTITUDE.csv"        
+#>   [5] "ATTITUDE.csv"         "ATTITUDE.csv"        
+#>   [7] "ATTITUDE.csv"         "ATTITUDE.csv"        
+#>   [9] "ATTITUDE.csv"         "ATTITUDE.csv"        
+#>  [11] "ATTITUDE.csv"         "ATTITUDE.csv"        
+#>  [13] "BATTERY.csv"          "BATTERY.csv"         
+#>  [15] "BATTERY.csv"          "BATTERY.csv"         
+#>  [17] "BATTERY.csv"          "BATTERY.csv"         
+#>  [19] "BATTERY.csv"          "BATTERY.csv"         
+#>  [21] "BATTERY.csv"          "BATTERY.csv"         
+#>  [23] "BATTERY.csv"          "BATTERY.csv"         
+#>  [25] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
+#>  [27] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
+#>  [29] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
+#>  [31] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
+#>  [33] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
+#>  [35] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
+#>  [37] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
+#>  [39] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
+#>  [41] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
+#>  [43] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
+#>  [45] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
+#>  [47] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
+#>  [49] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
+#>  [51] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
+#>  [53] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
+#>  [55] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
+#>  [57] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
+#>  [59] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
+#>  [61] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
+#>  [63] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
+#>  [65] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
+#>  [67] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
+#>  [69] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
+#>  [71] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
+#>  [73] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
+#>  [75] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
+#>  [77] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
+#>  [79] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
+#>  [81] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
+#>  [83] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
+#>  [85] "DEPTH.csv"            "DEPTH.csv"           
+#>  [87] "DEPTH.csv"            "DEPTH.csv"           
+#>  [89] "DEPTH.csv"            "DEPTH.csv"           
+#>  [91] "DEPTH.csv"            "DEPTH.csv"           
+#>  [93] "DEPTH.csv"            "DEPTH.csv"           
+#>  [95] "DEPTH.csv"            "DEPTH.csv"           
+#>  [97] "DET.csv"              "DET.csv"             
+#>  [99] "DET.csv"              "DET.csv"             
+#> [101] "DET.csv"              "DET.csv"             
+#> [103] "DET.csv"              "DET.csv"             
+#> [105] "DET.csv"              "DET.csv"             
+#> [107] "DET.csv"              "DET.csv"             
+#> [109] "DIAG.csv"             "DIAG.csv"            
+#> [111] "DIAG.csv"             "DIAG.csv"            
+#> [113] "DIAG.csv"             "DIAG.csv"            
+#> [115] "DIAG.csv"             "DIAG.csv"            
+#> [117] "DIAG.csv"             "DIAG.csv"            
+#> [119] "DIAG.csv"             "DIAG.csv"            
+#> [121] "EVENT.csv"            "EVENT.csv"           
+#> [123] "EVENT.csv"            "EVENT.csv"           
+#> [125] "EVENT.csv"            "EVENT.csv"           
+#> [127] "EVENT.csv"            "EVENT.csv"           
+#> [129] "EVENT.csv"            "EVENT.csv"           
+#> [131] "EVENT.csv"            "EVENT.csv"           
+#> [133] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
+#> [135] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
+#> [137] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
+#> [139] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
+#> [141] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
+#> [143] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
+#> [145] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
+#> [147] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
+#> [149] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
+#> [151] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
+#> [153] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
+#> [155] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
+#> [157] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
+#> [159] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
+#> [161] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
+#> [163] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
+#> [165] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
+#> [167] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
+#> [169] "TEMP.csv"             "TEMP.csv"            
+#> [171] "TEMP.csv"             "TEMP.csv"            
+#> [173] "TEMP.csv"             "TEMP.csv"            
+#> [175] "TEMP.csv"             "TEMP.csv"            
+#> [177] "TEMP.csv"             "TEMP.csv"            
+#> [179] "TEMP.csv"             "TEMP.csv"
 
-bwt_file <- list.files(tempdir(), pattern = 'TEMP', full.names = T, recursive = T)
+bwt_file <- list.files(tempdir(), pattern = "TEMP", full.names = T, recursive = T)
 ```
 
 ## Read it into R
@@ -149,8 +215,9 @@ An error, oh no! Let's see what's causing it.
 
 ```r
 read.csv(bwt_file,
-         header = FALSE,
-         nrows = 5)
+  header = FALSE,
+  nrows = 5
+)
 #> Error in file(file, "rt"): invalid 'description' argument
 ```
 
@@ -185,7 +252,7 @@ Great! The data are in. I'm going to clean up the names a little bit and convert
 
 
 ```r
-names(bwt) <- gsub('[_\\.]', '', tolower(names(bwt)))
+names(bwt) <- gsub("[_\\.]", "", tolower(names(bwt)))
 
 names(bwt)
 #> [1] "tempdesc"        "devicetimeutc"   "time"           
@@ -193,8 +260,9 @@ names(bwt)
 #> [7] "serialnumber"    "ambientdegc"     "internaldegc"
 
 bwt$devicetimeutc <- as.POSIXct(bwt$devicetimeutc,
-                                tz = 'UTC',
-                                format = '%F %T')
+  tz = "UTC",
+  format = "%F %T"
+)
 
 head(bwt)
 #>   tempdesc       devicetimeutc time timeoffseth timecorrections
@@ -220,11 +288,12 @@ Now that we have our time series, let's see what it looks like!
 
 ```r
 plot(ambientdegc ~ devicetimeutc,
-     data = bwt,
-     type = 'l')
+  data = bwt,
+  type = "l"
+)
 ```
 
-![plot of chunk bwt](vignettes/figures/rvdat-bwt-1.png)
+![plot of chunk bwt](figures/rvdat-bwt-1.png)
 
 ## Other variables
 
@@ -232,67 +301,68 @@ We can pull out other variables in a similar manner. Take, for example, receiver
 
 
 ```r
-env_import <- function(file){
+env_import <- function(file) {
   hold <- list.files(
     tempdir(),
     pattern = file,
     full.names = T,
     recursive = T
-  ) |> 
+  ) |>
     read.csv(skip = 1)
-  
-  names(hold) <- gsub('[_\\.]', '', tolower(names(hold)))
-  
+
+  names(hold) <- gsub("[_\\.]", "", tolower(names(hold)))
+
   hold$devicetimeutc <- as.POSIXct(hold$devicetimeutc,
-                                   tz = 'UTC',
-                                   format = '%F %T')
-  
+    tz = "UTC",
+    format = "%F %T"
+  )
+
   hold
 }
 
-tilt <- env_import('ATTITUDE')
+tilt <- env_import("ATTITUDE")
 #> Error in file(file, "rt"): invalid 'description' argument
 
-plot(tiltdeg ~ devicetimeutc, data = tilt, type = 'l')
+plot(tiltdeg ~ devicetimeutc, data = tilt, type = "l")
 ```
 
-![plot of chunk tilt](vignettes/figures/rvdat-tilt-1.png)
+![plot of chunk tilt](figures/rvdat-tilt-1.png)
 
 Depth, in `DEPTH.csv`:
 
 
 ```r
-depth <- env_import('DEPTH')
+depth <- env_import("DEPTH")
 #> Error in file(file, "rt"): invalid 'description' argument
 
 plot(depthm ~ devicetimeutc, data = depth)
 ```
 
-![plot of chunk depth](vignettes/figures/rvdat-depth-1.png)
+![plot of chunk depth](figures/rvdat-depth-1.png)
 
 Battery, in `BATTERY.csv`:
 
 
 ```r
-battery <- env_import('BATTERY')
+battery <- env_import("BATTERY")
 #> Error in file(file, "rt"): invalid 'description' argument
 
 plot(batteryvoltagev ~ devicetimeutc, data = battery)
 ```
 
-![plot of chunk battery](vignettes/figures/rvdat-battery-1.png)
+![plot of chunk battery](figures/rvdat-battery-1.png)
 
 Noise, which is actually in the diagnostic file `DIAG.csv`:
 
 
 ```r
-diagnostics <- env_import('DIAG')
+diagnostics <- env_import("DIAG")
 #> Error in file(file, "rt"): invalid 'description' argument
 
 plot(noisemeanmv ~ devicetimeutc, data = diagnostics)
 ```
 
-![plot of chunk noise](vignettes/figures/rvdat-noise-1.png)
+![plot of chunk noise](figures/rvdat-noise-1.png)
 Hourly summaries of pings and detections are also in the diagnositc file:
 
 
@@ -300,19 +370,19 @@ Hourly summaries of pings and detections are also in the diagnositc file:
 plot(ppmdetections ~ devicetimeutc, data = diagnostics)
 ```
 
-![plot of chunk detections](vignettes/figures/rvdat-detections-1.png)
+![plot of chunk detections](figures/rvdat-detections-1.png)
 
 ```r
 plot(ppmpings ~ devicetimeutc, data = diagnostics)
 ```
 
-![plot of chunk detections](vignettes/figures/rvdat-detections-2.png)
+![plot of chunk detections](figures/rvdat-detections-2.png)
 
 But are really located in `DET.csv`.
 
 
 ```r
-dets <- env_import('DET')
+dets <- env_import("DET")
 #> Error in file(file, "rt"): invalid 'description' argument
 
 head(dets[, ])
