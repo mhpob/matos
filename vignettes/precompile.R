@@ -3,6 +3,7 @@
 # and this blog post https://ropensci.org/blog/2019/12/08/precompute-vignettes/
 
 library(knitr)
-knit("vignettes/introduction.Rmd.orig", "vignettes/introduction.Rmd")
-knit("vignettes/matos-otndo.Rmd.orig", "vignettes/matos-otndo.Rmd")
-knit("vignettes/multiple-projects.Rmd.orig", "vignettes/multiple-projects.Rmd")
+knit("vignettes/_introduction.Rmd", "vignettes/introduction.Rmd")
+knit("vignettes/_matos-otndo.Rmd", "vignettes/matos-otndo.Rmd")
+knit("vignettes/_multiple-projects.Rmd", "vignettes/multiple-projects.Rmd")
+knit("vignettes/_matos-rvdat.Rmd", "vignettes/matos-rvdat.Rmd")
