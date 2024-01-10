@@ -163,27 +163,35 @@ into a folder of CSV files, each one representing one data type.</p>
 <span><span class="co">#&gt; v File converted:</span></span>
 <span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpqGwadc/VR2AR_546323_20231012_1.vrl</span></span>
 <span><span class="co">#&gt; i Files saved in:</span></span>
-<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpqGwadc/VR2AR_546323_20231012_1[20240110-16-28-12-xxxxxx].csv-fathom-split</span></span></code></pre></div>
+<span><span class="co">#&gt;   C:\Users\darpa2\AppData\Local\Temp\RtmpqGwadc/VR2AR_546323_20231012_1[20240110-16-44-51-xxxxxx].csv-fathom-split</span></span></code></pre></div>
 <p>There are quite a few files in there, but for this we’re going to
 focus on the temperature records stored in <code>TEMP.csv</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, pattern <span class="op">=</span> <span class="st">'fathom-split'</span>, full.names <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "ATTITUDE.csv"         "ATTITUDE.csv"        </span></span>
-<span><span class="co">#&gt;  [3] "BATTERY.csv"          "BATTERY.csv"         </span></span>
-<span><span class="co">#&gt;  [5] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     </span></span>
-<span><span class="co">#&gt;  [7] "CFG_STUDY.csv"        "CFG_STUDY.csv"       </span></span>
-<span><span class="co">#&gt;  [9] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" </span></span>
-<span><span class="co">#&gt; [11] "CLOCK_REF.csv"        "CLOCK_REF.csv"       </span></span>
-<span><span class="co">#&gt; [13] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"</span></span>
-<span><span class="co">#&gt; [15] "DEPTH.csv"            "DEPTH.csv"           </span></span>
-<span><span class="co">#&gt; [17] "DET.csv"              "DET.csv"             </span></span>
-<span><span class="co">#&gt; [19] "DIAG.csv"             "DIAG.csv"            </span></span>
-<span><span class="co">#&gt; [21] "EVENT.csv"            "EVENT.csv"           </span></span>
-<span><span class="co">#&gt; [23] "EVENT_INIT.csv"       "EVENT_INIT.csv"      </span></span>
-<span><span class="co">#&gt; [25] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   </span></span>
-<span><span class="co">#&gt; [27] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    </span></span>
-<span><span class="co">#&gt; [29] "TEMP.csv"             "TEMP.csv"</span></span>
+<span><span class="co">#&gt;  [3] "ATTITUDE.csv"         "BATTERY.csv"         </span></span>
+<span><span class="co">#&gt;  [5] "BATTERY.csv"          "BATTERY.csv"         </span></span>
+<span><span class="co">#&gt;  [7] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     </span></span>
+<span><span class="co">#&gt;  [9] "CFG_CHANNEL.csv"      "CFG_STUDY.csv"       </span></span>
+<span><span class="co">#&gt; [11] "CFG_STUDY.csv"        "CFG_STUDY.csv"       </span></span>
+<span><span class="co">#&gt; [13] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" </span></span>
+<span><span class="co">#&gt; [15] "CFG_TRANSMITTER.csv"  "CLOCK_REF.csv"       </span></span>
+<span><span class="co">#&gt; [17] "CLOCK_REF.csv"        "CLOCK_REF.csv"       </span></span>
+<span><span class="co">#&gt; [19] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"</span></span>
+<span><span class="co">#&gt; [21] "DATA_SOURCE_FILE.csv" "DEPTH.csv"           </span></span>
+<span><span class="co">#&gt; [23] "DEPTH.csv"            "DEPTH.csv"           </span></span>
+<span><span class="co">#&gt; [25] "DET.csv"              "DET.csv"             </span></span>
+<span><span class="co">#&gt; [27] "DET.csv"              "DIAG.csv"            </span></span>
+<span><span class="co">#&gt; [29] "DIAG.csv"             "DIAG.csv"            </span></span>
+<span><span class="co">#&gt; [31] "EVENT.csv"            "EVENT.csv"           </span></span>
+<span><span class="co">#&gt; [33] "EVENT.csv"            "EVENT_INIT.csv"      </span></span>
+<span><span class="co">#&gt; [35] "EVENT_INIT.csv"       "EVENT_INIT.csv"      </span></span>
+<span><span class="co">#&gt; [37] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   </span></span>
+<span><span class="co">#&gt; [39] "EVENT_OFFLOAD.csv"    "HEALTH_VR2AR.csv"    </span></span>
+<span><span class="co">#&gt; [41] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    </span></span>
+<span><span class="co">#&gt; [43] "TEMP.csv"             "TEMP.csv"            </span></span>
+<span><span class="co">#&gt; [45] "TEMP.csv"</span></span>
 <span></span>
 <span><span class="va">bwt_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, pattern <span class="op">=</span> <span class="st">'TEMP'</span>, full.names <span class="op">=</span> <span class="cn">T</span>, recursive <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -263,7 +271,7 @@ and convert the time column from a character string to POSIX time.</p>
 <span>     data <span class="op">=</span> <span class="va">bwt</span>,</span>
 <span>     type <span class="op">=</span> <span class="st">'l'</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="figure/unnamed-chunk-71-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-71</p>
+<img src="articles/figures/rvdat-bwt-1.png" alt=""><p class="caption">plot of chunk bwt</p>
 </div>
 </div>
 <div class="section level2">
@@ -295,7 +303,7 @@ example, receiver tilt, located in <code>ATTITUDE.csv</code>.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tiltdeg</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">tilt</span>, type <span class="op">=</span> <span class="st">'l'</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="figure/unnamed-chunk-72-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-72</p>
+<img src="articles/figures/rvdat-tilt-1.png" alt=""><p class="caption">plot of chunk tilt</p>
 </div>
 <p>Depth, in <code>DEPTH.csv</code>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
@@ -304,7 +312,7 @@ example, receiver tilt, located in <code>ATTITUDE.csv</code>.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">depthm</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">depth</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="figure/unnamed-chunk-73-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-73</p>
+<img src="articles/figures/rvdat-depth-1.png" alt=""><p class="caption">plot of chunk depth</p>
 </div>
 <p>Battery, in <code>BATTERY.csv</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -313,7 +321,7 @@ example, receiver tilt, located in <code>ATTITUDE.csv</code>.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">batteryvoltagev</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">battery</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="figure/unnamed-chunk-74-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-74</p>
+<img src="articles/figures/rvdat-battery-1.png" alt=""><p class="caption">plot of chunk battery</p>
 </div>
 <p>Noise, which is actually in the diagnostic file
 <code>DIAG.csv</code>:</p>
@@ -322,17 +330,17 @@ example, receiver tilt, located in <code>ATTITUDE.csv</code>.</p>
 <span><span class="co">#&gt; Error in file(file, "rt"): invalid 'description' argument</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">noisemeanmv</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">diagnostics</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figure/unnamed-chunk-75-1.png" alt="plot of chunk unnamed-chunk-75"> Hourly summaries of pings and
-detections are also in the diagnositc file:</p>
+<p><img src="articles/figures/rvdat-noise-1.png" alt="plot of chunk noise"> Hourly summaries of pings and detections
+are also in the diagnositc file:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppmdetections</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">diagnostics</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="figure/unnamed-chunk-76-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-76</p>
+<img src="articles/figures/rvdat-detections-1.png" alt=""><p class="caption">plot of chunk detections</p>
 </div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppmpings</span> <span class="op">~</span> <span class="va">devicetimeutc</span>, data <span class="op">=</span> <span class="va">diagnostics</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="figure/unnamed-chunk-76-2.png" alt=""><p class="caption">plot of chunk unnamed-chunk-76</p>
+<img src="articles/figures/rvdat-detections-2.png" alt=""><p class="caption">plot of chunk detections</p>
 </div>
 <p>But are really located in <code>DET.csv</code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
