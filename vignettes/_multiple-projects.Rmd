@@ -40,11 +40,12 @@ library(future.apply)
 plan(multisession)
 
 # List files in all of my projects
-extraction_files <- future_lapply(projects$number, 
-                                  function(x){
-                                    list_extract_files(x)
-                                    }
-                                  )
+extraction_files <- future_lapply(
+  projects$number,
+  function(x) {
+    list_extract_files(x)
+  }
+)
 
 # Bind together into one data frame
 extraction_files <- do.call(rbind, extraction_files)
@@ -59,10 +60,11 @@ That's `r nrow(extraction_files)` files of which I need to keep track! It really
 If we want to download all of those files, we can do something similar. We just need to change the function we're running in parallel to `get_extract_file` and provide it the URLs from the list we made via `list_extract_files`. I'll download the first three files for demonstration purposes.
 
 ```{r}
-future_lapply(extraction_files$url[1:3], 
-              function(x){
-                get_extract_file(url = x)
-              }
+future_lapply(
+  extraction_files$url[1:3],
+  function(x) {
+    get_extract_file(url = x)
+  }
 )
 ```
 
@@ -71,16 +73,18 @@ future_lapply(extraction_files$url[1:3],
 We can do the same by looping through receiver and transmitter push summaries. For me, this will create 24 reports! Still a lot, but quite a bit easier to digest than millions of detections spread over `r nrow(extraction_files)` files.
 
 ```{r eval=FALSE}
-future_lapply(projects$number[1:2], 
-              function(x){
-                matos_receiver_summary(x)
-              }
+future_lapply(
+  projects$number[1:2],
+  function(x) {
+    matos_receiver_summary(x)
+  }
 )
 
-future_lapply(projects$number[1:2], 
-              function(x){
-                matos_tag_summary(x)
-              }
+future_lapply(
+  projects$number[1:2],
+  function(x) {
+    matos_tag_summary(x)
+  }
 )
 ```
 

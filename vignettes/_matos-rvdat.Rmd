@@ -34,15 +34,15 @@ matos_login()
 Next, tell `rvdat` the location of the `vdat.exe` executable (check out the [`rvdat` documentation](https://rvdat.obrien.page) for more information on this).
 
 ```{r, eval=FALSE}
-vdat_here('vdat.exe')
+vdat_here("vdat.exe")
 ```
 
 Using `matos`, I'm going to find the VDAT files associated with the [Mid-Bay Chesapeake Backbone array](https://matos.asascience.com/project/detail/161). Note that things like temperature and tilt are logged within the VRL/VDAT files, and so will be under the "detections" file type.
 
 ```{r}
 detection_files <- list_project_files(
-  project = 'UMCES Chesapeake Backbone, Mid-Bay',
-  file_type = 'detections'
+  project = "UMCES Chesapeake Backbone, Mid-Bay",
+  file_type = "detections"
 )
 
 head(detection_files)
@@ -51,13 +51,12 @@ head(detection_files)
 I'll download the first file into a temporary directory.
 
 ```{r}
-
 get_project_file(
   url = detection_files$url[1],
   out_dir = tempdir()
 )
 
-vrl_file <- list.files(tempdir(), pattern = 'vrl$', full.names = T)
+vrl_file <- list.files(tempdir(), pattern = "vrl$", full.names = T)
 ```
 
 ## Convert VRL using `rvdat`
@@ -68,16 +67,16 @@ Now, I'll use `rvdat::vdat_to_folder` to convert that file into a folder of CSV 
 vdat_to_folder(
   vrl_file,
   outdir = tempdir()
-) 
+)
 ```
 
 There are quite a few files in there, but for this we're going to focus on the temperature records stored in `TEMP.csv`.
 
 ```{r}
-list.files(tempdir(), pattern = 'fathom-split', full.names = T) |> 
+list.files(tempdir(), pattern = "fathom-split", full.names = T) |>
   list.files()
 
-bwt_file <- list.files(tempdir(), pattern = 'TEMP', full.names = T, recursive = T)
+bwt_file <- list.files(tempdir(), pattern = "TEMP", full.names = T, recursive = T)
 ```
 
 ## Read it into R
@@ -92,8 +91,9 @@ An error, oh no! Let's see what's causing it.
 
 ```{r}
 read.csv(bwt_file,
-         header = FALSE,
-         nrows = 5)
+  header = FALSE,
+  nrows = 5
+)
 ```
 
 Ah, the data doesn't really start until the second row. Skip the first one and take a look.
@@ -110,13 +110,14 @@ head(bwt)
 Great! The data are in. I'm going to clean up the names a little bit and convert the time column from a character string to POSIX time.
 
 ```{r}
-names(bwt) <- gsub('[_\\.]', '', tolower(names(bwt)))
+names(bwt) <- gsub("[_\\.]", "", tolower(names(bwt)))
 
 names(bwt)
 
 bwt$devicetimeutc <- as.POSIXct(bwt$devicetimeutc,
-                                tz = 'UTC',
-                                format = '%F %T')
+  tz = "UTC",
+  format = "%F %T"
+)
 
 head(bwt)
 ```
@@ -127,9 +128,9 @@ Now that we have our time series, let's see what it looks like!
 
 ```{r, label=bwt}
 plot(ambientdegc ~ devicetimeutc,
-     data = bwt,
-     type = 'l')
-
+  data = bwt,
+  type = "l"
+)
 ```
 
 ## Other variables
@@ -137,33 +138,34 @@ plot(ambientdegc ~ devicetimeutc,
 We can pull out other variables in a similar manner. Take, for example, receiver tilt, located in `ATTITUDE.csv`.
 
 ```{r, label=tilt}
-env_import <- function(file){
+env_import <- function(file) {
   hold <- list.files(
     tempdir(),
     pattern = file,
     full.names = T,
     recursive = T
-  ) |> 
+  ) |>
     read.csv(skip = 1)
-  
-  names(hold) <- gsub('[_\\.]', '', tolower(names(hold)))
-  
+
+  names(hold) <- gsub("[_\\.]", "", tolower(names(hold)))
+
   hold$devicetimeutc <- as.POSIXct(hold$devicetimeutc,
-                                   tz = 'UTC',
-                                   format = '%F %T')
-  
+    tz = "UTC",
+    format = "%F %T"
+  )
+
   hold
 }
 
-tilt <- env_import('ATTITUDE')
+tilt <- env_import("ATTITUDE")
 
-plot(tiltdeg ~ devicetimeutc, data = tilt, type = 'l')
+plot(tiltdeg ~ devicetimeutc, data = tilt, type = "l")
 ```
 
 Depth, in `DEPTH.csv`:
 
 ```{r, label=depth}
-depth <- env_import('DEPTH')
+depth <- env_import("DEPTH")
 
 plot(depthm ~ devicetimeutc, data = depth)
 ```
@@ -171,7 +173,7 @@ plot(depthm ~ devicetimeutc, data = depth)
 Battery, in `BATTERY.csv`:
 
 ```{r, label=battery}
-battery <- env_import('BATTERY')
+battery <- env_import("BATTERY")
 
 plot(batteryvoltagev ~ devicetimeutc, data = battery)
 ```
@@ -179,7 +181,7 @@ plot(batteryvoltagev ~ devicetimeutc, data = battery)
 Noise, which is actually in the diagnostic file `DIAG.csv`:
 
 ```{r, label=noise}
-diagnostics <- env_import('DIAG')
+diagnostics <- env_import("DIAG")
 
 plot(noisemeanmv ~ devicetimeutc, data = diagnostics)
 ```
@@ -193,7 +195,7 @@ plot(ppmpings ~ devicetimeutc, data = diagnostics)
 But are really located in `DET.csv`.
 
 ```{r}
-dets <- env_import('DET')
+dets <- env_import("DET")
 
 head(dets[, ])
 ```
