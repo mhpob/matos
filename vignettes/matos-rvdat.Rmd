@@ -98,7 +98,7 @@ vdat_to_folder(
 #> v File converted:
 #>   C:\Users\darpa2\AppData\Local\Temp\RtmpqGwadc/VR2AR_546323_20231012_1.vrl
 #> i Files saved in:
-#>   C:\Users\darpa2\AppData\Local\Temp\RtmpqGwadc/VR2AR_546323_20231012_1[20240110-16-28-12-xxxxxx].csv-fathom-split
+#>   C:\Users\darpa2\AppData\Local\Temp\RtmpqGwadc/VR2AR_546323_20231012_1[20240110-16-44-51-xxxxxx].csv-fathom-split
 ```
 
 There are quite a few files in there, but for this we're going to focus on the temperature records stored in `TEMP.csv`.
@@ -108,20 +108,28 @@ There are quite a few files in there, but for this we're going to focus on the t
 list.files(tempdir(), pattern = 'fathom-split', full.names = T) |> 
   list.files()
 #>  [1] "ATTITUDE.csv"         "ATTITUDE.csv"        
-#>  [3] "BATTERY.csv"          "BATTERY.csv"         
-#>  [5] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
-#>  [7] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
-#>  [9] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
-#> [11] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
-#> [13] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
-#> [15] "DEPTH.csv"            "DEPTH.csv"           
-#> [17] "DET.csv"              "DET.csv"             
-#> [19] "DIAG.csv"             "DIAG.csv"            
-#> [21] "EVENT.csv"            "EVENT.csv"           
-#> [23] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
-#> [25] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
-#> [27] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
-#> [29] "TEMP.csv"             "TEMP.csv"
+#>  [3] "ATTITUDE.csv"         "BATTERY.csv"         
+#>  [5] "BATTERY.csv"          "BATTERY.csv"         
+#>  [7] "CFG_CHANNEL.csv"      "CFG_CHANNEL.csv"     
+#>  [9] "CFG_CHANNEL.csv"      "CFG_STUDY.csv"       
+#> [11] "CFG_STUDY.csv"        "CFG_STUDY.csv"       
+#> [13] "CFG_TRANSMITTER.csv"  "CFG_TRANSMITTER.csv" 
+#> [15] "CFG_TRANSMITTER.csv"  "CLOCK_REF.csv"       
+#> [17] "CLOCK_REF.csv"        "CLOCK_REF.csv"       
+#> [19] "DATA_SOURCE_FILE.csv" "DATA_SOURCE_FILE.csv"
+#> [21] "DATA_SOURCE_FILE.csv" "DEPTH.csv"           
+#> [23] "DEPTH.csv"            "DEPTH.csv"           
+#> [25] "DET.csv"              "DET.csv"             
+#> [27] "DET.csv"              "DIAG.csv"            
+#> [29] "DIAG.csv"             "DIAG.csv"            
+#> [31] "EVENT.csv"            "EVENT.csv"           
+#> [33] "EVENT.csv"            "EVENT_INIT.csv"      
+#> [35] "EVENT_INIT.csv"       "EVENT_INIT.csv"      
+#> [37] "EVENT_OFFLOAD.csv"    "EVENT_OFFLOAD.csv"   
+#> [39] "EVENT_OFFLOAD.csv"    "HEALTH_VR2AR.csv"    
+#> [41] "HEALTH_VR2AR.csv"     "HEALTH_VR2AR.csv"    
+#> [43] "TEMP.csv"             "TEMP.csv"            
+#> [45] "TEMP.csv"
 
 bwt_file <- list.files(tempdir(), pattern = 'TEMP', full.names = T, recursive = T)
 ```
@@ -216,7 +224,7 @@ plot(ambientdegc ~ devicetimeutc,
      type = 'l')
 ```
 
-![plot of chunk unnamed-chunk-71](figure/unnamed-chunk-71-1.png)
+![plot of chunk bwt](vignettes/figures/rvdat-bwt-1.png)
 
 ## Other variables
 
@@ -248,7 +256,7 @@ tilt <- env_import('ATTITUDE')
 plot(tiltdeg ~ devicetimeutc, data = tilt, type = 'l')
 ```
 
-![plot of chunk unnamed-chunk-72](figure/unnamed-chunk-72-1.png)
+![plot of chunk tilt](vignettes/figures/rvdat-tilt-1.png)
 
 Depth, in `DEPTH.csv`:
 
@@ -260,7 +268,7 @@ depth <- env_import('DEPTH')
 plot(depthm ~ devicetimeutc, data = depth)
 ```
 
-![plot of chunk unnamed-chunk-73](figure/unnamed-chunk-73-1.png)
+![plot of chunk depth](vignettes/figures/rvdat-depth-1.png)
 
 Battery, in `BATTERY.csv`:
 
@@ -272,7 +280,7 @@ battery <- env_import('BATTERY')
 plot(batteryvoltagev ~ devicetimeutc, data = battery)
 ```
 
-![plot of chunk unnamed-chunk-74](figure/unnamed-chunk-74-1.png)
+![plot of chunk battery](vignettes/figures/rvdat-battery-1.png)
 
 Noise, which is actually in the diagnostic file `DIAG.csv`:
 
@@ -284,7 +292,7 @@ diagnostics <- env_import('DIAG')
 plot(noisemeanmv ~ devicetimeutc, data = diagnostics)
 ```
 
-![plot of chunk unnamed-chunk-75](figure/unnamed-chunk-75-1.png)
+![plot of chunk noise](vignettes/figures/rvdat-noise-1.png)
 Hourly summaries of pings and detections are also in the diagnositc file:
 
 
@@ -292,13 +300,13 @@ Hourly summaries of pings and detections are also in the diagnositc file:
 plot(ppmdetections ~ devicetimeutc, data = diagnostics)
 ```
 
-![plot of chunk unnamed-chunk-76](figure/unnamed-chunk-76-1.png)
+![plot of chunk detections](vignettes/figures/rvdat-detections-1.png)
 
 ```r
 plot(ppmpings ~ devicetimeutc, data = diagnostics)
 ```
 
-![plot of chunk unnamed-chunk-76](figure/unnamed-chunk-76-2.png)
+![plot of chunk detections](vignettes/figures/rvdat-detections-2.png)
 
 But are really located in `DET.csv`.
 

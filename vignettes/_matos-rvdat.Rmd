@@ -11,7 +11,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "vignettes/figures/rvdat-"
 )
 ```
 
@@ -124,7 +125,7 @@ head(bwt)
 
 Now that we have our time series, let's see what it looks like!
 
-```{r}
+```{r, label=bwt}
 plot(ambientdegc ~ devicetimeutc,
      data = bwt,
      type = 'l')
@@ -135,7 +136,7 @@ plot(ambientdegc ~ devicetimeutc,
 
 We can pull out other variables in a similar manner. Take, for example, receiver tilt, located in `ATTITUDE.csv`.
 
-```{r}
+```{r, label=tilt}
 env_import <- function(file){
   hold <- list.files(
     tempdir(),
@@ -161,7 +162,7 @@ plot(tiltdeg ~ devicetimeutc, data = tilt, type = 'l')
 
 Depth, in `DEPTH.csv`:
 
-```{r}
+```{r, label=depth}
 depth <- env_import('DEPTH')
 
 plot(depthm ~ devicetimeutc, data = depth)
@@ -169,7 +170,7 @@ plot(depthm ~ devicetimeutc, data = depth)
 
 Battery, in `BATTERY.csv`:
 
-```{r}
+```{r, label=battery}
 battery <- env_import('BATTERY')
 
 plot(batteryvoltagev ~ devicetimeutc, data = battery)
@@ -177,14 +178,14 @@ plot(batteryvoltagev ~ devicetimeutc, data = battery)
 
 Noise, which is actually in the diagnostic file `DIAG.csv`:
 
-```{r}
+```{r, label=noise}
 diagnostics <- env_import('DIAG')
 
 plot(noisemeanmv ~ devicetimeutc, data = diagnostics)
 ```
 Hourly summaries of pings and detections are also in the diagnositc file:
 
-```{r}
+```{r, label=detections}
 plot(ppmdetections ~ devicetimeutc, data = diagnostics)
 plot(ppmpings ~ devicetimeutc, data = diagnostics)
 ```
