@@ -12,3 +12,4 @@
 ^vignettes/_multiple-projects\.Rmd$
 ^vignettes/_matos-rvdat\.Rmd$
 ^precompile\.R$
+^tests/testthat/testfiles/make-test-files\.Rmd$
