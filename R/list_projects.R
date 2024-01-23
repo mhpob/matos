@@ -73,34 +73,93 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     ## Match MATOS and OTN projects
     exact_matches <- merge(projects, otn_metadata,
-      by = "match_names"
+                           by = "match_names"
     )
 
     ### Throw an error if there are multiple matches
     if (length(unique(exact_matches$match_names)) != nrow(exact_matches)) {
-      stop("MATOS has matched multiple OTN project names.")
+      stop("MATOS has exactly matched multiple OTN project names.")
     }
 
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-      exact_matches$shortname, ]
+                                  exact_matches$shortname, ]
     matos_dangler <- projects[!projects$name %in% exact_matches$name, ]
 
+
+    ## Check for projects within other project names
+    within_match_fun <- function(a, b){
+      hold <- sapply(a, grep, b,
+                     value = TRUE,
+                     ignore.case = TRUE
+      )
+
+      hold <- hold[sapply(hold, length) == 1]
+      hold
+    }
+
+    otn_in_matos <- within_match_fun(otn_dangler$match_names,
+                                     matos_dangler$match_names)
+
+    matos_in_otn <- within_match_fun(matos_dangler$match_names,
+                                     otn_dangler$match_names)
+
+    ## Create keys
+    otn_in_matos <- data.frame(
+      matos = unlist(otn_in_matos, use.names = F),
+      otn = names(otn_in_matos)
+    )
+    matos_in_otn <- data.frame(
+      matos = names(matos_in_otn),
+      otn = unlist(matos_in_otn, use.names = F)
+    )
+
+    within_matches <- merge(otn_in_matos, matos_in_otn, all = T)
+
+    ## Select metadata of within matches
+    otn_match <- merge(otn_metadata, within_matches,
+                       by.x = "match_names", by.y = "otn"
+    )
+    matos_match <- merge(projects, within_matches,
+                         by.x = "match_names", by.y = "matos"
+    )
+
+
+    within_matches <- merge(matos_match, otn_match,
+                            by.x = c("otn", "match_names"),
+                            by.y = c("match_names", "matos")
+    )
+
+
+
+
+    # rbind(within_matches[, -1], exact_matches)
+
+
+
+
+    ## Find which are left over from the OTN and MATOS data sets
+    otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
+                                  c(exact_matches$shortname,
+                                    within_matches$shortname), ]
+    matos_dangler <- projects[!projects$name %in%
+                                c(exact_matches$name,
+                                  within_matches$name), ]
 
     ## Use agrep for fuzzy matching
     fuzzy_match_fun <- function(a, b) {
       hold <- sapply(a, agrep, b,
-        max.distance = 0.25,
-        value = TRUE,
-        ignore.case = TRUE
+                     max.distance = 0.25,
+                     value = TRUE,
+                     ignore.case = TRUE
       )
-      hold[sapply(hold, length) > 0]
+      hold[sapply(hold, length) == 1]
     }
 
     ## Fuzzy match OTN names with MATOS names and vice versa
-    otn_in_matos <- fuzzy_match_fun(otn_dangler$shortname, matos_dangler$name)
-    matos_in_otn <- fuzzy_match_fun(matos_dangler$name, otn_dangler$shortname)
+    otn_in_matos <- fuzzy_match_fun(otn_dangler$match_names, matos_dangler$match_names)
+    matos_in_otn <- fuzzy_match_fun(matos_dangler$match_names, otn_dangler$match_names)
 
     ## Create keys
     otn_in_matos <- data.frame(
@@ -117,21 +176,25 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     ## Select metadata of fuzzy matches
     otn_match <- merge(otn_metadata, fuzzy_matches,
-      by.x = "shortname", by.y = "otn"
+                       by.x = "match_names", by.y = "otn"
     )
     matos_match <- merge(projects, fuzzy_matches,
-      by.x = "name", by.y = "matos"
+                         by.x = "match_names", by.y = "matos"
     )
 
     ## Merge keys
     fuzzy_matches <- merge(matos_match, otn_match,
-      by.x = c("otn", "name"),
-      by.y = c("shortname", "matos")
+                           by.x = c("otn", "match_names"),
+                           by.y = c("match_names", "matos")
     )
-    names(fuzzy_matches)[names(fuzzy_matches) == "otn"] <- "shortname"
 
     ## Combine matches
-    matches <- merge(exact_matches, fuzzy_matches, all = T)
+    matches <- Reduce(
+      function(x, y) merge(x, y, all = T),
+      list(exact_matches,
+           within_matches[, -1],
+           fuzzy_matches[, -1])
+    )
 
     ## Move names around
     projects <- merge(
