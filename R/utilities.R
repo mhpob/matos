@@ -134,11 +134,12 @@ get_file_list <- function(project_number, data_type) {
 
   content_check <- httr::content(file_list)
   content_check <- rvest::html_element(content_check,
-                                       xpath = '//*[@id="content"]/table')
+    xpath = '//*[@id="content"]/table'
+  )
 
-  if (class(content_check) == 'xml_missing') {
+  if (class(content_check) == "xml_missing") {
     stop(
-      'No file lists returned.\nAre you using the correct project ID?'
+      "No file lists returned.\nAre you using the correct project ID?"
     )
   }
 
@@ -247,7 +248,7 @@ html_table_to_df <- function(html_file_list) {
 login_check <- function(url = "https://matos.asascience.com/report/submit") {
   check_response <- httr::HEAD(url)
 
-  if (!any(grepl('AUTH', check_response$cookies$name))) {
+  if (!any(grepl("AUTH", check_response$cookies$name))) {
     matos_login()
   }
 }
