@@ -10,6 +10,6 @@ test_that("logoff works", {
   response <- httr::HEAD(url)
 
   expect_false(
-    any(grepl('AUTH', response$cookies$name))
+    any(grepl("AUTH", response$cookies$name))
   )
 })
