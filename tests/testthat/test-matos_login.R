@@ -7,5 +7,7 @@ test_that("login gets cookie", {
   url <- "https://matos.asascience.com/report/submit"
   response <- httr::HEAD(url)
 
-  expect_gt(nrow(response$cookies), 1)
+  expect_true(
+    any(grepl('AUTH', response$cookies$name))
+  )
 })

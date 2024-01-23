@@ -9,5 +9,7 @@ test_that("logoff works", {
   url <- "https://matos.asascience.com/report/submit"
   response <- httr::HEAD(url)
 
-  expect_equal(nrow(response$cookies), 1)
+  expect_false(
+    any(grepl('AUTH', response$cookies$name))
+  )
 })
