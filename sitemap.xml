@@ -34,6 +34,12 @@
     <loc>https://www.obrien.page/matos/reference/act_file_download.html</loc>
   </url>
   <url>
+    <loc>https://www.obrien.page/matos/reference/flatten_names.html</loc>
+  </url>
+  <url>
+    <loc>https://www.obrien.page/matos/reference/fuzzy_match.html</loc>
+  </url>
+  <url>
     <loc>https://www.obrien.page/matos/reference/get_extract_file.html</loc>
   </url>
   <url>
@@ -86,5 +92,8 @@
   </url>
   <url>
     <loc>https://www.obrien.page/matos/reference/utilities.html</loc>
+  </url>
+  <url>
+    <loc>https://www.obrien.page/matos/reference/within_match.html</loc>
   </url>
 </urlset>
