@@ -128,9 +128,21 @@ get_file_list <- function(project_number, data_type) {
     sep = "/"
   )
 
-  matos:::login_check(url)
+  login_check(url)
 
-  httr::GET(url)
+  file_list <- httr::GET(url)
+
+  content_check <- httr::content(file_list)
+  content_check <- rvest::html_element(content_check,
+                                       xpath = '//*[@id="content"]/table')
+
+  if (class(content_check) == 'xml_missing') {
+    stop(
+      'No file lists returned.\nAre you using the correct project ID?'
+    )
+  }
+
+  file_list
 }
 
 
