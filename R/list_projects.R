@@ -62,11 +62,6 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     # Merge MATOS and OTN data
     ## Flatten and remove special characters to aid in matching
-    flatten_names <- function(x) {
-      hold <- tolower(x)
-      gsub("[,\\(\\)_ /:'&\\.]|-", "", hold)
-    }
-
     projects$match_names <- flatten_names(projects$name)
     otn_metadata$match_names <- flatten_names(otn_metadata$shortname)
 
@@ -82,27 +77,19 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
     }
 
 
+
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
                                   exact_matches$shortname, ]
     matos_dangler <- projects[!projects$name %in% exact_matches$name, ]
 
 
+
     ## Check for projects within other project names
-    within_match_fun <- function(a, b){
-      hold <- sapply(a, grep, b,
-                     value = TRUE,
-                     ignore.case = TRUE
-      )
-
-      hold <- hold[sapply(hold, length) == 1]
-      hold
-    }
-
-    otn_in_matos <- within_match_fun(otn_dangler$match_names,
+    otn_in_matos <- within_match(otn_dangler$match_names,
                                      matos_dangler$match_names)
 
-    matos_in_otn <- within_match_fun(matos_dangler$match_names,
+    matos_in_otn <- within_match(matos_dangler$match_names,
                                      otn_dangler$match_names)
 
     ## Create keys
@@ -134,11 +121,6 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
 
 
-    # rbind(within_matches[, -1], exact_matches)
-
-
-
-
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
                                   c(exact_matches$shortname,
@@ -147,19 +129,14 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
                                 c(exact_matches$name,
                                   within_matches$name), ]
 
-    ## Use agrep for fuzzy matching
-    fuzzy_match_fun <- function(a, b) {
-      hold <- sapply(a, agrep, b,
-                     max.distance = 0.25,
-                     value = TRUE,
-                     ignore.case = TRUE
-      )
-      hold[sapply(hold, length) == 1]
-    }
+
+
 
     ## Fuzzy match OTN names with MATOS names and vice versa
-    otn_in_matos <- fuzzy_match_fun(otn_dangler$match_names, matos_dangler$match_names)
-    matos_in_otn <- fuzzy_match_fun(matos_dangler$match_names, otn_dangler$match_names)
+    otn_in_matos <- fuzzy_match(otn_dangler$match_names,
+                                    matos_dangler$match_names)
+    matos_in_otn <- fuzzy_match(matos_dangler$match_names,
+                                    otn_dangler$match_names)
 
     ## Create keys
     otn_in_matos <- data.frame(
@@ -226,4 +203,51 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
   }
 
   projects
+}
+
+
+
+#' Flatten and remove special characters to aid in matching
+#'
+#' @param x name to flatten
+#'
+#' @keywords internal
+flatten_names <- function(x) {
+  hold <- tolower(x)
+  gsub("[,\\(\\)_ /:'&\\.]|-", "", hold)
+}
+
+
+
+#' Check for projects within other project names
+#'
+#' @param a vector holding names that may be a part of `b`
+#' @param b vector holding names that may encompass `a`
+#'
+#' @keywords internal
+within_match <- function(a, b){
+  hold <- sapply(a, grep, b,
+                 value = TRUE,
+                 ignore.case = TRUE
+  )
+
+  hold[sapply(hold, length) == 1]
+}
+
+
+
+#' Use `agrep` for fuzzy matching
+#'
+#' @param a vector holding names that may be a part of `b` by changing less than
+#'  25% of the characters
+#' @param b vector holding names that may encompass some manipulation of `a`
+#'
+#' @keywords internal
+fuzzy_match <- function(a, b) {
+  hold <- sapply(a, agrep, b,
+                 max.distance = 0.25,
+                 value = TRUE,
+                 ignore.case = TRUE
+  )
+  hold[sapply(hold, length) == 1]
 }

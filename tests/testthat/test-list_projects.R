@@ -12,6 +12,8 @@ fuzzy_match_fun <- function(a, b) {
 }
 
 
+k <- list_projects()
+
 matos_projects <- httr::GET(
   "https://matos.asascience.com/project"
 )
@@ -90,4 +92,18 @@ test_that("returns correct classes", {
   expect_type(projects$name, "character")
   expect_type(projects$number, "double")
   expect_type(projects$url, "character")
+})
+
+
+##### TBD: TEST NON-EXPORTED FUNCTIONS ####
+test_that("internal flatten_names function", {
+  skip("Test needs to be created.")
+})
+
+test_that("internal within_match function", {
+  skip("Test needs to be created.")
+})
+
+test_that("internal fuzzy_match function", {
+  skip("Test needs to be created.")
 })
