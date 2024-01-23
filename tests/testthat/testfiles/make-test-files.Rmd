@@ -1,0 +1,15 @@
+---
+title: Description of files within `tests/testthat/testfiles`
+---
+
+## html_file_list_nofiles.RDS
+
+File was created by running:
+
+```{r, eval=FALSE}
+html_file_list <- get_file_list(240, 'dataextractionfiles')
+saveRDS(html_file_list,
+        testthat::test_path('testfiles/html_file_list_nofiles.RDS'))
+```
+
+At the time, project #240 ("UMCES TailWinds") had not been matched with the OTN data base and so had no matched detections.
