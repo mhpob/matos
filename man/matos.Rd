@@ -2,8 +2,8 @@
 % Please edit documentation in R/matos-package.R
 \docType{package}
 \name{matos}
-\alias{matos}
 \alias{matos-package}
+\alias{matos}
 \title{matos: Interface with the Mid-Atlantic Acoustic Telemetry Observing System (MATOS)}
 \description{
 This package provides HTML-scaping functions to interact with the MATOS website (https://matos.asascience.com/). Functions will allow aggreation of data and the downloading and posting of files.
