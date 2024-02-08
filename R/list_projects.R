@@ -87,10 +87,10 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     ## Check for projects within other project names
     otn_in_matos <- within_match(otn_dangler$match_names,
-                                     matos_dangler$match_names)
+                                 matos_dangler$match_names)
 
     matos_in_otn <- within_match(matos_dangler$match_names,
-                                     otn_dangler$match_names)
+                                 otn_dangler$match_names)
 
     ## Create keys
     otn_in_matos <- data.frame(
@@ -134,9 +134,12 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     ## Fuzzy match OTN names with MATOS names and vice versa
     otn_in_matos <- fuzzy_match(otn_dangler$match_names,
-                                    matos_dangler$match_names)
+                                matos_dangler$match_names)
     matos_in_otn <- fuzzy_match(matos_dangler$match_names,
-                                    otn_dangler$match_names)
+                                otn_dangler$match_names)
+
+
+
 
     ## Create keys
     otn_in_matos <- data.frame(
@@ -165,12 +168,28 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
                            by.y = c("match_names", "matos")
     )
 
+
+
+
+    ## Find which are left over from the OTN and MATOS data sets
+    otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
+                                  c(exact_matches$shortname,
+                                    within_matches$shortname,
+                                    fuzzy_matches$shortname), ]
+    matos_dangler <- projects[!projects$name %in%
+                                c(exact_matches$name,
+                                  within_matches$name,
+                                  fuzzy_matches$name), ]
+
+
+
+
     ## Combine matches
     matches <- Reduce(
       function(x, y) merge(x, y, all = T),
       list(exact_matches,
-           within_matches[, -1],
-           fuzzy_matches[, -1])
+           within_matches[, !names(within_matches) == "otn"],
+           fuzzy_matches[, !names(fuzzy_matches) == "otn"])
     )
 
     ## Move names around
@@ -180,6 +199,10 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
       all = T
     )
 
+    missing_otn <- projects[is.na(projects$collectioncode), ]
+    missing_act <- otn_metadata[!otn_metadata$collectioncode %in%
+                                  projects$collectioncode, ]
+
     projects$collectioncode <- gsub("ACT\\.", "", projects$collectioncode)
 
     projects <- projects[, c(
@@ -188,11 +211,16 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
       "collaborationtype", "locality", "abstract"
     )]
 
-    missing_otn <- projects[!complete.cases(projects), ]
 
     if (nrow(missing_otn) != 0) {
       cli::cli_alert_info(
-        "These projects are missing metadata as they have not yet synced with OTN: {.val {missing_otn$name}}",
+        list("These ACT projects were unable to be matched with OTN: {.val {missing_otn$name}}"),
+        wrap = TRUE
+      )
+    }
+    if (nrow(missing_act) != 0) {
+      cli::cli_alert_info(
+        list("These OTN projects were unable to be matched with ACT: {.val {missing_act$shortname}}"),
         wrap = TRUE
       )
     }
@@ -231,7 +259,16 @@ within_match <- function(a, b){
                  ignore.case = TRUE
   )
 
-  hold[sapply(hold, length) == 1]
+  match_lengths <- sapply(hold, length)
+
+
+  # Error if there are multiple matches
+  if(sum(match_lengths) != length(unique(unlist(hold)))){
+    stop("At least one project name is a subset of multiple other projects.")
+  }
+
+
+  hold[match_lengths == 1]
 }
 
 
@@ -249,5 +286,18 @@ fuzzy_match <- function(a, b) {
                  value = TRUE,
                  ignore.case = TRUE
   )
+
+  match_lengths <- sapply(hold, length)
+
+
+  # Error if there are multiple matches
+  if(sum(match_lengths) != length(unique(unlist(hold)))){
+    stop(
+      "At least one project name can be fuzzy-matched to multiple other projects."
+    )
+  }
+
+
   hold[sapply(hold, length) == 1]
 }
+

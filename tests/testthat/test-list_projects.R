@@ -1,64 +1,4 @@
-flatten_names <- function(x) {
-  hold <- tolower(x)
-  gsub("[,\\(\\)_ /:'&\\.]|-", "", hold)
-}
-fuzzy_match_fun <- function(a, b) {
-  hold <- sapply(a, agrep, b,
-    max.distance = 0.25,
-    value = TRUE,
-    ignore.case = TRUE
-  )
-  hold[sapply(hold, length) > 0]
-}
 
-
-k <- list_projects()
-
-matos_projects <- httr::GET(
-  "https://matos.asascience.com/project"
-)
-
-matos_projects <- httr::content(matos_projects)
-matos_projects <- rvest::html_node(matos_projects, ".project_list")
-matos_projects <- rvest::html_nodes(matos_projects, "a")
-matos_projects <- rvest::html_text(matos_projects, trim = T)
-
-matos_projects <- data.frame(
-  names = flatten_names(matos_projects)
-)
-
-otn_metadata <- paste0(
-  "https://members.oceantrack.org/geoserver/otn/ows?service=WFS&",
-  "version=1.0.0&request=GetFeature&typeName=otn:",
-  "otn_resources_metadata",
-  "&outputFormat=csv&CQL_FILTER=strMatches(node,'ACT')=true"
-) |>
-  URLencode() |>
-  read.csv()
-
-otn_metadata <- data.frame(
-  names = flatten_names(otn_metadata$shortname)
-)
-
-exact_matches <- merge(
-  matos_projects,
-  otn_metadata
-)
-
-test_that("merge doesn't match multiple OTN projects.", {
-  expect_equal(
-    length(unique(exact_matches$names)),
-    nrow(exact_matches)
-  )
-})
-
-otn_dangler <- otn_metadata[!otn_metadata$names %in%
-  exact_matches$names, ]
-matos_dangler <- matos_projects[!matos_projects$names %in%
-  exact_matches$names, ]
-
-otn_in_matos <- fuzzy_match_fun(otn_dangler, matos_dangler)
-matos_in_otn <- fuzzy_match_fun(matos_dangler, otn_dangler)
 
 
 test_that("agrep doesn't match multiple OTN projects.", {
@@ -72,14 +12,7 @@ test_that("agrep doesn't match multiple OTN projects.", {
 
 
 
-test_that("no error in listing projects", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
 
-  expect_no_error({
-    list_projects()
-  })
-})
 
 
 test_that("returns correct classes", {
@@ -90,20 +23,104 @@ test_that("returns correct classes", {
 
   expect_s3_class(projects, "data.frame")
   expect_type(projects$name, "character")
+  expect_type(projects$collectioncode, "character")
   expect_type(projects$number, "double")
   expect_type(projects$url, "character")
+  expect_named(
+    projects,
+    c("name", "collectioncode", "number", "url", "status", "longname", "citation",
+      "website", "collaborationtype", "locality", "abstract")
+  )
 })
 
 
-##### TBD: TEST NON-EXPORTED FUNCTIONS ####
-test_that("internal flatten_names function", {
-  skip("Test needs to be created.")
+#### NON-EXPORTED FUNCTIONS ####
+test_that("internal function `flatten_names` works", {
+  otn_names <- paste0(
+    "https://members.oceantrack.org/geoserver/otn/ows?service=WFS&",
+    "version=1.0.0&request=GetFeature&typeName=otn:",
+    "otn_resources_metadata",
+    "&outputFormat=csv&CQL_FILTER=strMatches(node,'ACT')=true"
+  ) |>
+    URLencode() |>
+    read.csv() |>
+    _$shortname
+
+  flat_names <- flatten_names(otn_names)
+
+  # Right type
+  expect_type(flat_names, 'character')
+  # Right length
+  expect_equal(length(otn_names), length(flat_names))
+  # No missing
+  expect_true(
+    !any(is.na(flat_names))
+  )
+  # No upper case
+  expect_true(
+    !any(grepl("[A-Z]", flat_names))
+  )
+  # No special characters
+  expect_true(
+    !any(
+      grepl(
+        "[\\$\\&\\+\\,\\:\\;\\=\\?\\@\\#\\|\\'\\<\\>\\.\\^\\*\\(\\)\\%\\!\\-]",
+        flat_names
+      )
+    )
+  )
+  # No spaces, underscores, or parentheses
+  expect_true(
+    !any(grepl("[ _\\(\\)]", flat_names))
+  )
 })
 
-test_that("internal within_match function", {
-  skip("Test needs to be created.")
+test_that("internal function `within_match` works", {
+  projects_db1 <- c('abcdefg',
+                    'hijklmn')
+  projects_db2_onematch <- c('12345',
+                             'jkl',
+                             'def')
+  projects_db2_multimatch <- c('abcd',
+                               'defgh',
+                               'cde')
+
+  expect_type(
+    matches <- within_match(projects_db2_onematch, projects_db1),
+    'list'
+  )
+  expect_type(matches[[1]], 'character')
+  expect_type(matches[[2]], 'character')
+  expect_length(matches, 2)
+  expect_named(matches, c('jkl', 'def'))
+
+  expect_error(
+    within_match(projects_db2_multimatch, projects_db1),
+    'At least one project name is a subset of multiple other projects.'
+  )
 })
 
-test_that("internal fuzzy_match function", {
-  skip("Test needs to be created.")
+test_that("internal function `fuzzy_match` works", {
+  projects_db1 <- c('abcdefg',
+                     'hijklmn')
+  projects_db2_onematch <- c('12345',
+                             'jkl',
+                             'def')
+  projects_db2_multimatch <- c('abcd',
+                               'defgh',
+                               '123')
+
+  expect_type(
+    matches <- fuzzy_match(projects_db2_onematch, projects_db1),
+    'list'
+  )
+  expect_type(matches[[1]], 'character')
+  expect_type(matches[[2]], 'character')
+  expect_length(matches, 2)
+  expect_named(matches, c('jkl', 'def'))
+
+  expect_error(
+    fuzzy_match(projects_db2_multimatch, projects_db1),
+    "At least one project name can be fuzzy-matched to multiple other projects."
+  )
 })
