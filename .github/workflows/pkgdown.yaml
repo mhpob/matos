@@ -22,7 +22,7 @@ jobs:
       MATOS_USER: ${{ secrets.MATOS_USERNAME }}
       MATOS_PASS: ${{ secrets.MATOS_PASSWORD }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
