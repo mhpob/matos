@@ -28,8 +28,8 @@ test_that("internal function `flatten_names` works", {
     "&outputFormat=csv&CQL_FILTER=strMatches(node,'ACT')=true"
   ) |>
     URLencode() |>
-    read.csv() |>
-    _$shortname
+    read.csv()
+  otn_names <- otn_names$shortname
 
   flat_names <- flatten_names(otn_names)
 
