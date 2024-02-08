@@ -13,6 +13,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![R-CMD-check](https://github.com/mhpob/matos/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mhpob/matos/actions/workflows/R-CMD-check.yaml)
 [![matos status
 badge](https://mhpob.r-universe.dev/badges/matos)](https://mhpob.r-universe.dev/matos)
+[![codecov](https://codecov.io/gh/mhpob/matos/graph/badge.svg?token=TFI406AVHP)](https://codecov.io/gh/mhpob/matos)
 <!-- badges: end -->
 
 {matos} is an API to the [Mid-Atlantic Acoustic Telemetry Observing
@@ -34,9 +35,11 @@ R-universe:
 
 ``` r
 install.packages(
-  'matos',
-  repos = c('https://mhpob.r-universe.dev',
-            'https://cloud.r-project.org')
+  "matos",
+  repos = c(
+    "https://mhpob.r-universe.dev",
+    "https://cloud.r-project.org"
+  )
 )
 ```
 
