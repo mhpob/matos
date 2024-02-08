@@ -68,7 +68,7 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     ## Match MATOS and OTN projects
     exact_matches <- merge(projects, otn_metadata,
-                           by = "match_names"
+      by = "match_names"
     )
 
     ### Throw an error if there are multiple matches
@@ -80,7 +80,7 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-                                  exact_matches$shortname, ]
+      exact_matches$shortname, ]
     matos_dangler <- projects[!projects$name %in% exact_matches$name, ]
 
 
@@ -130,15 +130,15 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-                                  c(
-                                    exact_matches$shortname,
-                                    within_matches$shortname
-                                  ), ]
+      c(
+        exact_matches$shortname,
+        within_matches$shortname
+      ), ]
     matos_dangler <- projects[!projects$name %in%
-                                c(
-                                  exact_matches$name,
-                                  within_matches$name
-                                ), ]
+      c(
+        exact_matches$name,
+        within_matches$name
+      ), ]
 
 
 
@@ -188,13 +188,17 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-                                  c(exact_matches$shortname,
-                                    within_matches$shortname,
-                                    fuzzy_matches$shortname), ]
+      c(
+        exact_matches$shortname,
+        within_matches$shortname,
+        fuzzy_matches$shortname
+      ), ]
     matos_dangler <- projects[!projects$name %in%
-                                c(exact_matches$name,
-                                  within_matches$name,
-                                  fuzzy_matches$name), ]
+      c(
+        exact_matches$name,
+        within_matches$name,
+        fuzzy_matches$name
+      ), ]
 
 
 
@@ -218,7 +222,7 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
 
     missing_otn <- projects[is.na(projects$collectioncode), ]
     missing_act <- otn_metadata[!otn_metadata$collectioncode %in%
-                                  projects$collectioncode, ]
+      projects$collectioncode, ]
 
     projects$collectioncode <- gsub("ACT\\.", "", projects$collectioncode)
 
@@ -281,7 +285,7 @@ within_match <- function(a, b) {
 
 
   # Error if there are multiple matches
-  if(sum(match_lengths) != length(unique(unlist(hold)))){
+  if (sum(match_lengths) != length(unique(unlist(hold)))) {
     stop("At least one project name is a subset of multiple other projects.")
   }
 
@@ -310,7 +314,7 @@ fuzzy_match <- function(a, b) {
 
 
   # Error if there are multiple matches
-  if(sum(match_lengths) != length(unique(unlist(hold)))){
+  if (sum(match_lengths) != length(unique(unlist(hold)))) {
     stop(
       "At least one project name can be fuzzy-matched to multiple other projects."
     )
@@ -319,4 +323,3 @@ fuzzy_match <- function(a, b) {
 
   hold[sapply(hold, length) == 1]
 }
-
