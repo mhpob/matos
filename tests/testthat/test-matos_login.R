@@ -8,6 +8,6 @@ test_that("login gets cookie", {
   response <- httr::HEAD(url)
 
   expect_true(
-    any(grepl('AUTH', response$cookies$name))
+    any(grepl("AUTH", response$cookies$name))
   )
 })

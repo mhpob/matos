@@ -137,7 +137,7 @@ get_file_list <- function(project_number, data_type) {
     xpath = '//*[@id="content"]/table'
   )
 
-  if (inherits(content_check, 'xml_missing')) {
+  if (inherits(content_check, "xml_missing")) {
     stop(
       "No file lists returned.\nAre you using the correct project ID?"
     )
