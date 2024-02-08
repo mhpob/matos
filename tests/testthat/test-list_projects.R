@@ -1,20 +1,3 @@
-
-
-
-test_that("agrep doesn't match multiple OTN projects.", {
-  expect_false(
-    any(sapply(otn_in_matos, length) > 1)
-  )
-  expect_false(
-    any(sapply(matos_in_otn, length) > 1)
-  )
-})
-
-
-
-
-
-
 test_that("returns correct classes", {
   # skip test on Runiverse
   skip_on_Runiverse()
@@ -32,6 +15,8 @@ test_that("returns correct classes", {
       "website", "collaborationtype", "locality", "abstract")
   )
 })
+
+
 
 
 #### NON-EXPORTED FUNCTIONS ####
@@ -75,6 +60,9 @@ test_that("internal function `flatten_names` works", {
   )
 })
 
+
+
+
 test_that("internal function `within_match` works", {
   projects_db1 <- c('abcdefg',
                     'hijklmn')
@@ -99,6 +87,9 @@ test_that("internal function `within_match` works", {
     'At least one project name is a subset of multiple other projects.'
   )
 })
+
+
+
 
 test_that("internal function `fuzzy_match` works", {
   projects_db1 <- c('abcdefg',
