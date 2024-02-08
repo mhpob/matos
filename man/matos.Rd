@@ -6,7 +6,7 @@
 \alias{matos}
 \title{matos: Interface with the Mid-Atlantic Acoustic Telemetry Observing System (MATOS)}
 \description{
-This package provides HTML-scaping functions to interact with the MATOS website (https://matos.asascience.com/). Functions will allow aggreation of data and the downloading and posting of files.
+This package provides HTML-scaping functions to interact with the MATOS website (https://matos.asascience.com/), allowing aggregation of data and the downloading and posting of files.
 }
 \seealso{
 Useful links:

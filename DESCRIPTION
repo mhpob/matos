@@ -1,12 +1,12 @@
 Package: matos
 Type: Package
 Title: Interface with the Mid-Atlantic Acoustic Telemetry Observing System (MATOS)
-Version: 0.4.003
+Version: 0.4.004
 Authors@R: person("Michael", "O'Brien", email = "mike@obrien.page",
                   role = c("aut", "cre"),
                   comment = c(ORCID = "0000-0003-1420-6395"))
 Description: This package provides HTML-scaping functions to interact with the
-  MATOS website (https://matos.asascience.com/). Functions will allow aggreation
+  MATOS website (https://matos.asascience.com/), allowing aggregation
   of data and the downloading and posting of files.
 Imports:
     cli,
