@@ -30,7 +30,7 @@ jobs:
       - name: Check test-list_projects
         shell: Rscript {0}
         run: |
-          testthat::test_file(file = 'tests/testthat/test-list_projects.R',
+          testthat::test_file(path = 'tests/testthat/test-list_projects.R',
           package = "matos", load_package = "source")
 
       - name: Show testthat output
