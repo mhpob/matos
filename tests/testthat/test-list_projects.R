@@ -11,8 +11,10 @@ test_that("returns correct classes", {
   expect_type(projects$url, "character")
   expect_named(
     projects,
-    c("name", "collectioncode", "number", "url", "status", "longname", "citation",
-      "website", "collaborationtype", "locality", "abstract")
+    c(
+      "name", "collectioncode", "number", "url", "status", "longname", "citation",
+      "website", "collaborationtype", "locality", "abstract"
+    )
   )
 })
 
@@ -34,7 +36,7 @@ test_that("internal function `flatten_names` works", {
   flat_names <- flatten_names(otn_names)
 
   # Right type
-  expect_type(flat_names, 'character')
+  expect_type(flat_names, "character")
   # Right length
   expect_equal(length(otn_names), length(flat_names))
   # No missing
@@ -64,27 +66,33 @@ test_that("internal function `flatten_names` works", {
 
 
 test_that("internal function `within_match` works", {
-  projects_db1 <- c('abcdefg',
-                    'hijklmn')
-  projects_db2_onematch <- c('12345',
-                             'jkl',
-                             'def')
-  projects_db2_multimatch <- c('abcd',
-                               'defgh',
-                               'cde')
+  projects_db1 <- c(
+    "abcdefg",
+    "hijklmn"
+  )
+  projects_db2_onematch <- c(
+    "12345",
+    "jkl",
+    "def"
+  )
+  projects_db2_multimatch <- c(
+    "abcd",
+    "defgh",
+    "cde"
+  )
 
   expect_type(
     matches <- within_match(projects_db2_onematch, projects_db1),
-    'list'
+    "list"
   )
-  expect_type(matches[[1]], 'character')
-  expect_type(matches[[2]], 'character')
+  expect_type(matches[[1]], "character")
+  expect_type(matches[[2]], "character")
   expect_length(matches, 2)
-  expect_named(matches, c('jkl', 'def'))
+  expect_named(matches, c("jkl", "def"))
 
   expect_error(
     within_match(projects_db2_multimatch, projects_db1),
-    'At least one project name is a subset of multiple other projects.'
+    "At least one project name is a subset of multiple other projects."
   )
 })
 
@@ -92,23 +100,29 @@ test_that("internal function `within_match` works", {
 
 
 test_that("internal function `fuzzy_match` works", {
-  projects_db1 <- c('abcdefg',
-                     'hijklmn')
-  projects_db2_onematch <- c('12345',
-                             'jkl',
-                             'def')
-  projects_db2_multimatch <- c('abcd',
-                               'defgh',
-                               '123')
+  projects_db1 <- c(
+    "abcdefg",
+    "hijklmn"
+  )
+  projects_db2_onematch <- c(
+    "12345",
+    "jkl",
+    "def"
+  )
+  projects_db2_multimatch <- c(
+    "abcd",
+    "defgh",
+    "123"
+  )
 
   expect_type(
     matches <- fuzzy_match(projects_db2_onematch, projects_db1),
-    'list'
+    "list"
   )
-  expect_type(matches[[1]], 'character')
-  expect_type(matches[[2]], 'character')
+  expect_type(matches[[1]], "character")
+  expect_type(matches[[2]], "character")
   expect_length(matches, 2)
-  expect_named(matches, c('jkl', 'def'))
+  expect_named(matches, c("jkl", "def"))
 
   expect_error(
     fuzzy_match(projects_db2_multimatch, projects_db1),
