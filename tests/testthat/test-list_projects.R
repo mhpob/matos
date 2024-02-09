@@ -22,29 +22,32 @@ test_that("memoise works", {
 
   # Function is memoised
   expect_true(
-    memoise::is.memoised(list_projects)
+    memoise::is.memoised(list_projects_mem)
   )
 
   # Function has no cache
   expect_false(
-    memoise::has_cache(list_projects)()
+    memoise::has_cache(list_projects_mem)()
   )
 
-  projects <- list_projects()
-
-  # Function gains a cache
-  expect_true(
-    memoise::has_cache(list_projects)()
+  # Pings the server and returns a message
+  expect_message(
+    projects <- list_projects()
   )
 
-  # Function can drop a cache
-  expect_true(
-    memoise::drop_cache(list_projects)()
+  # Returns cached result
+  expect_no_message(
+    projects <- list_projects()
   )
 
-  # Function has dropped the cache
-  expect_false(
-    memoise::has_cache(list_projects)()
+  # Forces server ping and returns message
+  expect_message(
+    projects <- list_projects(force = T)
+  )
+
+  # Keeps on forcin'
+  expect_message(
+    projects <- list_projects(force = T)
   )
 })
 
