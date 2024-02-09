@@ -18,6 +18,38 @@ test_that("returns correct classes", {
 
 
 
+test_that("memoise works", {
+
+  # Function is memoised
+  expect_true(
+    memoise::is.memoised(list_projects)
+  )
+
+  # Function has no cache
+  expect_false(
+    memoise::has_cache(list_projects)()
+  )
+
+  projects <- list_projects()
+
+  # Function gains a cache
+  expect_true(
+    memoise::has_cache(list_projects)()
+  )
+
+  # Function can drop a cache
+  expect_true(
+    memoise::drop_cache(list_projects)()
+  )
+
+  # Function has dropped the cache
+  expect_false(
+    memoise::has_cache(list_projects)()
+  )
+})
+
+
+
 test_that("can shush", {
   expect_message(
     list_projects(),
