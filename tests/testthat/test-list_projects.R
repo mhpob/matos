@@ -18,6 +18,22 @@ test_that("returns correct classes", {
 
 
 
+test_that("can shush", {
+  expect_message(
+    list_projects(),
+    "These ACT projects were unable to be matched with OTN"
+  ) |>
+    expect_message("These OTN projects were unable to be matched with ACT")
+
+  expect_no_message(
+    list_projects(quiet = TRUE)
+  )
+})
+
+
+
+
+
 #### NON-EXPORTED FUNCTIONS ####
 test_that("internal function `flatten_names` works", {
   otn_names <- paste0(

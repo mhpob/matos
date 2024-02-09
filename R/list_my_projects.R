@@ -24,7 +24,7 @@ list_my_projects <- function(read_access = T) {
   names <- rvest::html_nodes(names, "option")
   names <- rvest::html_text(names)
 
-  all_projects <- list_projects(what = "all")
+  all_projects <- list_projects(what = "all", quiet = TRUE)
 
   if (read_access == T) {
     project_numbers <- unique(unlist(sapply(names, get_project_number)))

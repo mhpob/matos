@@ -24,7 +24,9 @@
 #' # List your projects (which may contain some for which you do not have read access):
 #' list_projects("mine", read_access = F)
 #' }
-list_projects <- function(what = c("all", "mine"), read_access = T) {
+list_projects <- function(what = c("all", "mine"),
+                          read_access = FALSE,
+                          quiet = FALSE) {
   what <- match.arg(what)
 
   if (what == "all") {
@@ -233,13 +235,13 @@ list_projects <- function(what = c("all", "mine"), read_access = T) {
     )]
 
 
-    if (nrow(missing_otn) != 0) {
+    if (nrow(missing_otn) != 0 & quiet == FALSE) {
       cli::cli_alert_info(
         list("These ACT projects were unable to be matched with OTN: {.val {missing_otn$name}}"),
         wrap = TRUE
       )
     }
-    if (nrow(missing_act) != 0) {
+    if (nrow(missing_act) != 0 & quiet == FALSE) {
       cli::cli_alert_info(
         list("These OTN projects were unable to be matched with ACT: {.val {missing_act$shortname}}"),
         wrap = TRUE

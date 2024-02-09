@@ -152,7 +152,7 @@ get_file_list <- function(project_number, data_type) {
 #'
 get_project_number <- function(project_name, matos_projects = NULL) {
   if (is.null(matos_projects)) {
-    matos_projects <- list_projects()
+    matos_projects <- list_projects(quiet = TRUE)
   }
 
   matos_projects_clean <- tolower(matos_projects$name)
@@ -166,7 +166,7 @@ get_project_number <- function(project_name, matos_projects = NULL) {
 #'
 get_project_name <- function(project_number, matos_projects = NULL) {
   if (is.null(matos_projects)) {
-    matos_projects <- list_projects()
+    matos_projects <- list_projects(quiet = TRUE)
   }
 
   matos_projects[matos_projects$number == project_number, ]$name
@@ -256,7 +256,7 @@ login_check <- function(url = "https://matos.asascience.com/report/submit") {
 #' @rdname utilities
 #'
 project_check <- function(project, return_projects = FALSE) {
-  matos_projects <- list_projects()
+  matos_projects <- list_projects(quiet = TRUE)
 
   if (is.character(project)) {
     matos_projects_clean <- tolower(matos_projects$name)
