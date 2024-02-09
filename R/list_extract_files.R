@@ -78,7 +78,15 @@ list_extract_files <- function(project = NULL,
   }
 
   if (!is.null(since)) {
-    files <- files[files$upload_date >= since, ]
+    # Check that date is in YYYY-MM-DD format
+    if(!grepl('^\\d{4}-\\d{2}-\\d{2}$', since)){
+      warning(
+        paste0("The \"since\" date was not provided in YYYY-MM-DD format.",
+               "\nAll files have been returned.")
+      )
+    } else {
+      files <- files[files$upload_date >= since, ]
+    }
   }
 
   files
