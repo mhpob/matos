@@ -7,7 +7,7 @@ test_that("errors with incorrect project", {
 
 
 test_that("returns correct class", {
-  skip_on_Runiverse()
+  skip_on_cran()
 
   expect_s3_class(
     file_list <- get_file_list(161, "dataextractionfiles"),
@@ -23,7 +23,7 @@ test_that("returns correct class", {
 
 
 test_that("contains a table", {
-  skip_on_Runiverse()
+  skip_on_cran()
 
   tab_attr <- get_file_list(161, "dataextractionfiles") |>
     httr::content() |>

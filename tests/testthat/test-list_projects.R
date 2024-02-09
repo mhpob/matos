@@ -1,7 +1,4 @@
 test_that("returns correct classes", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
-
   projects <- list_projects()
 
   expect_s3_class(projects, "data.frame")

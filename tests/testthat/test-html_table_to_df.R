@@ -1,6 +1,5 @@
 test_that("converts to df", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
+  skip_on_cran()
 
   html_file_list <- get_file_list(161, "dataextractionfiles")
 

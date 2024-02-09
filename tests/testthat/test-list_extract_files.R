@@ -1,6 +1,5 @@
 test_that("error if no project listed", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
+  skip_on_cran()
 
   expect_error(
     list_extract_files()
@@ -8,8 +7,7 @@ test_that("error if no project listed", {
 })
 
 test_that("no error in listing extract files", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
+  skip_on_cran()
 
   expect_no_error(
     list_extract_files(87)
@@ -18,8 +16,7 @@ test_that("no error in listing extract files", {
 
 
 test_that("project with no files returns empty data frame", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
+  skip_on_cran()
 
   empty <- list_extract_files(160)
 
@@ -29,8 +26,7 @@ test_that("project with no files returns empty data frame", {
 })
 
 test_that("returns correct classes", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
+  skip_on_cran()
 
   extract_files <- list_extract_files(87)
 
@@ -43,40 +39,35 @@ test_that("returns correct classes", {
 
 
 test_that("lists matched files", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
+  skip_on_cran()
 
   matched_files <- list_extract_files(87, detection_type = "matched")
 
   expect_equal(unique(matched_files$detection_type), "matched")
 })
 test_that("lists external partner matches", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
+  skip_on_cran()
 
   external_files <- list_extract_files(87, detection_type = "external")
 
   expect_equal(unique(external_files$detection_type), "matched_external_partners")
 })
 test_that("lists qualified detections", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
+  skip_on_cran()
 
   qualified_files <- list_extract_files(87, detection_type = "qualified")
 
   expect_equal(unique(qualified_files$detection_type), "qualified")
 })
 test_that("lists sentinel detections", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
+  skip_on_cran()
 
   sentinel_files <- list_extract_files(87, detection_type = "sentinel")
 
   expect_equal(unique(sentinel_files$detection_type), "sentinel_tag")
 })
 test_that("lists unqualified detections", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
+  skip_on_cran()
 
   unqualified_files <- list_extract_files(87, detection_type = "unqualified")
 

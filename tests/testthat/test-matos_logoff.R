@@ -1,6 +1,5 @@
 test_that("logoff works", {
-  # skip test on Runiverse
-  skip_on_Runiverse()
+  skip_on_cran()
 
   matos_login()
 
