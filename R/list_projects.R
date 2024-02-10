@@ -26,7 +26,7 @@
 #' list_projects("mine", read_access = F)
 #' }
 list_projects <- function(what = c("all", "mine"),
-                          read_access = FALSE,
+                          read_access = TRUE,
                           quiet = FALSE,
                           force = FALSE) {
   if(isTRUE(force)){

@@ -4,7 +4,12 @@
 \alias{list_projects}
 \title{List MATOS projects}
 \usage{
-list_projects(what = c("all", "mine"), read_access = T)
+list_projects(
+  what = c("all", "mine"),
+  read_access = TRUE,
+  quiet = FALSE,
+  force = FALSE
+)
 }
 \arguments{
 \item{what}{What list of projects do you want returned: all projects ("all",
@@ -13,6 +18,10 @@ default) or your projects ("mine")?}
 \item{read_access}{If listing your projects, do you want to only list projects
 for which you have file-read permission? Defaults to TRUE, though there
 is significant speed up if switched to FALSE.}
+
+\item{quiet}{Do you want to suppress messages regariding matched projects?}
+
+\item{force}{Do you want to reset the cache and re-ping the database?}
 }
 \description{
 This function scrapes the table found at \url{https://matos.asascience.com/project}
