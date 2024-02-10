@@ -32,8 +32,12 @@ test_that("memoise works", {
 
   # Pings the server and returns a message
   expect_message(
-    projects <- list_projects()
-  )
+    projects <- list_projects(),
+    "These ACT projects were unable to be matched with OTN"
+  ) |>
+    expect_message(
+      "These OTN projects were unable to be matched with ACT"
+    )
 
   # Returns cached result
   expect_no_message(
@@ -42,20 +46,28 @@ test_that("memoise works", {
 
   # Forces server ping and returns message
   expect_message(
-    projects <- list_projects(force = T)
-  )
+    projects <- list_projects(force = T),
+    "These ACT projects were unable to be matched with OTN"
+  ) |>
+    expect_message(
+      "These OTN projects were unable to be matched with ACT"
+    )
 
   # Keeps on forcin'
   expect_message(
-    projects <- list_projects(force = T)
-  )
+    projects <- list_projects(force = T),
+    "These ACT projects were unable to be matched with OTN"
+  ) |>
+    expect_message(
+      "These OTN projects were unable to be matched with ACT"
+    )
 })
 
 
 
 test_that("can shush", {
   expect_message(
-    list_projects(),
+    list_projects(force = T),
     "These ACT projects were unable to be matched with OTN"
   ) |>
     expect_message("These OTN projects were unable to be matched with ACT")
