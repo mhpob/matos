@@ -3,7 +3,10 @@ test_that("logoff works", {
 
   matos_login()
 
-  matos_logoff()
+  expect_message(
+    matos_logoff(),
+    "Logged out\\."
+  )
 
   url <- "https://matos.asascience.com/report/submit"
   response <- httr::HEAD(url)
