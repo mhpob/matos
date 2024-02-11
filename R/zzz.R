@@ -16,7 +16,7 @@
 }
 
 .onLoad <- function(libname, pkgname) {
-  list_my_projects <<- memoise::memoise(list_my_projects)
+  list_my_projects_mem <<- memoise::memoise(list_my_projects_mem)
   list_projects_mem <<- memoise::memoise(list_projects_mem)
   get_file_list <<- memoise::memoise(get_file_list)
 }

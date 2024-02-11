@@ -4,12 +4,15 @@
 \alias{list_my_projects}
 \title{List personal MATOS projects}
 \usage{
-list_my_projects(read_access = T)
+list_my_projects(read_access = TRUE, force = TRUE)
 }
 \arguments{
-\item{read_access}{Do you want to only list projects for which you have file-read
-permission? Defaults to TRUE, though there is significant speed up if switched
-to FALSE.}
+\item{read_access}{Do you want to only list projects for which you have
+file-read permission? Defaults to TRUE, though there is significant
+speed up if switched to FALSE.}
+
+\item{force}{Do you want to reset the cache and re-ping the database?
+Defaults to false.}
 }
 \description{
 This function lists the functions for which the logged-on user has permissions.
