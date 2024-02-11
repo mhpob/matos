@@ -1,5 +1,5 @@
 test_that("returns correct classes", {
-  projects <- list_projects()
+  projects <- list_projects(quiet = TRUE)
 
   expect_s3_class(projects, "data.frame")
   expect_type(projects$name, "character")
@@ -18,30 +18,46 @@ test_that("returns correct classes", {
 
 
 
+test_that("can shush", {
+  expect_message(
+    list_projects(force = T),
+    "These ACT projects were unable to be matched with OTN"
+  ) |>
+    expect_message("These OTN projects were unable to be matched with ACT")
+
+  expect_no_message(
+    list_projects(quiet = TRUE, force = TRUE)
+  )
+})
+
+
+
+
 test_that("memoise works", {
 
-  # Function is memoised
+  # Internal function is memoised
   expect_true(
     memoise::is.memoised(list_projects_mem)
   )
 
-  # Function has no cache
-  expect_false(
-    memoise::has_cache(list_projects_mem)()
-  )
-
   # Pings the server and returns a message
   expect_message(
-    projects <- list_projects(),
+    projects <- list_projects(force = TRUE),
     "These ACT projects were unable to be matched with OTN"
   ) |>
     expect_message(
       "These OTN projects were unable to be matched with ACT"
     )
 
-  # Returns cached result
+  # Returns cached result (as indicated by not returning the message)
   expect_no_message(
     projects <- list_projects()
+  )
+
+  # Takes longer to run the forced function than the memoised function
+  expect_gt(
+    system.time(suppressMessages(list_projects(force = TRUE)))["elapsed"],
+    system.time(list_projects())["elapsed"]
   )
 
   # Forces server ping and returns message
@@ -62,21 +78,6 @@ test_that("memoise works", {
       "These OTN projects were unable to be matched with ACT"
     )
 })
-
-
-
-test_that("can shush", {
-  expect_message(
-    list_projects(force = T),
-    "These ACT projects were unable to be matched with OTN"
-  ) |>
-    expect_message("These OTN projects were unable to be matched with ACT")
-
-  expect_no_message(
-    list_projects(quiet = TRUE)
-  )
-})
-
 
 
 
