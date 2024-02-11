@@ -60,15 +60,20 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">list_my_projects</span><span class="op">(</span>read_access <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">list_my_projects</span><span class="op">(</span>read_access <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>read_access</dt>
-<dd><p>Do you want to only list projects for which you have file-read
-permission? Defaults to TRUE, though there is significant speed up if switched
-to FALSE.</p></dd>
+<dd><p>Do you want to only list projects for which you have
+file-read permission? Defaults to TRUE, though there is significant
+speed up if switched to FALSE.</p></dd>
+
+
+<dt>force</dt>
+<dd><p>Do you want to reset the cache and re-ping the database?
+Defaults to false.</p></dd>
 
 </dl></div>
 
