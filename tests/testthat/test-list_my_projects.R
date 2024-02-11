@@ -1,3 +1,5 @@
+skip_on_cran()
+
 test_that("passes the sniff test", {
   all_projects <- list_projects(quiet = TRUE, force = TRUE)
   my_projects <- list_my_projects(force = TRUE)
