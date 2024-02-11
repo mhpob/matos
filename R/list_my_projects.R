@@ -15,7 +15,7 @@
 #' list_my_projects()
 #' }
 list_my_projects <- function(read_access = TRUE,
-                             force = TRUE) {
+                             force = FALSE) {
 
   if(isTRUE(force)){
     memoise::forget(list_my_projects_mem)
@@ -32,7 +32,7 @@ list_my_projects <- function(read_access = TRUE,
 #' @inheritParams list_my_projects
 #'
 #' @keywords internal
-list_my_projects_mem <- function(read_access = read_access){
+list_my_projects_mem <- function(read_access){
    url <- "https://matos.asascience.com/report/submit"
 
    login_check(url)
