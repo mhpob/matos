@@ -15,13 +15,15 @@ list_projects(
 \item{what}{What list of projects do you want returned: all projects ("all",
 default) or your projects ("mine")?}
 
-\item{read_access}{If listing your projects, do you want to only list projects
-for which you have file-read permission? Defaults to TRUE, though there
-is significant speed up if switched to FALSE.}
+\item{read_access}{If listing your projects, do you want to only list
+projects for which you have file-read permission? Defaults to TRUE,
+though there is significant speed up if switched to FALSE.}
 
-\item{quiet}{Do you want to suppress messages regariding matched projects?}
+\item{quiet}{Do you want to suppress messages regarding matched projects?
+Defaults to FALSE.}
 
-\item{force}{Do you want to reset the cache and re-ping the database?}
+\item{force}{Do you want to reset the cache and re-ping the database?
+Defaults to false.}
 }
 \description{
 This function scrapes the table found at \url{https://matos.asascience.com/project}
