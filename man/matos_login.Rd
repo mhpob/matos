@@ -4,7 +4,12 @@
 \alias{matos_login}
 \title{Log in to your MATOS account}
 \usage{
-matos_login()
+matos_login(credentials = NULL)
+}
+\arguments{
+\item{credentials}{list with names "UserName" and "Password". This argument
+only exists for testing purposes and should not be used! It will store your
+credentials in your R history, which is definitely not good.}
 }
 \description{
 This function prompts you for the username (email) and password associated with

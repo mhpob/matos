@@ -10,6 +10,10 @@
 #' will not be saved -- this was done intentionally so that you don't accidentally
 #' save credentials in a public script.
 #'
+#' @param credentials list with names "UserName" and "Password". This argument
+#'    only exists for testing purposes and should not be used! It will store your
+#'    credentials in your R history, which is definitely not good.
+#'
 #' @export
 #' @examples
 #' \dontrun{
@@ -17,25 +21,34 @@
 #' matos_login()
 #' # ...then follow the on-screen prompts
 #' }
-matos_login <- function() {
-  # This uses a secret to allow vignettes to build and tests to run
-  username <- Sys.getenv("MATOS_USER")
-  password <- Sys.getenv("MATOS_PASS")
-
+matos_login <- function(credentials = NULL) {
   cli::cli_alert_warning("Please log in.")
 
-  # If no secret is present, we enter interactive mode
-  if (username == "") {
-    username <- getPass::getPass("Username:", noblank = T)
-  }
-  if (password == "") {
-    password <- getPass::getPass("Password:", noblank = T)
-  }
+  if(is.null(credentials)){
+    # This uses a secret to allow vignettes to build and tests to run
+    username <- Sys.getenv("MATOS_USER")
+    password <- Sys.getenv("MATOS_PASS")
 
-  credentials <- list(
-    UserName = username,
-    Password = password
-  )
+    # If no secret or credentials are present, we enter interactive mode
+    if (username == "") {
+      username <- getPass::getPass("Username:", noblank = T)
+    }
+    if (password == "") {
+      password <- getPass::getPass("Password:", noblank = T)
+    }
+
+    credentials <- list(
+      UserName = username,
+      Password = password
+    )
+  } else {
+    warning(
+      paste("You have provided your credentials as an argument to this function.",
+            "Because your credentials are now stored in your R history, this is risky and only an option for testing purposes.",
+            "Consider wiping your history and providing credentials interactively or in your .Reviron.",
+            sep = "\n")
+    )
+  }
 
   login_response <- httr::POST(
     "https://matos.asascience.com/account/login",
