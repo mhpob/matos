@@ -4,7 +4,7 @@
 \alias{list_my_projects}
 \title{List personal MATOS projects}
 \usage{
-list_my_projects(read_access = TRUE, force = TRUE)
+list_my_projects(read_access = TRUE, force = FALSE)
 }
 \arguments{
 \item{read_access}{Do you want to only list projects for which you have

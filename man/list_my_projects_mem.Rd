@@ -4,7 +4,7 @@
 \alias{list_my_projects_mem}
 \title{Memoised list_my_projects function for internal use}
 \usage{
-list_my_projects_mem(read_access = read_access)
+list_my_projects_mem(read_access)
 }
 \arguments{
 \item{read_access}{Do you want to only list projects for which you have
