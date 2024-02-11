@@ -18,6 +18,46 @@ test_that("returns correct classes", {
 
 
 
+test_that("passing \"mine\" to \"what\" argument works", {
+  skip_on_cran()
+
+  projects <- list_projects(quiet = T)
+  my_projects <- list_projects(what = 'mine')
+  my_projects_no_read <- list_projects(what = 'mine', read_access = FALSE)
+
+
+  # Read-access projects is a subset of all projects
+  expect_contains(
+    projects$name,
+    my_projects$name
+  )
+
+  # No read access is a subset of all projects
+  expect_contains(
+    projects$name,
+    my_projects_no_read$name
+  )
+  # Read access is a subset of no read access
+  expect_contains(
+    my_projects_no_read$name,
+    my_projects$name
+  )
+
+  # There are fewer no-read-access projects than total projects
+  expect_lt(
+    nrow(my_projects_no_read),
+    nrow(projects)
+  )
+  # There are fewer read-access projects than no-read-access projects
+  expect_lt(
+    nrow(my_projects),
+    nrow(my_projects_no_read)
+  )
+})
+
+
+
+
 test_that("can shush", {
   expect_message(
     list_projects(force = T),
