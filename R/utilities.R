@@ -45,7 +45,7 @@ matos_login <- function() {
 
   if (grepl("login", login_response)) {
     cli::cli_abort("Login unsuccessful.",
-      "i" = "Please re-run the funtion and try again."
+                   "i" = "Please re-run the funtion and try again."
     )
   } else {
     cli::cli_alert_success("Login successful!")
@@ -75,8 +75,11 @@ matos_logoff <- function() {
 #' Non-exported utility functions used by other functions in \code{matos}.
 #'
 #' @section Details:
-#' \code{get_file_list} scrapes the HTML associated with the project or data
-#' extraction files page provided with a given project.
+#' \code{get_file_list} checks to see if it should re-evaluate itself, then wraps
+#' `get_file_list_mem` which is the actual workhorse.
+#'
+#' \code{get_file_list_mem} memoised function which scrapes the HTML associated
+#' with the project or data extraction files page provided with a given project.
 #'
 #' \code{get_project_number} finds the internal MATOS number associated with each
 #' project by scraping the HTML of the main MATOS projects page.
@@ -98,34 +101,31 @@ matos_logoff <- function() {
 #' \code{download_process} is used internally by \code{get_project_file} and
 #' \code{get_extract_file}
 #'
-#' @param project_number Number of the project
-#' @param data_type one of "dataextractionfiles" or "projectfiles".
-#' @param project MATOS projecct ID. Can be the name or number of the project.
-#' @param project_name Character string of the full MATOS project name. This will be the
-#'      big name in bold at the top of your project page, not the "Project Title"
-#'      below it. Will be coerced to all lower case, so capitalization doesn't matter.
-#' @param matos_projects Data frame. Used to pass the MATOS project list from
-#'      \code{project_check}.
-#' @param return_projects Logical. Do you want \code{project_check} to return the list
-#'      of projects? Used to not ping the website too much in one function call.
-#' @param url The (protected) URL that the overlapping function is trying to call.
-#' @param html_file_list Listed files in HTML form. Always the result of
-#' \code{get_file_list}
-#' @param out_dir Character. To what directory would you like your files downloaded?
-#'      Defaults to the current working directory.
-#' @param overwrite Logical. Do you want to overwrite existing files that have
-#'      the same name (\code{TRUE}) or protect yourself against doing this
-#'      (\code{FALSE}, the default)?
-#' @param to_vue Logical. Should the data be converted to match that of VUE's
-#'      CSV export?
-#'
 #' @name utilities
 
-get_file_list <- function(project_number, data_type) {
-  url <- paste("https://matos.asascience.com/project",
-    data_type,
+#' @param project_number Number of the project
+#' @param data_type one of "dataextractionfiles" or "projectfiles".
+#' @param force Do you want to reset the cache and re-ping the database?
+#'      Defaults to false.
+get_file_list <- function(project_number, data_type, force = FALSE) {
+
+  if(isTRUE(force)){
+    memoise::forget(get_file_list_mem)
+  }
+
+  get_file_list_mem(
     project_number,
-    sep = "/"
+    data_type
+  )
+}
+
+#' #inheritParams get_file_list
+#' @rdname utilities
+get_file_list_mem <- function(project_number, data_type){
+  url <- paste("https://matos.asascience.com/project",
+               data_type,
+               project_number,
+               sep = "/"
   )
 
   login_check(url)
@@ -134,7 +134,7 @@ get_file_list <- function(project_number, data_type) {
 
   content_check <- httr::content(file_list)
   content_check <- rvest::html_element(content_check,
-    xpath = '//*[@id="content"]/table'
+                                       xpath = '//*[@id="content"]/table'
   )
 
   if (inherits(content_check, "xml_missing")) {
@@ -147,9 +147,12 @@ get_file_list <- function(project_number, data_type) {
 }
 
 
-
+#' @param project_name Character string of the full MATOS project name. This will be the
+#'      big name in bold at the top of your project page, not the "Project Title"
+#'      below it. Will be coerced to all lower case, so capitalization doesn't matter.
+#' @param matos_projects Data frame. Used to pass the MATOS project list from
+#'      \code{project_check}.
 #' @rdname utilities
-#'
 get_project_number <- function(project_name, matos_projects = NULL) {
   if (is.null(matos_projects)) {
     matos_projects <- list_projects(quiet = TRUE)
@@ -162,6 +165,8 @@ get_project_number <- function(project_name, matos_projects = NULL) {
 }
 
 
+#' #inheritParams get_file_list
+#' #inheritParams get_project_number
 #' @rdname utilities
 #'
 get_project_name <- function(project_number, matos_projects = NULL) {
@@ -173,6 +178,8 @@ get_project_name <- function(project_number, matos_projects = NULL) {
 }
 
 
+#' @param html_file_list Listed files in HTML form. Always the result of
+#' \code{get_file_list}
 #' @rdname utilities
 #'
 html_table_to_df <- function(html_file_list) {
@@ -243,6 +250,7 @@ html_table_to_df <- function(html_file_list) {
 }
 
 
+#' @param url The (protected) URL that the overlapping function is trying to call.
 #' @rdname utilities
 #'
 login_check <- function(url = "https://matos.asascience.com/report/submit") {
@@ -253,6 +261,9 @@ login_check <- function(url = "https://matos.asascience.com/report/submit") {
   }
 }
 
+#' @param project MATOS project ID. Can be the name or number of the project.
+#' @param return_projects Logical. Do you want \code{project_check} to return the list
+#'      of projects? Used to not ping the website too much in one function call.
 #' @rdname utilities
 #'
 project_check <- function(project, return_projects = FALSE) {
@@ -284,6 +295,7 @@ project_check <- function(project, return_projects = FALSE) {
   }
 }
 
+#' #inheritParams html_file_to_df
 #' @rdname utilities
 #'
 scrape_file_urls <- function(html_file_list) {
@@ -297,6 +309,14 @@ scrape_file_urls <- function(html_file_list) {
   paste0("https://matos.asascience.com", urls)
 }
 
+#' #inheritParams login_check
+#' @param out_dir Character. To what directory would you like your files downloaded?
+#'      Defaults to the current working directory.
+#' @param overwrite Logical. Do you want to overwrite existing files that have
+#'      the same name (\code{TRUE}) or protect yourself against doing this
+#'      (\code{FALSE}, the default)?
+#' @param to_vue Logical. Should the data be converted to match that of VUE's
+#'      CSV export?
 #' @rdname utilities
 #'
 download_process <- function(url, out_dir, overwrite, to_vue) {

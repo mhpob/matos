@@ -3,6 +3,7 @@
 \name{utilities}
 \alias{utilities}
 \alias{get_file_list}
+\alias{get_file_list_mem}
 \alias{get_project_number}
 \alias{get_project_name}
 \alias{html_table_to_df}
@@ -12,7 +13,9 @@
 \alias{download_process}
 \title{Internal functions used by \code{matos}}
 \usage{
-get_file_list(project_number, data_type)
+get_file_list(project_number, data_type, force = FALSE)
+
+get_file_list_mem(project_number, data_type)
 
 get_project_number(project_name, matos_projects = NULL)
 
@@ -33,6 +36,9 @@ download_process(url, out_dir, overwrite, to_vue)
 
 \item{data_type}{one of "dataextractionfiles" or "projectfiles".}
 
+\item{force}{Do you want to reset the cache and re-ping the database?
+Defaults to false.}
+
 \item{project_name}{Character string of the full MATOS project name. This will be the
 big name in bold at the top of your project page, not the "Project Title"
 below it. Will be coerced to all lower case, so capitalization doesn't matter.}
@@ -45,7 +51,7 @@ below it. Will be coerced to all lower case, so capitalization doesn't matter.}
 
 \item{url}{The (protected) URL that the overlapping function is trying to call.}
 
-\item{project}{MATOS projecct ID. Can be the name or number of the project.}
+\item{project}{MATOS project ID. Can be the name or number of the project.}
 
 \item{return_projects}{Logical. Do you want \code{project_check} to return the list
 of projects? Used to not ping the website too much in one function call.}
@@ -65,8 +71,11 @@ Non-exported utility functions used by other functions in \code{matos}.
 }
 \section{Details}{
 
-\code{get_file_list} scrapes the HTML associated with the project or data
-extraction files page provided with a given project.
+\code{get_file_list} checks to see if it should re-evaluate itself, then wraps
+\code{get_file_list_mem} which is the actual workhorse.
+
+\code{get_file_list_mem} memoised function which scrapes the HTML associated
+with the project or data extraction files page provided with a given project.
 
 \code{get_project_number} finds the internal MATOS number associated with each
 project by scraping the HTML of the main MATOS projects page.

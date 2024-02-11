@@ -35,3 +35,42 @@ test_that("contains a table", {
     "tableContent"
   )
 })
+
+
+test_that("memoisation works", {
+  # Make sure function is memoised
+  expect_true(
+    memoise::is.memoised(get_file_list_mem)
+  )
+
+  # Clear any previous results
+  expect_true(
+    memoise::forget(get_file_list_mem)
+  )
+
+  # First run takes time
+  expect_gt(
+    system.time(get_file_list(161, "dataextractionfiles"))["elapsed"],
+    0
+  )
+
+  # Creates cache
+  expect_true(
+    memoise::has_cache(get_file_list_mem)(161, "dataextractionfiles")
+  )
+
+  # Next call hits cache
+  expect_equal(
+    system.time(get_file_list(161, "dataextractionfiles"))["elapsed"] |>
+      as.numeric(),
+    0
+  )
+
+
+  # Forcing works
+  expect_gt(
+    system.time(get_file_list(161, "dataextractionfiles", force = T))["elapsed"],
+    0
+  )
+
+})
