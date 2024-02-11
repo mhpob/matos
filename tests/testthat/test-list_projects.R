@@ -34,49 +34,66 @@ test_that("can shush", {
 
 
 test_that("memoise works", {
-
   # Internal function is memoised
   expect_true(
     memoise::is.memoised(list_projects_mem)
   )
 
+  # Clear any previous results
+  expect_true(
+    memoise::forget(list_projects_mem)
+  )
+
+
   # Pings the server and returns a message
   expect_message(
-    projects <- list_projects(force = TRUE),
+    time_to_run <- system.time(
+      projects <- list_projects()
+    ),
     "These ACT projects were unable to be matched with OTN"
   ) |>
     expect_message(
       "These OTN projects were unable to be matched with ACT"
     )
 
+  # Creates a cache
+  expect_true(
+    memoise::has_cache(list_projects_mem)(
+      what = "all",
+      read_access = TRUE,
+      quiet = FALSE
+    )
+  )
+
   # Returns cached result (as indicated by not returning the message)
   expect_no_message(
-    projects <- list_projects()
+    time_to_run_cache <- system.time(
+      projects <- list_projects()
+    )
   )
 
   # Takes longer to run the forced function than the memoised function
   expect_gt(
-    system.time(suppressMessages(list_projects(force = TRUE)))["elapsed"],
-    system.time(list_projects())["elapsed"]
+    time_to_run["elapsed"],
+    time_to_run_cache["elapsed"]
   )
 
-  # Forces server ping and returns message
+  # `force=T` pings server and returns message
   expect_message(
-    projects <- list_projects(force = T),
+    time_to_run_forced <- system.time(
+      projects <- list_projects(force = T)
+    ),
     "These ACT projects were unable to be matched with OTN"
   ) |>
     expect_message(
       "These OTN projects were unable to be matched with ACT"
     )
 
-  # Keeps on forcin'
-  expect_message(
-    projects <- list_projects(force = T),
-    "These ACT projects were unable to be matched with OTN"
-  ) |>
-    expect_message(
-      "These OTN projects were unable to be matched with ACT"
-    )
+  # Takes longer to run with `force=T` than it did on the cached version
+  expect_gt(
+    time_to_run_forced["elapsed"],
+    time_to_run_cache["elapsed"]
+  )
 })
 
 

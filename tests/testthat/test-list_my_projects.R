@@ -1,6 +1,6 @@
-skip_on_cran()
-
 test_that("passes the sniff test", {
+  skip_on_cran()
+
   all_projects <- list_projects(quiet = TRUE, force = TRUE)
   my_projects <- list_my_projects(force = TRUE)
 
@@ -20,6 +20,8 @@ test_that("passes the sniff test", {
 
 
 test_that("has correct classes", {
+  skip_on_cran()
+
   my_projects <- list_my_projects()
 
   expect_s3_class(my_projects, "data.frame")
@@ -39,40 +41,17 @@ test_that("has correct classes", {
 
 
 
-test_that("shushes list_projects under the hood", {
-  expect_no_message(
-    list_my_projects(force = TRUE)
-  )
-})
-
-
-
-
-test_that("memoise works", {
-  # Internal unction is memoised
-  expect_true(
-    memoise::is.memoised(list_my_projects_mem)
-  )
-
-  # Takes longer to run the forced function than the memoised function
-  expect_gt(
-    system.time(list_my_projects(force = TRUE))["elapsed"],
-    system.time(list_my_projects())["elapsed"]
-  )
-})
-
-
-
-
 test_that("`read_access = FALSE` works", {
+  skip_on_cran()
+
   # Faster run without read access filtering
   expect_lt(
     system.time({
       no_read <- list_my_projects(read_access = FALSE)
-      })["elapsed"],
+    })["elapsed"],
     system.time({
       read <- list_my_projects(read_access = TRUE, force = TRUE)
-      })["elapsed"]
+    })["elapsed"]
   )
 
   # Read-access projects is a subset of no-read-access projects
@@ -85,5 +64,64 @@ test_that("`read_access = FALSE` works", {
   expect_lt(
     nrow(read),
     nrow(no_read)
+  )
+})
+
+
+
+
+test_that("shushes list_projects under the hood", {
+  skip_on_cran()
+
+  expect_no_message(
+    list_my_projects(force = TRUE)
+  )
+})
+
+
+
+
+test_that("memoise works in general", {
+  # Internal function is memoised
+  expect_true(
+    memoise::is.memoised(list_my_projects_mem)
+  )
+
+  # Clear any previous results
+  expect_true(
+    memoise::forget(list_my_projects_mem)
+  )
+})
+
+
+test_that("memoise functions as assumed", {
+  skip_on_cran()
+
+  # Clear any previous results
+  forgotten <- memoise::forget(list_my_projects_mem)
+
+  # First run takes time
+  expect_gt(
+    system.time(list_my_projects())["elapsed"],
+    0
+  )
+
+  # Creates cache
+  expect_true(
+    memoise::has_cache(list_my_projects_mem)(read_access = TRUE)
+  )
+
+  # Next call hits cache
+  expect_equal(
+    system.time(list_my_projects())["elapsed"] |>
+      as.numeric(),
+    0
+  )
+
+
+  # Forcing works
+  expect_gt(
+    system.time(list_my_projects(force = TRUE))["elapsed"],
+    0
   )
 })

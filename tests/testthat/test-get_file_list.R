@@ -37,7 +37,7 @@ test_that("contains a table", {
 })
 
 
-test_that("memoisation works", {
+test_that("memoisation works in general", {
   # Make sure function is memoised
   expect_true(
     memoise::is.memoised(get_file_list_mem)
@@ -47,6 +47,14 @@ test_that("memoisation works", {
   expect_true(
     memoise::forget(get_file_list_mem)
   )
+})
+
+
+test_that("memoisation works on correct projects", {
+  skip_on_cran()
+
+  # Clear any previous results
+  forgotten <- memoise::forget(get_file_list_mem)
 
   # First run takes time
   expect_gt(
