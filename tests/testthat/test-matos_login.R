@@ -1,5 +1,6 @@
 test_that("gets cookie", {
   skip_on_cran()
+  skip_on_runiverse()
 
   matos_login()
 

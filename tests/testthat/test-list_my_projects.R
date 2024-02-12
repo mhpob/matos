@@ -1,5 +1,6 @@
 test_that("passes the sniff test", {
   skip_on_cran()
+  skip_on_runiverse()
 
   all_projects <- list_projects(quiet = TRUE, force = TRUE)
   my_projects <- list_my_projects(force = TRUE)
@@ -21,6 +22,7 @@ test_that("passes the sniff test", {
 
 test_that("has correct classes", {
   skip_on_cran()
+  skip_on_runiverse()
 
   my_projects <- list_my_projects()
 
@@ -43,6 +45,7 @@ test_that("has correct classes", {
 
 test_that("`read_access = FALSE` works", {
   skip_on_cran()
+  skip_on_runiverse()
 
   # Faster run without read access filtering
   expect_lt(
@@ -72,6 +75,7 @@ test_that("`read_access = FALSE` works", {
 
 test_that("shushes list_projects under the hood", {
   skip_on_cran()
+  skip_on_runiverse()
 
   expect_no_message(
     list_my_projects(force = TRUE)
@@ -96,6 +100,7 @@ test_that("memoise works in general", {
 
 test_that("memoise functions as assumed", {
   skip_on_cran()
+  skip_on_runiverse()
 
   # Clear any previous results
   forgotten <- memoise::forget(list_my_projects_mem)

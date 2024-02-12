@@ -1,5 +1,6 @@
 test_that("returns correct class", {
   skip_on_cran()
+  skip_on_runiverse()
 
   html_file_list <- get_file_list(161, "dataextractionfiles")
 
@@ -14,6 +15,7 @@ test_that("returns correct class", {
 
 test_that("URLs were built correctly", {
   skip_on_cran()
+  skip_on_runiverse()
 
   html_file_list <- get_file_list(161, "dataextractionfiles")
 

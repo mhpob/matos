@@ -1,6 +1,7 @@
 ## ACT project
 test_that("ACT projects are summarized", {
   skip_on_cran()
+  skip_on_runiverse()
 
   expect_no_error(
     matos_tag_summary(

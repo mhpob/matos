@@ -1,5 +1,6 @@
 test_that("runs matos_login", {
   skip_on_cran()
+  skip_on_runiverse()
 
   matos_logoff()
 
@@ -13,6 +14,7 @@ test_that("runs matos_login", {
 
 test_that("ne message if already logged in", {
   skip_on_cran()
+  skip_on_runiverse()
 
   matos_login()
 

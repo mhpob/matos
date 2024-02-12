@@ -8,6 +8,7 @@ test_that("errors with incorrect project", {
 
 test_that("returns correct class", {
   skip_on_cran()
+  skip_on_runiverse()
 
   expect_s3_class(
     file_list <- get_file_list(161, "dataextractionfiles"),
@@ -24,6 +25,7 @@ test_that("returns correct class", {
 
 test_that("contains a table", {
   skip_on_cran()
+  skip_on_runiverse()
 
   tab_attr <- get_file_list(161, "dataextractionfiles") |>
     httr::content() |>
@@ -52,6 +54,7 @@ test_that("memoisation works in general", {
 
 test_that("memoisation works on correct projects", {
   skip_on_cran()
+  skip_on_runiverse()
 
   # Clear any previous results
   forgotten <- memoise::forget(get_file_list_mem)

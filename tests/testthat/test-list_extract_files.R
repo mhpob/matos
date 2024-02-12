@@ -1,5 +1,6 @@
 test_that("error if no project listed", {
   skip_on_cran()
+  skip_on_runiverse()
 
   expect_error(
     list_extract_files(),
@@ -11,6 +12,7 @@ test_that("error if no project listed", {
 
 test_that("project with no files returns empty data frame", {
   skip_on_cran()
+  skip_on_runiverse()
 
   empty <- list_extract_files(160)
 
@@ -23,6 +25,7 @@ test_that("project with no files returns empty data frame", {
 
 test_that("returns correct classes", {
   skip_on_cran()
+  skip_on_runiverse()
 
   extract_files <- list_extract_files(87)
 
@@ -36,6 +39,7 @@ test_that("returns correct classes", {
 
 test_that("lists matched files", {
   skip_on_cran()
+  skip_on_runiverse()
 
   matched_files <- list_extract_files(87, detection_type = "matched")
 
@@ -50,6 +54,7 @@ test_that("lists matched files", {
 
 test_that("lists external partner matches", {
   skip_on_cran()
+  skip_on_runiverse()
 
   external_files <- list_extract_files(87, detection_type = "external")
 
@@ -71,6 +76,7 @@ test_that("lists external partner matches", {
 
 test_that("lists qualified detections", {
   skip_on_cran()
+  skip_on_runiverse()
 
   qualified_files <- list_extract_files(87, detection_type = "qualified")
 
@@ -88,6 +94,7 @@ test_that("lists qualified detections", {
 
 test_that("lists sentinel detections", {
   skip_on_cran()
+  skip_on_runiverse()
 
   sentinel_files <- list_extract_files(87, detection_type = "sentinel")
 
@@ -105,6 +112,7 @@ test_that("lists sentinel detections", {
 
 test_that("lists unqualified detections", {
   skip_on_cran()
+  skip_on_runiverse()
 
   unqualified_files <- list_extract_files(87, detection_type = "unqualified")
 

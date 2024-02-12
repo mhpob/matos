@@ -20,6 +20,7 @@ test_that("returns correct classes", {
 
 test_that("passing \"mine\" to \"what\" argument works", {
   skip_on_cran()
+  skip_on_runiverse()
 
   projects <- list_projects(quiet = T)
   my_projects <- list_projects(what = "mine")
