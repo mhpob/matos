@@ -479,3 +479,30 @@ test_that("to_vue: sentinel", {
 
   unlink(td, recursive = TRUE)
 })
+
+
+test_that("to_vue: external partners warns", {
+  skip_on_cran()
+  skip_on_runiverse()
+
+  extract_files <- setup_dls(87)
+  td <- file.path(tempdir(), 'tests')
+
+
+  expect_message(
+    file_paths <- download_process(
+      extract_files[
+        extract_files$detection_type == 'matched_external_partners', 'url'][1],
+      out_dir = td,
+      overwrite = TRUE,
+      to_vue = TRUE
+    ),
+    "Downloading files"
+  ) |>
+    expect_message("Unzipping files") |>
+    expect_warning("Conversion to VUE CSV format will not take place")
+
+  expect_false(
+    any(grepl('^vue.*.csv$', basename(file_paths)))
+  )
+})

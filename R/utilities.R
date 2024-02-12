@@ -405,9 +405,9 @@ download_process <- function(url, out_dir, overwrite, to_vue) {
   }
 
   if(isTRUE(to_vue) && any(grepl("matched_external", file_loc))) {
-    cli::cli_alert_warning(
-      list("Detections that have been \"matched to external partners\" are provided in a summary format.",
-           "\n\nConversion to VUE CSV format will not take place."),
+    cli::cli_warn(c(
+      "!" = "Detections that have been \"matched to external partners\" are provided in a summary format.",
+      "!" = "Conversion to VUE CSV format will not take place."),
       wrap = TRUE
     )
   } else {
