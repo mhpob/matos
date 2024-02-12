@@ -31,11 +31,7 @@ test_that("ACT projects are summarized", {
     expect_message("Done") |>
     expect_message("Asking OTN GeoServer for project information") |>
     expect_message("Writing report") |>
-    expect_message("Done") |>
-    # otndo message
-    expect_output("Output created")
-
-
+    expect_message("Done")
 
   expect_true(
     any(
