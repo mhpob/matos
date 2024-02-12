@@ -72,7 +72,7 @@ test_that("memoisation works on correct projects", {
     time_to_run,
     time_to_run_cached <- system.time(
       get_file_list(161, "dataextractionfiles")
-      )["elapsed"]
+    )["elapsed"]
   )
 
 

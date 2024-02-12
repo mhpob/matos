@@ -23,6 +23,6 @@ test_that("errors with incorrect creds", {
     "Login unsuccessful"
   ) |>
     expect_warning(
-    "You have provided your credentials"
-  )
+      "You have provided your credentials"
+    )
 })
