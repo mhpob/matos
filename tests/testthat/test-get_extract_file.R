@@ -2,7 +2,7 @@ test_that("gets file by URL", {
   skip_if_offline()
   skip_on_runiverse()
 
-  td <- file.path(tempdir(), 'test-get_extract_file')
+  td <- file.path(tempdir(), "test-get_extract_file")
   dir.create(td)
 
   extract_files <- list_extract_files(161)
@@ -29,7 +29,7 @@ test_that("gets file by index and project number", {
   skip_if_offline()
   skip_on_runiverse()
 
-  td <- file.path(tempdir(), 'test-get_extract_file')
+  td <- file.path(tempdir(), "test-get_extract_file")
   dir.create(td)
 
   expect_message(
@@ -55,12 +55,12 @@ test_that("gets file by name and project number", {
   skip_if_offline()
   skip_on_runiverse()
 
-  td <- file.path(tempdir(), 'test-get_extract_file')
+  td <- file.path(tempdir(), "test-get_extract_file")
   dir.create(td)
 
   expect_message(
     file_paths <- get_extract_file(
-      file = 'cbbbmb_qualified_detections_2021.zip',
+      file = "cbbbmb_qualified_detections_2021.zip",
       project = 161,
       out_dir = td
     ),
@@ -81,7 +81,7 @@ test_that("gets file by index and project name", {
   skip_if_offline()
   skip_on_runiverse()
 
-  td <- file.path(tempdir(), 'test-get_extract_file')
+  td <- file.path(tempdir(), "test-get_extract_file")
   dir.create(td)
 
   expect_message(
@@ -107,7 +107,7 @@ test_that("gets file by name and project name", {
   skip_if_offline()
   skip_on_runiverse()
 
-  td <- file.path(tempdir(), 'test-get_extract_file')
+  td <- file.path(tempdir(), "test-get_extract_file")
   dir.create(td)
 
   expect_message(
@@ -133,7 +133,7 @@ test_that("overwrite works", {
   skip_if_offline()
   skip_on_runiverse()
 
-  td <- file.path(tempdir(), 'test-get_extract_file')
+  td <- file.path(tempdir(), "test-get_extract_file")
   dir.create(td)
 
   suppressMessages(
@@ -175,7 +175,7 @@ test_that("to_vue works", {
   skip_if_offline()
   skip_on_runiverse()
 
-  td <- file.path(tempdir(), 'test-get_extract_file')
+  td <- file.path(tempdir(), "test-get_extract_file")
   dir.create(td)
 
   expect_message(
@@ -233,9 +233,13 @@ test_that("errors if multiple files are requested", {
   )
 
   expect_error(
-    get_extract_file(file = c("cbbbmb_qualified_detections_2021.zip",
-                              "cbbbmb_qualified_detections_2022.zip"),
-                     project = 161),
+    get_extract_file(
+      file = c(
+        "cbbbmb_qualified_detections_2021.zip",
+        "cbbbmb_qualified_detections_2022.zip"
+      ),
+      project = 161
+    ),
     "Only one file.*Try looping"
   )
 
@@ -248,5 +252,4 @@ test_that("errors if multiple files are requested", {
     ),
     "Only one file.*Try looping"
   )
-
 })

@@ -26,7 +26,7 @@ get_extract_file <- function(file = NULL, project = NULL,
                              url = NULL, out_dir = getwd(), overwrite = F,
                              to_vue = F) {
   # Check that only one file or URL has been provided
-  if(length(file) > 1 || length(url) > 1){
+  if (length(file) > 1 || length(url) > 1) {
     cli::cli_abort(c(
       "Only one file can be extracted at a time.",
       "Try looping with `for` or `lapply`."

@@ -10,7 +10,7 @@ test_that("errors if trying to provide multiple data types or projects", {
   expect_error(
     upload_file(
       project = "a",
-      file =  "a",
+      file = "a",
       data_type = c("new_tags", "receivers")
     ),
     "Only able to upload one type of data to one project at a time"
@@ -20,9 +20,10 @@ test_that("errors if trying to provide multiple data types or projects", {
 
 test_that("errors if file can't be found", {
   expect_error(
-    upload_file(project = "a",
-                file = "a",
-                data_type = "new_tags"
+    upload_file(
+      project = "a",
+      file = "a",
+      data_type = "new_tags"
     ),
     "Unable to find:.*a"
   )
@@ -30,7 +31,7 @@ test_that("errors if file can't be found", {
 
 
 test_that("errors if file extension doesn't match data type", {
-  dummy_file <- file.path(tempdir(), 'dummy.blahblahfile')
+  dummy_file <- file.path(tempdir(), "dummy.blahblahfile")
   invisible(file.create(dummy_file))
 
 
