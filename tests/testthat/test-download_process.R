@@ -1,7 +1,7 @@
-setup_dls <- function(x){
+setup_dls <- function(x) {
   login_check()
 
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
   dir.create(td)
 
   list_extract_files(x)
@@ -12,11 +12,11 @@ test_that("downloads qualified detections with url", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
   expect_message(
     download_process(
-      extract_files[extract_files$detection_type == 'qualified', 'url'][1],
+      extract_files[extract_files$detection_type == "qualified", "url"][1],
       out_dir = td,
       overwrite = FALSE,
       to_vue = FALSE
@@ -60,11 +60,11 @@ test_that("downloads unqualified detections with url", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
   expect_message(
     download_process(
-      extract_files[extract_files$detection_type == 'unqualified', 'url'][1],
+      extract_files[extract_files$detection_type == "unqualified", "url"][1],
       out_dir = td,
       overwrite = FALSE,
       to_vue = FALSE
@@ -108,11 +108,11 @@ test_that("downloads matched detections with url", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
   expect_message(
     download_process(
-      extract_files[extract_files$detection_type == 'matched', 'url'][1],
+      extract_files[extract_files$detection_type == "matched", "url"][1],
       out_dir = td,
       overwrite = FALSE,
       to_vue = FALSE
@@ -156,12 +156,13 @@ test_that("downloads external partners detections with url", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
   expect_message(
     download_process(
       extract_files[
-        extract_files$detection_type == 'matched_external_partners', 'url'][1],
+        extract_files$detection_type == "matched_external_partners", "url"
+      ][1],
       out_dir = td,
       overwrite = FALSE,
       to_vue = FALSE
@@ -205,12 +206,13 @@ test_that("downloads sentinel detections with url", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
   expect_message(
     download_process(
       extract_files[
-        extract_files$detection_type == 'sentinel_tag', 'url'][1],
+        extract_files$detection_type == "sentinel_tag", "url"
+      ][1],
       out_dir = td,
       overwrite = FALSE,
       to_vue = FALSE
@@ -256,7 +258,7 @@ test_that("overwrite works", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
   suppressMessages(
     download_process(
@@ -299,7 +301,7 @@ test_that("returns file paths", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
   suppressMessages(
     file_paths <- download_process(
@@ -323,11 +325,11 @@ test_that("to_vue: qualified", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
   expect_message(
     file_paths <- download_process(
-      extract_files[extract_files$detection_type == 'qualified', 'url'][1],
+      extract_files[extract_files$detection_type == "qualified", "url"][1],
       out_dir = td,
       overwrite = TRUE,
       to_vue = TRUE
@@ -339,19 +341,21 @@ test_that("to_vue: qualified", {
     expect_message("CSV converted to VUE format")
 
   expect_true(
-    any(grepl('^vue.*.csv$', basename(file_paths)))
+    any(grepl("^vue.*.csv$", basename(file_paths)))
   )
 
   vue_file <- read.csv(
-    grep('/vue.*.csv$', file_paths, value = TRUE),
+    grep("/vue.*.csv$", file_paths, value = TRUE),
     check.names = F
   )
 
   expect_named(
     vue_file,
-    c("Date and Time (UTC)", "Receiver", "Transmitter",
+    c(
+      "Date and Time (UTC)", "Receiver", "Transmitter",
       "Transmitter Name", "Transmitter Serial", "Sensor Value",
-      "Sensor Unit", "Station Name", "Latitude", "Longitude")
+      "Sensor Unit", "Station Name", "Latitude", "Longitude"
+    )
   )
 
 
@@ -364,11 +368,11 @@ test_that("to_vue: unqualified", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
   expect_message(
     file_paths <- download_process(
-      extract_files[extract_files$detection_type == 'unqualified', 'url'][1],
+      extract_files[extract_files$detection_type == "unqualified", "url"][1],
       out_dir = td,
       overwrite = TRUE,
       to_vue = TRUE
@@ -380,19 +384,21 @@ test_that("to_vue: unqualified", {
     expect_message("CSV converted to VUE format")
 
   expect_true(
-    any(grepl('^vue.*.csv$', basename(file_paths)))
+    any(grepl("^vue.*.csv$", basename(file_paths)))
   )
 
   vue_file <- read.csv(
-    grep('/vue.*.csv$', file_paths, value = TRUE),
+    grep("/vue.*.csv$", file_paths, value = TRUE),
     check.names = F
   )
 
   expect_named(
     vue_file,
-    c("Date and Time (UTC)", "Receiver", "Transmitter",
+    c(
+      "Date and Time (UTC)", "Receiver", "Transmitter",
       "Transmitter Name", "Transmitter Serial", "Sensor Value",
-      "Sensor Unit", "Station Name", "Latitude", "Longitude")
+      "Sensor Unit", "Station Name", "Latitude", "Longitude"
+    )
   )
 
   unlink(td, recursive = TRUE)
@@ -404,11 +410,11 @@ test_that("to_vue: matched", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
   expect_message(
     file_paths <- download_process(
-      extract_files[extract_files$detection_type == 'matched', 'url'][1],
+      extract_files[extract_files$detection_type == "matched", "url"][1],
       out_dir = td,
       overwrite = TRUE,
       to_vue = TRUE
@@ -420,19 +426,21 @@ test_that("to_vue: matched", {
     expect_message("CSV converted to VUE format")
 
   expect_true(
-    any(grepl('^vue.*.csv$', basename(file_paths)))
+    any(grepl("^vue.*.csv$", basename(file_paths)))
   )
 
   vue_file <- read.csv(
-    grep('/vue.*.csv$', file_paths, value = TRUE),
+    grep("/vue.*.csv$", file_paths, value = TRUE),
     check.names = F
   )
 
   expect_named(
     vue_file,
-    c("Date and Time (UTC)", "Receiver", "Transmitter",
+    c(
+      "Date and Time (UTC)", "Receiver", "Transmitter",
       "Transmitter Name", "Transmitter Serial", "Sensor Value",
-      "Sensor Unit", "Station Name", "Latitude", "Longitude")
+      "Sensor Unit", "Station Name", "Latitude", "Longitude"
+    )
   )
 
 
@@ -445,11 +453,11 @@ test_that("to_vue: sentinel", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
   expect_message(
     file_paths <- download_process(
-      extract_files[extract_files$detection_type == 'sentinel_tag', 'url'][1],
+      extract_files[extract_files$detection_type == "sentinel_tag", "url"][1],
       out_dir = td,
       overwrite = TRUE,
       to_vue = TRUE
@@ -461,19 +469,21 @@ test_that("to_vue: sentinel", {
     expect_message("CSV converted to VUE format")
 
   expect_true(
-    any(grepl('^vue.*.csv$', basename(file_paths)))
+    any(grepl("^vue.*.csv$", basename(file_paths)))
   )
 
   vue_file <- read.csv(
-    grep('/vue.*.csv$', file_paths, value = TRUE),
+    grep("/vue.*.csv$", file_paths, value = TRUE),
     check.names = F
   )
 
   expect_named(
     vue_file,
-    c("Date and Time (UTC)", "Receiver", "Transmitter",
+    c(
+      "Date and Time (UTC)", "Receiver", "Transmitter",
       "Transmitter Name", "Transmitter Serial", "Sensor Value",
-      "Sensor Unit", "Station Name", "Latitude", "Longitude")
+      "Sensor Unit", "Station Name", "Latitude", "Longitude"
+    )
   )
 
 
@@ -486,13 +496,14 @@ test_that("to_vue: external partners warns", {
   skip_on_runiverse()
 
   extract_files <- setup_dls(87)
-  td <- file.path(tempdir(), 'tests')
+  td <- file.path(tempdir(), "tests")
 
 
   expect_message(
     file_paths <- download_process(
       extract_files[
-        extract_files$detection_type == 'matched_external_partners', 'url'][1],
+        extract_files$detection_type == "matched_external_partners", "url"
+      ][1],
       out_dir = td,
       overwrite = TRUE,
       to_vue = TRUE
@@ -503,6 +514,6 @@ test_that("to_vue: external partners warns", {
     expect_warning("Conversion to VUE CSV format will not take place")
 
   expect_false(
-    any(grepl('^vue.*.csv$', basename(file_paths)))
+    any(grepl("^vue.*.csv$", basename(file_paths)))
   )
 })

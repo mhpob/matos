@@ -44,9 +44,9 @@ matos_login <- function(credentials = NULL) {
   } else {
     warning(
       paste("You have provided your credentials as an argument to this function.",
-            "Because your credentials are now stored in your R history, this is risky and only an option for testing purposes.",
-            "Consider wiping your history and providing credentials interactively or in your .Reviron.",
-            sep = "\n"
+        "Because your credentials are now stored in your R history, this is risky and only an option for testing purposes.",
+        "Consider wiping your history and providing credentials interactively or in your .Reviron.",
+        sep = "\n"
       )
     )
   }
@@ -59,7 +59,7 @@ matos_login <- function(credentials = NULL) {
 
   if (grepl("login", login_response)) {
     cli::cli_abort("Login unsuccessful.",
-                   "i" = "Please re-run the funtion and try again."
+      "i" = "Please re-run the funtion and try again."
     )
   } else {
     cli::cli_alert_success("Login successful!")
@@ -136,9 +136,9 @@ get_file_list <- function(project_number, data_type, force = FALSE) {
 #' @rdname utilities
 get_file_list_mem <- function(project_number, data_type) {
   url <- paste("https://matos.asascience.com/project",
-               data_type,
-               project_number,
-               sep = "/"
+    data_type,
+    project_number,
+    sep = "/"
   )
 
   login_check(url)
@@ -147,7 +147,7 @@ get_file_list_mem <- function(project_number, data_type) {
 
   content_check <- httr::content(file_list)
   content_check <- rvest::html_element(content_check,
-                                       xpath = '//*[@id="content"]/table'
+    xpath = '//*[@id="content"]/table'
   )
 
   if (inherits(content_check, "xml_missing")) {
@@ -180,7 +180,7 @@ get_project_number <- function(project_name, matos_projects = NULL) {
     collection_code <- tolower(matos_projects$collectioncode)
 
     number <- matos_projects[collection_code == project_name_clean &
-                               !is.na(collection_code), ]$number
+      !is.na(collection_code), ]$number
 
     if (length(number) == 0) {
       possible_matches <- matos_projects[
@@ -370,7 +370,6 @@ scrape_file_urls <- function(html_file_list) {
 #' @rdname utilities
 #'
 download_process <- function(url, out_dir, overwrite, to_vue) {
-
   cli::cli_h1("Downloading files")
 
   GET_header <- httr::GET(url)
@@ -404,10 +403,12 @@ download_process <- function(url, out_dir, overwrite, to_vue) {
     cat("  ", paste(file_loc, collapse = "\n   "), "\n")
   }
 
-  if(isTRUE(to_vue) && any(grepl("matched_external", file_loc))) {
-    cli::cli_warn(c(
-      "!" = "Detections that have been \"matched to external partners\" are provided in a summary format.",
-      "!" = "Conversion to VUE CSV format will not take place."),
+  if (isTRUE(to_vue) && any(grepl("matched_external", file_loc))) {
+    cli::cli_warn(
+      c(
+        "!" = "Detections that have been \"matched to external partners\" are provided in a summary format.",
+        "!" = "Conversion to VUE CSV format will not take place."
+      ),
       wrap = TRUE
     )
   } else {
@@ -423,36 +424,44 @@ download_process <- function(url, out_dir, overwrite, to_vue) {
       matos$transmitter.name <- ""
       matos$transmitter.serial <- ""
 
-      type <- gsub("(.*?)_(.*)_detections.*$", "\\2",
-                   basename(file_csv))
+      type <- gsub(
+        "(.*?)_(.*)_detections.*$", "\\2",
+        basename(file_csv)
+      )
 
-      if(type %in% c('sentinel_tag', 'unqualified')){
+      if (type %in% c("sentinel_tag", "unqualified")) {
         matos$sensorraw <- ""
       }
-      if(type %in% c("qualified", "sentinel_tag", "unqualified")) {
+      if (type %in% c("qualified", "sentinel_tag", "unqualified")) {
         matos$sensorunit <- ""
       }
 
 
-      columns_to_include <- switch(
-        type,
+      columns_to_include <- switch(type,
         matched =
-          c("datecollected", "receiver", 'tagname', "transmitter.name",
+          c(
+            "datecollected", "receiver", "tagname", "transmitter.name",
             "transmitter.serial", "sensorraw", "sensorunit", "station",
-            "latitude", "longitude"),
+            "latitude", "longitude"
+          ),
         qualified =
-          c("datecollected", "collectornumber", 'fieldnumber',
+          c(
+            "datecollected", "collectornumber", "fieldnumber",
             "transmitter.name", "transmitter.serial", "sensorraw", "sensorunit",
-            "station", "latitude", "longitude"),
+            "station", "latitude", "longitude"
+          ),
         sentinel_tag =
-          c("datecollected", "collectornumber", 'fieldnumber',
+          c(
+            "datecollected", "collectornumber", "fieldnumber",
             "transmitter.name", "transmitter.serial", "sensorraw", "sensorunit",
-            "station", "latitude", "longitude"),
+            "station", "latitude", "longitude"
+          ),
         unqualified =
-          c("datecollected", "collectornumber", 'fieldnumber',
+          c(
+            "datecollected", "collectornumber", "fieldnumber",
             "transmitter.name", "transmitter.serial", "sensorraw", "sensorunit",
-            "station", "latitude", "longitude")
-
+            "station", "latitude", "longitude"
+          )
       )
 
       matos <- matos[, columns_to_include]
@@ -465,7 +474,7 @@ download_process <- function(url, out_dir, overwrite, to_vue) {
 
       file_csv <- file.path(
         dirname(file_csv),
-        paste0('vue_', basename(file_csv))
+        paste0("vue_", basename(file_csv))
       )
 
       write.csv(matos, file_csv, row.names = F)
