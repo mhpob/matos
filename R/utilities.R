@@ -118,7 +118,8 @@ matos_logoff <- function() {
 #' @name utilities
 
 #' @param project_number Number of the project
-#' @param data_type one of "dataextractionfiles" or "projectfiles".
+#' @param data_type one of "dataextractionfiles" for OTN detection extracts
+#'      or "downloadfiles" for the uploaded project files.
 #' @param force Do you want to reset the cache and re-ping the database?
 #'      Defaults to false.
 get_file_list <- function(project_number, data_type, force = FALSE) {

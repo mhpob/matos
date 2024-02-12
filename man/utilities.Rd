@@ -34,7 +34,8 @@ download_process(url, out_dir, overwrite, to_vue)
 \arguments{
 \item{project_number}{Number of the project}
 
-\item{data_type}{one of "dataextractionfiles" or "projectfiles".}
+\item{data_type}{one of "dataextractionfiles" for OTN detection extracts
+or "downloadfiles" for the uploaded project files.}
 
 \item{force}{Do you want to reset the cache and re-ping the database?
 Defaults to false.}
