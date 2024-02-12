@@ -59,7 +59,7 @@ upload_file <- function(project, file,
                         print_response = F) {
   # CHECKS
   ## Check that only one project and/or data_type are provided
-  if (length(project) > 1 | length(data_type) > 1) {
+  if (length(project) > 1 || length(data_type) > 1) {
     stop("Only able to upload one type of data to one project at a time.")
   }
 
@@ -146,7 +146,9 @@ upload_file <- function(project, file,
       events = 4,
       vrl_detections = 5,
       gps = 6,
-      glider = 7
+      glider = 7,
+      tag_spec_sheets = 8,
+      receiver_spec_sheets = 9
     )
   },
   USE.NAMES = F
