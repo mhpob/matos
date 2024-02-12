@@ -21,14 +21,8 @@ test_that("errors with incorrect creds", {
       Password = "betty4EVA!"
     )),
     "Login unsuccessful"
-  )
-
-  expect_warning(
-    matos_login(credentials = list(
-      UserName = "BarneyRubble",
-      Password = "betty4EVA!"
-    )),
-    "You have provided your credentials"
   ) |>
-    expect_error()
+    expect_warning(
+    "You have provided your credentials"
+  )
 })
