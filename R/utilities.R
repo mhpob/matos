@@ -218,7 +218,7 @@ get_project_name <- function(project_number, matos_projects = NULL) {
 
   name <- matos_projects[matos_projects$number == project_number, ]$name
 
-  if(length(name) == 0) {
+  if (length(name) == 0) {
     cli::cli_abort(
       "No projects matched with \"{project_number}\"."
     )

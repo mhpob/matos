@@ -4,7 +4,7 @@ test_that("code matching works", {
     "UMCES Chesapeake Backbone, Mid-Bay"
   )
 
-  expect_type(name, 'character')
+  expect_type(name, "character")
 })
 
 

@@ -8,7 +8,7 @@ test_that("returns correct class", {
 
   expect_type(
     urls,
-    'character'
+    "character"
   )
 })
 
@@ -32,7 +32,7 @@ test_that("URLs were built correctly", {
   expect_true(
     all(
       grepl(
-        '161_',
+        "161_",
         basename(urls)
       )
     )
