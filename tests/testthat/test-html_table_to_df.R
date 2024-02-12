@@ -1,4 +1,4 @@
-test_that("converts to df", {
+test_that("converts data extraction files to df", {
   skip_on_cran()
   skip_on_runiverse()
 
@@ -17,6 +17,26 @@ test_that("converts to df", {
     )
   )
 })
+
+
+
+test_that("converts project files to df", {
+  skip_on_cran()
+  skip_on_runiverse()
+
+  html_file_list <- get_file_list(161, "downloadfiles")
+
+
+  expect_s3_class(
+    html_df <- html_table_to_df(html_file_list),
+    "data.frame"
+  )
+  expect_named(
+    html_df,
+    c("project", "file_type", "upload_date", "file_name", "url")
+  )
+})
+
 
 
 
