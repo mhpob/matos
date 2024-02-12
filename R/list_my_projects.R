@@ -41,6 +41,7 @@ list_my_projects_mem <- function(read_access) {
   names <- rvest::html_node(names, xpath = '//*[@id="selProject"]')
   names <- rvest::html_nodes(names, "option")
   names <- rvest::html_text(names)
+  names <- names[names != ""]
 
   all_projects <- list_projects(what = "all", quiet = TRUE)
 
