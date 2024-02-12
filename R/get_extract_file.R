@@ -44,7 +44,7 @@ get_extract_file <- function(file = NULL, project = NULL,
     )
   } else {
     # Check that both file and project are provided
-    if (is.null(file) | is.null(project)) {
+    if (is.null(file) || is.null(project)) {
       stop("Need a file name/index and its project name/number.")
     }
 
