@@ -107,7 +107,7 @@ test_that("memoise works", {
 
   # Returns cached result (as indicated by not returning the message)
   expect_no_message(
-    time_to_run_cache <- system.time(
+    time_to_run_cached <- system.time(
       projects <- list_projects()
     )
   )
@@ -115,7 +115,7 @@ test_that("memoise works", {
   # Takes longer to run the forced function than the memoised function
   expect_gt(
     time_to_run["elapsed"],
-    time_to_run_cache["elapsed"]
+    time_to_run_cached["elapsed"]
   )
 
   # `force=T` pings server and returns message
@@ -132,7 +132,7 @@ test_that("memoise works", {
   # Takes longer to run with `force=T` than it did on the cached version
   expect_gt(
     time_to_run_forced["elapsed"],
-    time_to_run_cache["elapsed"]
+    time_to_run_cached["elapsed"]
   )
 })
 

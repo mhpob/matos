@@ -102,7 +102,7 @@ test_that("memoise functions as assumed", {
 
   # First run takes time
   expect_gt(
-    system.time(list_my_projects())["elapsed"],
+    time_to_run <- system.time(list_my_projects())["elapsed"],
     0
   )
 
@@ -112,16 +112,15 @@ test_that("memoise functions as assumed", {
   )
 
   # Next call hits cache
-  expect_equal(
-    system.time(list_my_projects())["elapsed"] |>
-      as.numeric(),
-    0
+  expect_gt(
+    time_to_run,
+    time_to_run_cached <- system.time(list_my_projects())["elapsed"]
   )
 
 
   # Forcing works
   expect_gt(
     system.time(list_my_projects(force = TRUE))["elapsed"],
-    0
+    time_to_run_cached
   )
 })

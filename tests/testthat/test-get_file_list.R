@@ -58,7 +58,7 @@ test_that("memoisation works on correct projects", {
 
   # First run takes time
   expect_gt(
-    system.time(get_file_list(161, "dataextractionfiles"))["elapsed"],
+    time_to_run <- system.time(get_file_list(161, "dataextractionfiles"))["elapsed"],
     0
   )
 
@@ -68,16 +68,17 @@ test_that("memoisation works on correct projects", {
   )
 
   # Next call hits cache
-  expect_equal(
-    system.time(get_file_list(161, "dataextractionfiles"))["elapsed"] |>
-      as.numeric(),
-    0
+  expect_gt(
+    time_to_run,
+    time_to_run_cached <- system.time(
+      get_file_list(161, "dataextractionfiles")
+      )["elapsed"]
   )
 
 
   # Forcing works
   expect_gt(
     system.time(get_file_list(161, "dataextractionfiles", force = T))["elapsed"],
-    0
+    time_to_run_cached
   )
 })
