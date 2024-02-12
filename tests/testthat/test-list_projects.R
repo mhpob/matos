@@ -22,8 +22,8 @@ test_that("passing \"mine\" to \"what\" argument works", {
   skip_on_cran()
 
   projects <- list_projects(quiet = T)
-  my_projects <- list_projects(what = 'mine')
-  my_projects_no_read <- list_projects(what = 'mine', read_access = FALSE)
+  my_projects <- list_projects(what = "mine")
+  my_projects_no_read <- list_projects(what = "mine", read_access = FALSE)
 
 
   # Read-access projects is a subset of all projects

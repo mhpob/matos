@@ -24,7 +24,7 @@
 matos_login <- function(credentials = NULL) {
   cli::cli_alert_warning("Please log in.")
 
-  if(is.null(credentials)){
+  if (is.null(credentials)) {
     # This uses a secret to allow vignettes to build and tests to run
     username <- Sys.getenv("MATOS_USER")
     password <- Sys.getenv("MATOS_PASS")
@@ -44,9 +44,10 @@ matos_login <- function(credentials = NULL) {
   } else {
     warning(
       paste("You have provided your credentials as an argument to this function.",
-            "Because your credentials are now stored in your R history, this is risky and only an option for testing purposes.",
-            "Consider wiping your history and providing credentials interactively or in your .Reviron.",
-            sep = "\n")
+        "Because your credentials are now stored in your R history, this is risky and only an option for testing purposes.",
+        "Consider wiping your history and providing credentials interactively or in your .Reviron.",
+        sep = "\n"
+      )
     )
   }
 
@@ -58,7 +59,7 @@ matos_login <- function(credentials = NULL) {
 
   if (grepl("login", login_response)) {
     cli::cli_abort("Login unsuccessful.",
-                   "i" = "Please re-run the funtion and try again."
+      "i" = "Please re-run the funtion and try again."
     )
   } else {
     cli::cli_alert_success("Login successful!")
@@ -121,8 +122,7 @@ matos_logoff <- function() {
 #' @param force Do you want to reset the cache and re-ping the database?
 #'      Defaults to false.
 get_file_list <- function(project_number, data_type, force = FALSE) {
-
-  if(isTRUE(force)){
+  if (isTRUE(force)) {
     memoise::forget(get_file_list_mem)
   }
 
@@ -134,11 +134,11 @@ get_file_list <- function(project_number, data_type, force = FALSE) {
 
 #' #inheritParams get_file_list
 #' @rdname utilities
-get_file_list_mem <- function(project_number, data_type){
+get_file_list_mem <- function(project_number, data_type) {
   url <- paste("https://matos.asascience.com/project",
-               data_type,
-               project_number,
-               sep = "/"
+    data_type,
+    project_number,
+    sep = "/"
   )
 
   login_check(url)
@@ -147,7 +147,7 @@ get_file_list_mem <- function(project_number, data_type){
 
   content_check <- httr::content(file_list)
   content_check <- rvest::html_element(content_check,
-                                       xpath = '//*[@id="content"]/table'
+    xpath = '//*[@id="content"]/table'
   )
 
   if (inherits(content_check, "xml_missing")) {
@@ -176,24 +176,26 @@ get_project_number <- function(project_name, matos_projects = NULL) {
 
   number <- matos_projects[matos_projects_clean == project_name_clean, ]$number
 
-  if(length(number) == 0){
+  if (length(number) == 0) {
     collection_code <- tolower(matos_projects$collectioncode)
 
     number <- matos_projects[collection_code == project_name_clean &
-                               !is.na(collection_code), ]$number
+      !is.na(collection_code), ]$number
 
-    if(length(number) == 0){
-
+    if (length(number) == 0) {
       possible_matches <- matos_projects[
-        c(agrep(project_name_clean, matos_projects_clean, 0.25),
-          agrep(project_name_clean, collection_code)), 'name']
+        c(
+          agrep(project_name_clean, matos_projects_clean, 0.25),
+          agrep(project_name_clean, collection_code)
+        ), "name"
+      ]
 
-      if(length(possible_matches) != 0){
+      if (length(possible_matches) != 0) {
         cli::cli_abort(c(
           "No projects matched with \"{project_name}\".",
           "Perhaps you meant one of the following:\n\n{possible_matches}"
         ))
-      } else{
+      } else {
         cli::cli_abort(
           "No projects matched with \"{project_name}\"."
         )
@@ -202,7 +204,6 @@ get_project_number <- function(project_name, matos_projects = NULL) {
   }
 
   number
-
 }
 
 

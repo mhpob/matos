@@ -31,7 +31,7 @@ list_projects <- function(what = c("all", "mine"),
                           read_access = TRUE,
                           quiet = FALSE,
                           force = FALSE) {
-  if(isTRUE(force)){
+  if (isTRUE(force)) {
     memoise::forget(list_projects_mem)
   }
 
@@ -52,8 +52,7 @@ list_projects <- function(what = c("all", "mine"),
 list_projects_mem <- function(
     what,
     read_access,
-    quiet
-){
+    quiet) {
   if (what == "all") {
     # Download and parse MATOS project page
     project_list <- httr::GET(
@@ -95,7 +94,7 @@ list_projects_mem <- function(
 
     ## Match MATOS and OTN projects
     exact_matches <- merge(projects, otn_metadata,
-                           by = "match_names"
+      by = "match_names"
     )
 
     ### Throw an error if there are multiple matches
@@ -107,7 +106,7 @@ list_projects_mem <- function(
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-                                  exact_matches$shortname, ]
+      exact_matches$shortname, ]
     matos_dangler <- projects[!projects$name %in% exact_matches$name, ]
 
 
@@ -157,15 +156,15 @@ list_projects_mem <- function(
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-                                  c(
-                                    exact_matches$shortname,
-                                    within_matches$shortname
-                                  ), ]
+      c(
+        exact_matches$shortname,
+        within_matches$shortname
+      ), ]
     matos_dangler <- projects[!projects$name %in%
-                                c(
-                                  exact_matches$name,
-                                  within_matches$name
-                                ), ]
+      c(
+        exact_matches$name,
+        within_matches$name
+      ), ]
 
 
 
@@ -215,17 +214,17 @@ list_projects_mem <- function(
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-                                  c(
-                                    exact_matches$shortname,
-                                    within_matches$shortname,
-                                    fuzzy_matches$shortname
-                                  ), ]
+      c(
+        exact_matches$shortname,
+        within_matches$shortname,
+        fuzzy_matches$shortname
+      ), ]
     matos_dangler <- projects[!projects$name %in%
-                                c(
-                                  exact_matches$name,
-                                  within_matches$name,
-                                  fuzzy_matches$name
-                                ), ]
+      c(
+        exact_matches$name,
+        within_matches$name,
+        fuzzy_matches$name
+      ), ]
 
 
 
@@ -249,7 +248,7 @@ list_projects_mem <- function(
 
     missing_otn <- projects[is.na(projects$collectioncode), ]
     missing_act <- otn_metadata[!otn_metadata$collectioncode %in%
-                                  projects$collectioncode, ]
+      projects$collectioncode, ]
 
     projects$collectioncode <- gsub("ACT\\.", "", projects$collectioncode)
 

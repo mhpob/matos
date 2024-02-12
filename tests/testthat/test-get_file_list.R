@@ -80,5 +80,4 @@ test_that("memoisation works on correct projects", {
     system.time(get_file_list(161, "dataextractionfiles", force = T))["elapsed"],
     0
   )
-
 })

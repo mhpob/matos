@@ -4,7 +4,7 @@ test_that("direct full name matching works", {
     242
   )
 
-  expect_type(proj_num, 'double')
+  expect_type(proj_num, "double")
 })
 
 
@@ -16,8 +16,7 @@ test_that("code matching works", {
     87
   )
 
-  expect_type(proj_num, 'double')
-
+  expect_type(proj_num, "double")
 })
 
 
@@ -40,7 +39,7 @@ test_that("errors correctly", {
   expect_message(
     get_project_number("umces"),
     "Perhaps you meant one of the following:"
-    ) |>
+  ) |>
     expect_error("No projects matched with \"umces\"")
 
   # no message if not

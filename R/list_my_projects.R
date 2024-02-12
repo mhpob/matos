@@ -16,15 +16,13 @@
 #' }
 list_my_projects <- function(read_access = TRUE,
                              force = FALSE) {
-
-  if(isTRUE(force)){
+  if (isTRUE(force)) {
     memoise::forget(list_my_projects_mem)
   }
 
   list_my_projects_mem(
     read_access = read_access
   )
-
 }
 
 #' Memoised list_my_projects function for internal use
@@ -32,45 +30,45 @@ list_my_projects <- function(read_access = TRUE,
 #' @inheritParams list_my_projects
 #'
 #' @keywords internal
-list_my_projects_mem <- function(read_access){
-   url <- "https://matos.asascience.com/report/submit"
+list_my_projects_mem <- function(read_access) {
+  url <- "https://matos.asascience.com/report/submit"
 
-   login_check(url)
+  login_check(url)
 
-   site <- httr::GET(url)
+  site <- httr::GET(url)
 
-   names <- httr::content(site)
-   names <- rvest::html_node(names, xpath = '//*[@id="selProject"]')
-   names <- rvest::html_nodes(names, "option")
-   names <- rvest::html_text(names)
+  names <- httr::content(site)
+  names <- rvest::html_node(names, xpath = '//*[@id="selProject"]')
+  names <- rvest::html_nodes(names, "option")
+  names <- rvest::html_text(names)
 
-   all_projects <- list_projects(what = "all", quiet = TRUE)
+  all_projects <- list_projects(what = "all", quiet = TRUE)
 
-   if (read_access == T) {
-     project_numbers <- unique(unlist(sapply(names, get_project_number)))
+  if (read_access == T) {
+    project_numbers <- unique(unlist(sapply(names, get_project_number)))
 
-     # MATOS website issues code 302 and refers to project splash page if there is
-     #   no read access. Capture which projects do this.
-     files <- lapply(project_numbers, function(x) {
-       httr::HEAD(
-         url = paste("https://matos.asascience.com/project",
-                     "dataextractionfiles",
-                     x,
-                     sep = "/"
-         ),
+    # MATOS website issues code 302 and refers to project splash page if there is
+    #   no read access. Capture which projects do this.
+    files <- lapply(project_numbers, function(x) {
+      httr::HEAD(
+        url = paste("https://matos.asascience.com/project",
+          "dataextractionfiles",
+          x,
+          sep = "/"
+        ),
 
-         # Don't follow referred URL to save time
-         config = httr::config(followlocation = F)
-       )
-     })
+        # Don't follow referred URL to save time
+        config = httr::config(followlocation = F)
+      )
+    })
 
-     # Select projects that weren't referred
-     files <- sapply(files, function(x) x$status_code != 302)
+    # Select projects that weren't referred
+    files <- sapply(files, function(x) x$status_code != 302)
 
-     project_numbers <- project_numbers[files]
+    project_numbers <- project_numbers[files]
 
-     all_projects[all_projects$number %in% project_numbers, ]
-   } else {
-     all_projects[all_projects$name %in% names, ]
-   }
- }
+    all_projects[all_projects$number %in% project_numbers, ]
+  } else {
+    all_projects[all_projects$name %in% names, ]
+  }
+}

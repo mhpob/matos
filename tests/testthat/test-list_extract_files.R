@@ -42,7 +42,7 @@ test_that("lists matched files", {
   expect_equal(unique(matched_files$detection_type), "matched")
 
   expect_true(
-    all(grepl('_matched_detections_\\d{4}.zip$', matched_files$file_name))
+    all(grepl("_matched_detections_\\d{4}.zip$", matched_files$file_name))
   )
 })
 
@@ -59,8 +59,10 @@ test_that("lists external partner matches", {
   )
   expect_true(
     all(
-      grepl('matched_external_partners_detections_\\d{4}.zip$',
-            external_files$file_name)
+      grepl(
+        "matched_external_partners_detections_\\d{4}.zip$",
+        external_files$file_name
+      )
     )
   )
 })
@@ -75,8 +77,10 @@ test_that("lists qualified detections", {
   expect_equal(unique(qualified_files$detection_type), "qualified")
   expect_true(
     all(
-      grepl('qualified_detections_\\d{4}.zip$',
-            qualified_files$file_name)
+      grepl(
+        "qualified_detections_\\d{4}.zip$",
+        qualified_files$file_name
+      )
     )
   )
 })
@@ -90,8 +94,10 @@ test_that("lists sentinel detections", {
   expect_equal(unique(sentinel_files$detection_type), "sentinel_tag")
   expect_true(
     all(
-      grepl('sentinel_tag_detections_\\d{4}.zip$',
-            sentinel_files$file_name)
+      grepl(
+        "sentinel_tag_detections_\\d{4}.zip$",
+        sentinel_files$file_name
+      )
     )
   )
 })
@@ -105,8 +111,10 @@ test_that("lists unqualified detections", {
   expect_equal(unique(unqualified_files$detection_type), "unqualified")
   expect_true(
     all(
-      grepl('unqualified_detections_\\d{4}.zip$',
-            unqualified_files$file_name)
+      grepl(
+        "unqualified_detections_\\d{4}.zip$",
+        unqualified_files$file_name
+      )
     )
   )
 })
@@ -117,17 +125,16 @@ test_that("lists unqualified detections", {
 test_that("gets files since a date", {
   extract_files <- list_extract_files(87)
 
-  extracts_since <- list_extract_files(87, since = '2023-08-01')
+  extracts_since <- list_extract_files(87, since = "2023-08-01")
 
   expect_true(
-    all(extracts_since$upload_date >= '2023-08-01')
+    all(extracts_since$upload_date >= "2023-08-01")
   )
 
   expect_identical(
-    extract_files[extract_files$upload_date >= '2023-08-01',],
+    extract_files[extract_files$upload_date >= "2023-08-01", ],
     extracts_since
   )
-
 })
 
 
@@ -137,7 +144,7 @@ test_that("warns with bad \"since\" date", {
   extract_files <- list_extract_files(87)
 
   expect_warning(
-    extracts_since <- list_extract_files(87, since = '08/01/2023'),
+    extracts_since <- list_extract_files(87, since = "08/01/2023"),
     "The \"since\" date was not provided in YYYY-MM-DD format\\."
   )
 
