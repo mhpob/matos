@@ -174,7 +174,35 @@ get_project_number <- function(project_name, matos_projects = NULL) {
   matos_projects_clean <- tolower(matos_projects$name)
   project_name_clean <- tolower(trimws(project_name))
 
-  matos_projects[matos_projects_clean == project_name_clean, ]$number
+  number <- matos_projects[matos_projects_clean == project_name_clean, ]$number
+
+  if(length(number) == 0){
+    collection_code <- tolower(matos_projects$collectioncode)
+
+    number <- matos_projects[collection_code == project_name_clean &
+                               !is.na(collection_code), ]$number
+
+    if(length(number) == 0){
+
+      possible_matches <- matos_projects[
+        c(agrep(project_name_clean, matos_projects_clean, 0.25),
+          agrep(project_name_clean, collection_code)), 'name']
+
+      if(length(possible_matches) != 0){
+        cli::cli_abort(c(
+          "No projects matched with \"{project_name}\".",
+          "Perhaps you meant one of the following:\n\n{possible_matches}"
+        ))
+      } else{
+        cli::cli_abort(
+          "No projects matched with \"{project_name}\"."
+        )
+      }
+    }
+  }
+
+  number
+
 }
 
 
