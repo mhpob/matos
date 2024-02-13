@@ -71,18 +71,16 @@ get_project_file <- function(file = NULL, project = NULL,
         to_vue = to_vue
       )
     } else {
-      # Protect against issues dealing with case
-      file <- tolower(file)
-
       # Check that file exists in the table.
-      if (!file %in% file_table$file_name) {
+      if (!any(grepl(file, file_table$file_name, ignore.case = TRUE))) {
         stop(paste0(
           "There is no file matching what you have provided, please ",
           "double-check your file name."
         ))
       }
 
-      file_url <- file_table[file_table$file_name == file, ]$url
+      file_url <- file_table[grep(file, file_table$file_name,
+                                  ignore.case = TRUE), ]$url
 
       download_process(
         url = file_url, out_dir = out_dir, overwrite = overwrite,
