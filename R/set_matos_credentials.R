@@ -21,7 +21,7 @@ set_matos_credentials <- function(overwrite = FALSE) {
 
   renv <- readLines(renv_path)
 
-  if (any(grepl("MATOS", renv)) & overwrite == F) {
+  if (any(grepl("MATOS", renv), grepl("MATOS", Sys.getenv())) && overwrite == F) {
     cli::cli_abort("Some MATOS credentials already exist. You can overwrite them with the argument overwrite=TRUE.")
   }
 
