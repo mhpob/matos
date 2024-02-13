@@ -395,9 +395,8 @@ download_process <- function(url, out_dir, overwrite, to_vue) {
   cat("  ", paste(file_loc, collapse = "\n   "), "\n")
 
 
-  cli::cli_h1("Unzipping files")
-
   if (grepl("zip", file_loc)) {
+    cli::cli_h1("Unzipping files")
     file_loc <- unzip(file_loc, exdir = out_dir, setTimes = FALSE)
 
     cli::cli_alert_success("\nFile(s) unzipped to:")
