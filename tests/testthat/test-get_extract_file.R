@@ -179,7 +179,7 @@ test_that("to_vue works", {
   dir.create(td)
 
   expect_message(
-    file_paths <- file_paths <- get_extract_file(
+    file_paths <- get_extract_file(
       file = "cbbbmb_unqualified_detections_2022.zip",
       project = "UMCES Chesapeake Backbone, Mid-Bay",
       out_dir = td,
