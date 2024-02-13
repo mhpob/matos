@@ -83,7 +83,8 @@ get_project_file <- function(file = NULL, project = NULL,
       }
 
       file_url <- file_table[grep(file, file_table$file_name,
-                                  ignore.case = TRUE), ]$url
+        ignore.case = TRUE
+      ), ]$url
 
       download_process(
         url = file_url, out_dir = out_dir, overwrite = overwrite
