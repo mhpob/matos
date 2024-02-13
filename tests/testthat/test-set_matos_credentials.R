@@ -35,11 +35,11 @@ test_that("", {
   renv <- readLines(renv_path)
 
   # Test
-  expect_warning(
+  expect_message(
     set_matos_credentials(),
     "your platform is not supported"
   ) |>
-    expect_warning("your platform is not supported") |>
+    expect_message("your platform is not supported") |>
     expect_message("Your MATOS credentials have been stored in your \\.Renviron")
 
   # Clean up
