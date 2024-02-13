@@ -367,10 +367,10 @@ scrape_file_urls <- function(html_file_list) {
 #'      the same name (\code{TRUE}) or protect yourself against doing this
 #'      (\code{FALSE}, the default)?
 #' @param to_vue Logical. Should the data be converted to match that of VUE's
-#'      CSV export?
+#'      CSV export? Defaults to FALSE.
 #' @rdname utilities
 #'
-download_process <- function(url, out_dir, overwrite, to_vue) {
+download_process <- function(url, out_dir, overwrite, to_vue = FALSE) {
   cli::cli_h1("Downloading files")
 
   GET_header <- httr::GET(url)

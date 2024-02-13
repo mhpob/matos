@@ -1,8 +1,7 @@
 #' Download project files from the MATOS website
 #'
 #' \code{get_project_file} downloads files from the MATOS website. This is best-used in
-#' conjunction with \code{\link{list_extract_files}} or
-#' \code{\link{list_project_files}}.
+#' conjunction with \code{\link{list_project_files}}.
 #'
 #' @param file A character vector listing the name of the file, or a numeric listing
 #'     the index as found from \code{\link{list_project_files}}.
@@ -13,7 +12,6 @@
 #'      Default is the current working directory.
 #' @param overwrite Logical. Do you want a file with the same name overwritten?
 #'      Passed to httr::write_disk.
-#' @param to_vue Logical. Convert to VUE export format?
 #'
 #' @export
 #' @examples
@@ -25,15 +23,21 @@
 #' get_project_file(url = "https://matos.asascience.com/projectfile/download/327")
 #' }
 get_project_file <- function(file = NULL, project = NULL,
-                             url = NULL, out_dir = getwd(), overwrite = F,
-                             to_vue = F) {
+                             url = NULL, out_dir = getwd(), overwrite = F) {
+  # Check that only one file or URL has been provided
+  if (length(file) > 1 || length(url) > 1) {
+    cli::cli_abort(c(
+      "Only one file can be extracted at a time.",
+      "Try looping with `for` or `lapply`."
+    ))
+  }
+
   # If calling the URL directly:
   if (!is.null(url)) {
     login_check(url)
 
     download_process(
-      url = url, out_dir = out_dir, overwrite = overwrite,
-      to_vue = to_vue
+      url = url, out_dir = out_dir, overwrite = overwrite
     )
   } else {
     # If providing a project name or number and a file/index instead of the URL:
@@ -67,8 +71,7 @@ get_project_file <- function(file = NULL, project = NULL,
       file_url <- file_table[file, ]$url
 
       download_process(
-        url = file_url, out_dir = out_dir, overwrite = overwrite,
-        to_vue = to_vue
+        url = file_url, out_dir = out_dir, overwrite = overwrite
       )
     } else {
       # Check that file exists in the table.
@@ -83,8 +86,7 @@ get_project_file <- function(file = NULL, project = NULL,
                                   ignore.case = TRUE), ]$url
 
       download_process(
-        url = file_url, out_dir = out_dir, overwrite = overwrite,
-        to_vue = to_vue
+        url = file_url, out_dir = out_dir, overwrite = overwrite
       )
     }
   }
