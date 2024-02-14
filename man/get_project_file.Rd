@@ -9,8 +9,7 @@ get_project_file(
   project = NULL,
   url = NULL,
   out_dir = getwd(),
-  overwrite = F,
-  to_vue = F
+  overwrite = F
 )
 }
 \arguments{
@@ -27,13 +26,10 @@ Default is the current working directory.}
 
 \item{overwrite}{Logical. Do you want a file with the same name overwritten?
 Passed to httr::write_disk.}
-
-\item{to_vue}{Logical. Convert to VUE export format?}
 }
 \description{
 \code{get_project_file} downloads files from the MATOS website. This is best-used in
-conjunction with \code{\link{list_extract_files}} or
-\code{\link{list_project_files}}.
+conjunction with \code{\link{list_project_files}}.
 }
 \examples{
 \dontrun{
