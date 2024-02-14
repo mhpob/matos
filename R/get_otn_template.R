@@ -27,8 +27,7 @@ get_otn_template <- function(template_type = c("receiver", "tag", "glider"),
   login_check()
 
   # Convert template type to filename (as of 2020-11-02)
-  template_file <- switch(
-    template_type,
+  template_file <- switch(template_type,
     receiver = "otn_metadata_deployment.xlsx",
     tag = "otn_metadata_tagging.xlsx",
     glider = "glider-deployment-metadata-v2.xlsx"
