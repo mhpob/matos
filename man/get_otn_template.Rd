@@ -5,17 +5,20 @@
 \title{Download Ocean-Tracking-Network-style metadata templates}
 \usage{
 get_otn_template(
-  template_type = c("tag", "receiver", "glider"),
-  dest_file = NULL
+  template_type = c("receiver", "tag", "glider"),
+  out_dir = NULL,
+  quiet = FALSE
 )
 }
 \arguments{
-\item{template_type}{Character string. One of: "tag" (default), the tagging
-data submittal template; "receiver", the deployment data submittal template;
-or "glider", the wave and Slocum glider metadata template.}
+\item{template_type}{Character string. One of: "receiver" (default), the
+deployment data submittal template; "tag", the tagging data submittal
+template; or "glider", the wave and Slocum glider metadata template.}
 
-\item{dest_file}{Optional character string noting where you would like the file
-to be downloaded. Defaults to the working directory and the original file name.}
+\item{out_dir}{Optional character string noting where you would like the file
+to be downloaded. Defaults to the working directory.}
+
+\item{quiet}{suppress status messages from \code{download.file}}
 }
 \value{
 Ocean Tracking Network metadata template in XLSX format.
