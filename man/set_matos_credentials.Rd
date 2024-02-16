@@ -15,7 +15,6 @@ This code was adapted from \href{https://github.com/walkerke/tidycensus/blob/ddb
 \examples{
 \dontrun{
 set_matos_credentials()
-
-# Yup, that's it!
 }
+# Yup, that's it!
 }

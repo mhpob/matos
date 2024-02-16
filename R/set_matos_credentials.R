@@ -8,9 +8,8 @@
 #' @examples
 #' \dontrun{
 #' set_matos_credentials()
-#'
-#' # Yup, that's it!
 #' }
+#' # Yup, that's it!
 set_matos_credentials <- function(overwrite = FALSE) {
   home <- Sys.getenv("HOME")
   renv_path <- file.path(home, ".Renviron")

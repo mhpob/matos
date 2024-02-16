@@ -35,10 +35,10 @@ website, project type, area, and abstract. You do not need to log in
 via \code{matos_login} or have any permissions to view/download this table.
 }
 \examples{
-\dontrun{
 # List all projects, the default:
 list_projects()
 
+\dontrun{
 # List your projects (which may contain some for which you do not have read access):
 list_projects("mine", read_access = F)
 }

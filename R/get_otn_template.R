@@ -9,15 +9,15 @@
 #'
 #' @return Ocean Tracking Network metadata template in XLSX format.
 #'
-#' @export
 #' @examples
-#' \dontrun{
+#'
 #' # Tag metadata template downloaded to working directory
 #' get_otn_template()
 #'
-#' # Glider metadata template downloaded to downloads folder
-#' get_otn_template("glider", "c:/users/myusername/downloads/glider_metadata.xlsx")
-#' }
+#' # Glider metadata template downloaded to temporary directory
+#' get_otn_template("glider", out_dir = tempdir())
+#'
+#' @export
 get_otn_template <- function(template_type = c("receiver", "tag", "glider"),
                              out_dir = NULL, quiet = FALSE) {
   # Check that arguments are correct

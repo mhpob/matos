@@ -72,7 +72,9 @@ matos_login <- function(credentials = NULL) {
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' matos_logoff()
+#' }
 matos_logoff <- function() {
   logoff_response <- httr::GET(
     "https://matos.asascience.com/account/logoff"

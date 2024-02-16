@@ -20,10 +20,10 @@
 #'
 #' @export
 #' @examples
-#' \dontrun{
 #' # List all projects, the default:
 #' list_projects()
 #'
+#' \dontrun{
 #' # List your projects (which may contain some for which you do not have read access):
 #' list_projects("mine", read_access = F)
 #' }
