@@ -81,7 +81,6 @@ test_that("can shush", {
 
 
 test_that("memoise works in theory", {
-
   # Internal function is memoised
   expect_true(
     memoise::is.memoised(list_projects_mem)
