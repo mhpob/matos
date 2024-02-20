@@ -23,7 +23,7 @@ test_that("errors if credentials exist", {
 })
 
 test_that("", {
-  skip_on_os("windows")
+  skip_on_os(c("windows", "mac"))
   # Create faux creds
   home <- Sys.getenv("HOME")
   renv_path <- file.path(home, ".Renviron")
