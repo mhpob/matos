@@ -26,6 +26,7 @@ reference:
   - matos_login
   - set_matos_credentials
   - matos_logoff
+  - CI_utilities
 
 articles:
   - title: Articles
