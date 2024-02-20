@@ -1,6 +1,4 @@
-last_match_date <- list_extract_files(87) |>
-  _$upload_date |>
-  max()
+last_match_date <- max(list_extract_files(87)$upload_date)
 
 test_that("returns files", {
   td <- file.path(tempdir(), "test-get_extract_updates")
