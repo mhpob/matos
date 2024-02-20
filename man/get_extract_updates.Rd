@@ -4,10 +4,31 @@
 \alias{get_extract_updates}
 \title{Download all data extraction files that were updated after a certain date}
 \usage{
-get_extract_updates(..., out_dir = getwd(), overwrite = F, to_vue = F)
+get_extract_updates(
+  project,
+  since = NULL,
+  detection_type = c("all", "matched", "external", "qualified", "sentinel",
+    "unqualified"),
+  out_dir = getwd(),
+  overwrite = FALSE,
+  to_vue = FALSE,
+  progress = TRUE,
+  quiet = TRUE
+)
 }
 \arguments{
-\item{...}{arguments to \code{\link{list_extract_files}}}
+\item{project}{Either the project code, the project number (the number in
+your project page URL), or the full name of the project (the big name in
+bold on your project page, \emph{not} the "Project Title").}
+
+\item{since}{Only list files uploaded after this date. Optional, but must be
+in YYYY-MM-DD format.}
+
+\item{detection_type}{one of, or a vector of, "all" (default), "matched",
+"external", "qualified", "sentinel_tag", or "unqualified". Partial
+matching is allowed, and will repair to the correct argument if spaces
+or the words detection(s)" are included.
+More information on data types can be found on \href{https://members.oceantrack.org/data/otn-detection-extract-documentation-matched-to-animals}{OTN's website}.}
 
 \item{out_dir}{Character. What directory/folder do you want the file saved into?
 Default is the current working directory. Passed to \code{httr::write_disk}
@@ -18,6 +39,10 @@ Passed to \code{httr::write_disk} via \code{\link{get_extract_file}}.}
 
 \item{to_vue}{Logical. Should the data be converted to match that of VUE's
 CSV export?}
+
+\item{progress}{Logical. Do you want a progress bar? Default is TRUE.}
+
+\item{quiet}{Logical. Do you want to silence matos' updates? Default is TRUE.}
 }
 \description{
 This is a loop around \code{\link{get_extract_file}}.
