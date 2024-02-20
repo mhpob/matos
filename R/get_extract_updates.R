@@ -13,8 +13,16 @@
 #' @param progress Logical. Do you want a progress bar? Default is TRUE.
 #' @param quiet Logical. Do you want to silence matos' updates? Default is TRUE.
 #'
+#' @returns Saves the requested files to your computer and provides a list of
+#'      file paths of the downloaded files.
+#'
 #' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
-#' # example code
+#' # Download files from the MDWEA project updated in the November 2023 data push
+#' #   (you'll need to use a project for which you have permissions).
+#' get_extract_updates(project = "MDWEA", since = "2023-11-01")
+#'
+#' # Match the VUE CSV export style
+#' get_extract_updates(project = 160, to_vue = TRUE)
 #'
 #' @export
 get_extract_updates <- function(project,

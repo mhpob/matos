@@ -44,11 +44,20 @@ CSV export?}
 
 \item{quiet}{Logical. Do you want to silence matos' updates? Default is TRUE.}
 }
+\value{
+Saves the requested files to your computer and provides a list of
+file paths of the downloaded files.
+}
 \description{
 This is a loop around \code{\link{get_extract_file}}.
 }
 \examples{
 \dontshow{if (all(skip_example_on_cran(), skip_example_on_runiverse())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-# example code
+# Download files from the MDWEA project updated in the November 2023 data push
+#   (you'll need to use a project for which you have permissions).
+get_extract_updates(project = "MDWEA", since = "2023-11-01")
+
+# Match the VUE CSV export style
+get_extract_updates(project = 160, to_vue = TRUE)
 \dontshow{\}) # examplesIf}
 }
