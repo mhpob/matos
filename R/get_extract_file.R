@@ -37,7 +37,7 @@ get_extract_file <- function(file = NULL, project = NULL,
   if (!is.null(url)) {
     login_check(url)
 
-    download_process(
+    file_location <- download_process(
       url = url, out_dir = out_dir, overwrite = overwrite,
       to_vue = to_vue, quiet = quiet
     )
@@ -70,7 +70,7 @@ get_extract_file <- function(file = NULL, project = NULL,
 
       file_url <- file_table[file, ]$url
 
-      download_process(
+      file_location <- download_process(
         url = file_url, out_dir = out_dir, overwrite = overwrite,
         to_vue = to_vue, quiet = quiet
       )
@@ -84,13 +84,15 @@ get_extract_file <- function(file = NULL, project = NULL,
       }
 
       file_url <- file_table[grep(file, file_table$file_name,
-        ignore.case = TRUE
+                                  ignore.case = TRUE
       ), ]$url
 
-      download_process(
+      file_location <- download_process(
         url = file_url, out_dir = out_dir, overwrite = overwrite,
         to_vue = to_vue, quiet = quiet
       )
     }
   }
+
+  file_location
 }
