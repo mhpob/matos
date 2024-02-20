@@ -20,7 +20,6 @@
 #'
 #' # If you know the direct URL to your file, you don't need the file or project names:
 #' get_project_file(url = "https://matos.asascience.com/projectfile/download/327")
-
 get_project_file <- function(file = NULL, project = NULL,
                              url = NULL, out_dir = getwd(), overwrite = F) {
   # Check that only one file or URL has been provided
