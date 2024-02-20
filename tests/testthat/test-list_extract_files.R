@@ -1,3 +1,59 @@
+test_that("lists by project code, upper case", {
+  skip_if_offline()
+  skip_on_runiverse()
+
+  extract_files <- list_extract_files('MDWEA')
+
+  expect_s3_class(extract_files, "data.frame")
+  expect_named(
+    extract_files,
+    c("project", "file_type", "detection_type", "detection_year", "upload_date",
+      "file_name", "url")
+  )
+  expect_s3_class(extract_files, "data.frame")
+  expect_type(extract_files$project, "character")
+  expect_equal(class(extract_files$upload_date), "Date")
+  expect_type(extract_files$url, "character")
+})
+
+test_that("lists by project code, lower case", {
+  skip_if_offline()
+  skip_on_runiverse()
+
+  extract_files <- list_extract_files('mdwea')
+
+  expect_s3_class(extract_files, "data.frame")
+  expect_named(
+    extract_files,
+    c("project", "file_type", "detection_type", "detection_year", "upload_date",
+      "file_name", "url")
+  )
+  expect_s3_class(extract_files, "data.frame")
+  expect_type(extract_files$project, "character")
+  expect_equal(class(extract_files$upload_date), "Date")
+  expect_type(extract_files$url, "character")
+})
+
+
+test_that("lists by project number", {
+  skip_on_cran()
+  skip_on_runiverse()
+
+  extract_files <- list_extract_files(87)
+
+  expect_s3_class(extract_files, "data.frame")
+  expect_named(
+    extract_files,
+    c("project", "file_type", "detection_type", "detection_year", "upload_date",
+      "file_name", "url")
+  )
+  expect_type(extract_files$project, "character")
+  expect_equal(class(extract_files$upload_date), "Date")
+  expect_type(extract_files$url, "character")
+})
+
+
+
 test_that("error if no project listed", {
   skip_if_offline()
   skip_on_runiverse()
@@ -19,20 +75,6 @@ test_that("project with no files returns empty data frame", {
   expect_s3_class(empty, "data.frame")
   expect_equal(nrow(empty), 0)
   expect_equal(ncol(empty), 7)
-})
-
-
-
-test_that("returns correct classes", {
-  skip_on_cran()
-  skip_on_runiverse()
-
-  extract_files <- list_extract_files(87)
-
-  expect_s3_class(extract_files, "data.frame")
-  expect_type(extract_files$project, "character")
-  expect_equal(class(extract_files$upload_date), "Date")
-  expect_type(extract_files$url, "character")
 })
 
 
