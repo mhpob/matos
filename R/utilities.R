@@ -44,9 +44,9 @@ matos_login <- function(credentials = NULL) {
   } else {
     warning(
       paste("You have provided your credentials as an argument to this function.",
-        "Because your credentials are now stored in your R history, this is risky and only an option for testing purposes.",
-        "Consider wiping your history and providing credentials interactively or in your .Reviron.",
-        sep = "\n"
+            "Because your credentials are now stored in your R history, this is risky and only an option for testing purposes.",
+            "Consider wiping your history and providing credentials interactively or in your .Reviron.",
+            sep = "\n"
       )
     )
   }
@@ -59,7 +59,7 @@ matos_login <- function(credentials = NULL) {
 
   if (grepl("login", login_response)) {
     cli::cli_abort("Login unsuccessful.",
-      "i" = "Please re-run the funtion and try again."
+                   "i" = "Please re-run the funtion and try again."
     )
   } else {
     cli::cli_alert_success("Login successful!")
@@ -139,9 +139,9 @@ get_file_list <- function(project_number, data_type, force = FALSE) {
 #' @rdname utilities
 get_file_list_mem <- function(project_number, data_type) {
   url <- paste("https://matos.asascience.com/project",
-    data_type,
-    project_number,
-    sep = "/"
+               data_type,
+               project_number,
+               sep = "/"
   )
 
   login_check(url)
@@ -150,7 +150,7 @@ get_file_list_mem <- function(project_number, data_type) {
 
   content_check <- httr::content(file_list)
   content_check <- rvest::html_element(content_check,
-    xpath = '//*[@id="content"]/table'
+                                       xpath = '//*[@id="content"]/table'
   )
 
   if (inherits(content_check, "xml_missing")) {
@@ -183,7 +183,7 @@ get_project_number <- function(project_name, matos_projects = NULL) {
     collection_code <- tolower(matos_projects$collectioncode)
 
     number <- matos_projects[collection_code == project_name_clean &
-      !is.na(collection_code), ]$number
+                               !is.na(collection_code), ]$number
 
     if (length(number) == 0) {
       possible_matches <- matos_projects[
@@ -370,10 +370,12 @@ scrape_file_urls <- function(html_file_list) {
 #'      (\code{FALSE}, the default)?
 #' @param to_vue Logical. Should the data be converted to match that of VUE's
 #'      CSV export? Defaults to FALSE.
+#' @param quiet Logical. Do you want to silence matos' updates? Default is FALSE.
 #' @rdname utilities
 #'
-download_process <- function(url, out_dir, overwrite, to_vue = FALSE) {
-  cli::cli_h1("Downloading files")
+download_process <- function(url, out_dir, overwrite,
+                             to_vue = FALSE, quiet = FALSE) {
+  if (isFALSE(quiet)) cli::cli_h1("Downloading files")
 
   GET_header <- httr::GET(url)
 
@@ -393,19 +395,24 @@ download_process <- function(url, out_dir, overwrite, to_vue = FALSE) {
 
   file_loc <- file.path(response$content)
 
-  cli::cli_alert_success("\nFile(s) saved to:")
-  cat("  ", paste(file_loc, collapse = "\n   "), "\n")
-
-
-  if (grepl("zip", file_loc)) {
-    cli::cli_h1("Unzipping files")
-    file_loc <- unzip(file_loc, exdir = out_dir, setTimes = FALSE)
-
-    cli::cli_alert_success("\nFile(s) unzipped to:")
+  if (isFALSE(quiet)) {
+    cli::cli_alert_success("\nFile(s) saved to:")
     cat("  ", paste(file_loc, collapse = "\n   "), "\n")
   }
 
+  if (grepl("zip", file_loc)) {
+    if (isFALSE(quiet)) cli::cli_h1("Unzipping files")
+
+    file_loc <- unzip(file_loc, exdir = out_dir, setTimes = FALSE)
+
+    if (isFALSE(quiet)) {
+      cli::cli_alert_success("\nFile(s) unzipped to:")
+      cat("  ", paste(file_loc, collapse = "\n   "), "\n")
+    }
+  }
+
   if (isTRUE(to_vue) && any(grepl("matched_external", file_loc))) {
+    if (isFALSE(quiet)){
     cli::cli_warn(
       c(
         "!" = "Detections that have been \"matched to external partners\" are provided in a summary format.",
@@ -413,9 +420,10 @@ download_process <- function(url, out_dir, overwrite, to_vue = FALSE) {
       ),
       wrap = TRUE
     )
+    }
   } else {
     if (isTRUE(to_vue)) {
-      cli::cli_h1("Converting to VUE CSV format")
+      if (isFALSE(quiet)) cli::cli_h1("Converting to VUE CSV format")
 
       file_csv <- grep(".csv", file_loc, value = T)
       matos <- read.csv(
@@ -439,7 +447,8 @@ download_process <- function(url, out_dir, overwrite, to_vue = FALSE) {
       }
 
 
-      columns_to_include <- switch(type,
+      columns_to_include <- switch(
+        type,
         matched =
           c(
             "datecollected", "receiver", "tagname", "transmitter.name",
@@ -480,7 +489,7 @@ download_process <- function(url, out_dir, overwrite, to_vue = FALSE) {
       )
 
       write.csv(matos, file_csv, row.names = F)
-      cli::cli_alert_success("CSV converted to VUE format.")
+      if (isFALSE(quiet)) cli::cli_alert_success("CSV converted to VUE format.")
 
       file_loc <- c(file_loc, file_csv)
     }

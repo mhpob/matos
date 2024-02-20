@@ -9,8 +9,9 @@ get_extract_file(
   project = NULL,
   url = NULL,
   out_dir = getwd(),
-  overwrite = F,
-  to_vue = F
+  overwrite = FALSE,
+  to_vue = FALSE,
+  quiet = FALSE
 )
 }
 \arguments{
@@ -29,6 +30,8 @@ Default is the current working directory.}
 Passed to httr::write_disk.}
 
 \item{to_vue}{Logical. Convert to VUE export format?}
+
+\item{quiet}{Logical. Do you want to silence matos' updates? Default is FALSE.}
 }
 \description{
 \code{get_extract_file} downloads files from the MATOS website. This is best-used in

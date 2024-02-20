@@ -12,6 +12,7 @@
 #'      Default is the current working directory.
 #' @param overwrite Logical. Do you want a file with the same name overwritten?
 #'      Passed to httr::write_disk.
+#' @param quiet Logical. Do you want to silence matos' updates? Default is FALSE.
 #'
 #' @export
 #' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
@@ -21,7 +22,8 @@
 #' # If you know the direct URL to your file, you don't need the file or project names:
 #' get_project_file(url = "https://matos.asascience.com/projectfile/download/327")
 get_project_file <- function(file = NULL, project = NULL,
-                             url = NULL, out_dir = getwd(), overwrite = F) {
+                             url = NULL, out_dir = getwd(),
+                             overwrite = FALSE, quiet = FALSE) {
   # Check that only one file or URL has been provided
   if (length(file) > 1 || length(url) > 1) {
     cli::cli_abort(c(
@@ -35,7 +37,7 @@ get_project_file <- function(file = NULL, project = NULL,
     login_check(url)
 
     download_process(
-      url = url, out_dir = out_dir, overwrite = overwrite
+      url = url, out_dir = out_dir, overwrite = overwrite, quiet = quiet
     )
   } else {
     # If providing a project name or number and a file/index instead of the URL:
@@ -69,7 +71,7 @@ get_project_file <- function(file = NULL, project = NULL,
       file_url <- file_table[file, ]$url
 
       download_process(
-        url = file_url, out_dir = out_dir, overwrite = overwrite
+        url = file_url, out_dir = out_dir, overwrite = overwrite, quiet = quiet
       )
     } else {
       # Check that file exists in the table.
@@ -85,7 +87,7 @@ get_project_file <- function(file = NULL, project = NULL,
       ), ]$url
 
       download_process(
-        url = file_url, out_dir = out_dir, overwrite = overwrite
+        url = file_url, out_dir = out_dir, overwrite = overwrite, quiet = quiet
       )
     }
   }

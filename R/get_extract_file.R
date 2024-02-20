@@ -13,6 +13,7 @@
 #' @param overwrite Logical. Do you want a file with the same name overwritten?
 #'      Passed to httr::write_disk.
 #' @param to_vue Logical. Convert to VUE export format?
+#' @param quiet Logical. Do you want to silence matos' updates? Default is FALSE.
 #'
 #' @export
 #' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
@@ -21,8 +22,8 @@
 #'
 #' get_extract_file(file = 1, project = 87)
 get_extract_file <- function(file = NULL, project = NULL,
-                             url = NULL, out_dir = getwd(), overwrite = F,
-                             to_vue = F) {
+                             url = NULL, out_dir = getwd(), overwrite = FALSE,
+                             to_vue = FALSE, quiet = FALSE) {
   # Check that only one file or URL has been provided
   if (length(file) > 1 || length(url) > 1) {
     cli::cli_abort(c(
@@ -38,7 +39,7 @@ get_extract_file <- function(file = NULL, project = NULL,
 
     download_process(
       url = url, out_dir = out_dir, overwrite = overwrite,
-      to_vue = to_vue
+      to_vue = to_vue, quiet = quiet
     )
   } else {
     # Check that both file and project are provided
@@ -71,7 +72,7 @@ get_extract_file <- function(file = NULL, project = NULL,
 
       download_process(
         url = file_url, out_dir = out_dir, overwrite = overwrite,
-        to_vue = to_vue
+        to_vue = to_vue, quiet = quiet
       )
     } else {
       # Check that file exists in the table.
@@ -88,7 +89,7 @@ get_extract_file <- function(file = NULL, project = NULL,
 
       download_process(
         url = file_url, out_dir = out_dir, overwrite = overwrite,
-        to_vue = to_vue
+        to_vue = to_vue, quiet = quiet
       )
     }
   }

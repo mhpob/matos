@@ -29,7 +29,7 @@ project_check(project, return_projects = FALSE)
 
 scrape_file_urls(html_file_list)
 
-download_process(url, out_dir, overwrite, to_vue = FALSE)
+download_process(url, out_dir, overwrite, to_vue = FALSE, quiet = FALSE)
 }
 \arguments{
 \item{project_number}{Number of the project}
@@ -66,6 +66,8 @@ the same name (\code{TRUE}) or protect yourself against doing this
 
 \item{to_vue}{Logical. Should the data be converted to match that of VUE's
 CSV export? Defaults to FALSE.}
+
+\item{quiet}{Logical. Do you want to silence matos' updates? Default is FALSE.}
 }
 \description{
 Non-exported utility functions used by other functions in \code{matos}.
