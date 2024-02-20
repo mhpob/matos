@@ -3,7 +3,7 @@ last_match_date <- list_extract_files(87) |>
   max()
 
 test_that("returns files", {
-  td <- file.path(tempdir(), 'test-get_extract_updates')
+  td <- file.path(tempdir(), "test-get_extract_updates")
   dir.create(td)
 
   files <- get_extract_updates(87, since = last_match_date, out_dir = td)
@@ -39,7 +39,7 @@ test_that("errors with no project provided", {
 })
 
 test_that("warns with no \"since\" date", {
-  td <- file.path(tempdir(), 'test-get_extract_updates')
+  td <- file.path(tempdir(), "test-get_extract_updates")
   dir.create(td)
 
   expect_message(
@@ -61,7 +61,7 @@ test_that("informative message with no new files", {
 
 
 test_that("can be shushed", {
-  td <- file.path(tempdir(), 'test-get_extract_updates')
+  td <- file.path(tempdir(), "test-get_extract_updates")
   dir.create(td)
 
   expect_no_message(
