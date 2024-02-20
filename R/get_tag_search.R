@@ -15,12 +15,14 @@
 #' @param import Should the downloaded data be imported into R as a data frame? Default is FALSE.
 #'
 #' @export
-#' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
+#' @examples
+#' \dontrun{
 #' get_tag_search(
 #'   tags = paste0("A69-1601-254", seq(60, 65, 1)),
 #'   start_date = "03/01/2016",
 #'   end_date = "04/01/2016"
 #' )
+#' }
 get_tag_search <- function(tags, start_date, end_date, import = F) {
   # Time of query (used to match MATOS naming convention)
   time_of_query <- as.POSIXlt(Sys.time())
@@ -35,12 +37,12 @@ get_tag_search <- function(tags, start_date, end_date, import = F) {
       tagSearch = paste(tags, collapse = ",")
     ),
     httr::write_disk(paste("MATOS_Export",
-      time_of_query$year + 1900,
-      time_of_query$mon + 1,
-      time_of_query$mday,
-      time_of_query$hour,
-      paste0(time_of_query$min, ".csv"),
-      sep = "_"
+                           time_of_query$year + 1900,
+                           time_of_query$mon + 1,
+                           time_of_query$mday,
+                           time_of_query$hour,
+                           paste0(time_of_query$min, ".csv"),
+                           sep = "_"
     ))
   )
 
