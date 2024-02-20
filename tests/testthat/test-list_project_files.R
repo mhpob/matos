@@ -2,7 +2,7 @@ test_that("lists by project code, upper case", {
   skip_if_offline()
   skip_on_runiverse()
 
-  proj_files <- list_project_files('MDWEA')
+  proj_files <- list_project_files("MDWEA")
 
   expect_s3_class(proj_files, "data.frame")
   expect_named(
@@ -20,7 +20,7 @@ test_that("lists by project code, lower case", {
   skip_if_offline()
   skip_on_runiverse()
 
-  proj_files <- list_project_files('mdwea')
+  proj_files <- list_project_files("mdwea")
 
   expect_s3_class(proj_files, "data.frame")
   expect_named(

@@ -2,13 +2,15 @@ test_that("lists by project code, upper case", {
   skip_if_offline()
   skip_on_runiverse()
 
-  extract_files <- list_extract_files('MDWEA')
+  extract_files <- list_extract_files("MDWEA")
 
   expect_s3_class(extract_files, "data.frame")
   expect_named(
     extract_files,
-    c("project", "file_type", "detection_type", "detection_year", "upload_date",
-      "file_name", "url")
+    c(
+      "project", "file_type", "detection_type", "detection_year", "upload_date",
+      "file_name", "url"
+    )
   )
   expect_s3_class(extract_files, "data.frame")
   expect_type(extract_files$project, "character")
@@ -20,13 +22,15 @@ test_that("lists by project code, lower case", {
   skip_if_offline()
   skip_on_runiverse()
 
-  extract_files <- list_extract_files('mdwea')
+  extract_files <- list_extract_files("mdwea")
 
   expect_s3_class(extract_files, "data.frame")
   expect_named(
     extract_files,
-    c("project", "file_type", "detection_type", "detection_year", "upload_date",
-      "file_name", "url")
+    c(
+      "project", "file_type", "detection_type", "detection_year", "upload_date",
+      "file_name", "url"
+    )
   )
   expect_s3_class(extract_files, "data.frame")
   expect_type(extract_files$project, "character")
@@ -44,8 +48,10 @@ test_that("lists by project number", {
   expect_s3_class(extract_files, "data.frame")
   expect_named(
     extract_files,
-    c("project", "file_type", "detection_type", "detection_year", "upload_date",
-      "file_name", "url")
+    c(
+      "project", "file_type", "detection_type", "detection_year", "upload_date",
+      "file_name", "url"
+    )
   )
   expect_type(extract_files$project, "character")
   expect_equal(class(extract_files$upload_date), "Date")
