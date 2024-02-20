@@ -5,7 +5,7 @@
 \title{List MATOS project files}
 \usage{
 list_project_files(
-  project = NULL,
+  project,
   file_type = c("all", "detections", "receiver_metadata", "tag_metadata"),
   since = NULL
 )

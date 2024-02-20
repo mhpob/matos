@@ -5,21 +5,21 @@
 \title{List OTN data extraction files}
 \usage{
 list_extract_files(
-  project = NULL,
+  project,
   detection_type = c("all", "matched", "external", "qualified", "sentinel",
     "unqualified"),
   since = NULL
 )
 }
 \arguments{
-\item{project}{Either the project number (the number in your project page URL)
-or the full name of the project (the big name in bold on your project page,
-\emph{not} the "Project Title").}
+\item{project}{Either the project code, the project number (the number in
+your project page URL), or the full name of the project (the big name in
+bold on your project page, \emph{not} the "Project Title").}
 
-\item{detection_type}{one of, or a vector of, "all" (default), "matched", "external",
-"qualified", "sentinel_tag", or "unqualified". Partial matching is
-allowed, and will repair to the correct argument if spaces or the words
-"detection(s)" are included.
+\item{detection_type}{one of, or a vector of, "all" (default), "matched",
+"external", "qualified", "sentinel_tag", or "unqualified". Partial
+matching is allowed, and will repair to the correct argument if spaces
+or the words detection(s)" are included.
 More information on data types can be found on \href{https://members.oceantrack.org/data/otn-detection-extract-documentation-matched-to-animals}{OTN's website}.}
 
 \item{since}{Only list files uploaded after this date. Optional, but must be

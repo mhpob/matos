@@ -44,7 +44,7 @@
 #'
 #' # Cheat and use shorter names
 #' List_project_files(87, c("receiver", "tag"))
-list_project_files <- function(project = NULL,
+list_project_files <- function(project,
                                file_type = c(
                                  "all", "detections",
                                  "receiver_metadata",

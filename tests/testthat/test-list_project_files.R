@@ -36,12 +36,9 @@ test_that("lists by project code, lower case", {
 
 
 test_that("error if no project listed", {
-  skip_if_offline()
-  skip_on_runiverse()
-
   expect_error(
     list_project_files(),
-    "No file lists returned."
+    "argument \"project\" is missing, with no default"
   )
 })
 
