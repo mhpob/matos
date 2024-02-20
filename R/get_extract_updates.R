@@ -40,9 +40,9 @@ get_extract_updates <- function(project,
   files <- list_extract_files(project, detection_type, since)
 
   if(is.null(since)) {
-    cli::cli_alert_warning(c(
-      "No \"since\" date has been provided.",
-      "All extract files will be downloaded!"
+    cli::cli_bullets(c(
+      "x" = "No \"since\" date has been provided.",
+      "!" = "All extract files will be downloaded!"
     ))
   }
 
