@@ -60,9 +60,9 @@ list_project_files <- function(project = NULL,
 
   file_type_fix <- function(provided_type) {
     switch(provided_type,
-      detections = "Tag Detections - .vfl file",
-      receiver_metadata = "Deployed Receivers \u2013 Deployment Metadata",
-      tag_metadata = "Tagged Fish \u2013 Tag Metadata"
+           detections = "Tag Detections - .vfl file",
+           receiver_metadata = "Deployed Receivers \u2013 Deployment Metadata",
+           tag_metadata = "Tagged Fish \u2013 Tag Metadata"
     )
   }
 
@@ -88,7 +88,17 @@ list_project_files <- function(project = NULL,
   }
 
   if (!is.null(since)) {
-    files <- files[files$upload_date >= since, ]
+    # Check that date is in YYYY-MM-DD format
+    if (!grepl("^\\d{4}-\\d{2}-\\d{2}$", since)) {
+      warning(
+        paste0(
+          "The \"since\" date was not provided in YYYY-MM-DD format.",
+          "\nAll files have been returned."
+        )
+      )
+    } else {
+      files <- files[files$upload_date >= since, ]
+    }
   }
 
   files
