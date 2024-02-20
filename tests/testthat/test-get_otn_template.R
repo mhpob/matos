@@ -1,5 +1,6 @@
 test_that("default downloads otn deployment metadata", {
   skip_if_offline()
+  skip_on_runiverse()
 
   expect_invisible(
     file_location <- get_otn_template()
@@ -13,6 +14,7 @@ test_that("default downloads otn deployment metadata", {
 
 test_that("explicit download of otn deployment metadata", {
   skip_if_offline()
+  skip_on_runiverse()
 
   expect_invisible(
     file_location <- get_otn_template("receiver")
@@ -26,6 +28,7 @@ test_that("explicit download of otn deployment metadata", {
 
 test_that("download otn tag metadata", {
   skip_if_offline()
+  skip_on_runiverse()
 
   expect_invisible(
     file_location <- get_otn_template("tag")
@@ -39,6 +42,7 @@ test_that("download otn tag metadata", {
 
 test_that("download otn glider metadata", {
   skip_if_offline()
+  skip_on_runiverse()
 
   expect_invisible(
     file_location <- get_otn_template("glider")
@@ -52,6 +56,7 @@ test_that("download otn glider metadata", {
 
 test_that("custom out directory works", {
   skip_if_offline()
+  skip_on_runiverse()
 
   td <- file.path(tempdir(), "test-get_otn_template")
   dir.create(td)

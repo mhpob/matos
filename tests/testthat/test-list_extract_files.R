@@ -1,5 +1,5 @@
 test_that("error if no project listed", {
-  skip_on_cran()
+  skip_if_offline()
   skip_on_runiverse()
 
   expect_error(
@@ -131,6 +131,9 @@ test_that("lists unqualified detections", {
 
 
 test_that("gets files since a date", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   extract_files <- list_extract_files(87)
 
   extracts_since <- list_extract_files(87, since = "2023-08-01")
@@ -149,6 +152,9 @@ test_that("gets files since a date", {
 
 
 test_that("warns with bad \"since\" date", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   extract_files <- list_extract_files(87)
 
   expect_warning(

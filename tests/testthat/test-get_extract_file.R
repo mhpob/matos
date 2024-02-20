@@ -211,6 +211,9 @@ test_that("errors if no URL and file and project aren't provided", {
 
 
 test_that("errors if the index doesn't exist", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   expect_error(
     get_extract_file(file = 90000, project = 161),
     "There is no index matching what you have provided\\."
@@ -219,6 +222,9 @@ test_that("errors if the index doesn't exist", {
 
 
 test_that("errors if it can't find the file name", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   expect_error(
     get_extract_file(file = "blahblah", project = 161),
     "There is no file matching what you have provided"

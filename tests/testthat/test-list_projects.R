@@ -1,4 +1,7 @@
 test_that("returns correct classes", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   projects <- list_projects(quiet = TRUE)
 
   expect_s3_class(projects, "data.frame")
@@ -60,6 +63,9 @@ test_that("passing \"mine\" to \"what\" argument works", {
 
 
 test_that("can shush", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   expect_message(
     list_projects(force = T),
     "These ACT projects were unable to be matched with OTN"

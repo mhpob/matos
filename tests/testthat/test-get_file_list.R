@@ -1,4 +1,7 @@
 test_that("errors with incorrect project", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   expect_error(
     get_file_list(8675309, "dataextractionfiles"),
     "No file lists returned\\."
@@ -7,7 +10,7 @@ test_that("errors with incorrect project", {
 
 
 test_that("returns correct class", {
-  skip_on_cran()
+  skip_if_offline()
   skip_on_runiverse()
 
   expect_s3_class(

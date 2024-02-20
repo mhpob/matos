@@ -1,4 +1,7 @@
 test_that("direct full name matching works", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   expect_equal(
     proj_num <- get_project_number("UMCES BOEM Marine Mammal Monitoring"),
     242
@@ -11,6 +14,9 @@ test_that("direct full name matching works", {
 
 
 test_that("code matching works", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   expect_equal(
     proj_num <- get_project_number("MDWEA"),
     87
@@ -22,6 +28,9 @@ test_that("code matching works", {
 
 
 test_that("mixed case matching works", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   expect_equal(
     proj_num <- get_project_number("umces BOEM Marine Mammal Monitoring"),
     242
@@ -35,6 +44,9 @@ test_that("mixed case matching works", {
 
 
 test_that("errors correctly", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   # errors and suggests possible matches if agrep finds something
   expect_message(
     get_project_number("umces"),

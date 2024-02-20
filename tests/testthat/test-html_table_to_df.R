@@ -1,5 +1,5 @@
 test_that("converts data extraction files to df", {
-  skip_on_cran()
+  skip_if_offline()
   skip_on_runiverse()
 
   html_file_list <- get_file_list(161, "dataextractionfiles")
@@ -21,7 +21,7 @@ test_that("converts data extraction files to df", {
 
 
 test_that("converts project files to df", {
-  skip_on_cran()
+  skip_if_offline()
   skip_on_runiverse()
 
   html_file_list <- get_file_list(161, "downloadfiles")
