@@ -80,7 +80,8 @@ test_that("can shush", {
 
 
 
-test_that("memoise works", {
+test_that("memoise works in theory", {
+
   # Internal function is memoised
   expect_true(
     memoise::is.memoised(list_projects_mem)
@@ -90,7 +91,10 @@ test_that("memoise works", {
   expect_true(
     memoise::forget(list_projects_mem)
   )
+})
 
+test_that("memoise works in practice", {
+  skip_if_offline()
 
   # Pings the server and returns a message
   expect_message(

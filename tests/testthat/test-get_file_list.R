@@ -42,7 +42,7 @@ test_that("contains a table", {
 })
 
 
-test_that("memoisation works in general", {
+test_that("memoise works in theory", {
   # Make sure function is memoised
   expect_true(
     memoise::is.memoised(get_file_list_mem)

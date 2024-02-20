@@ -85,7 +85,7 @@ test_that("shushes list_projects under the hood", {
 
 
 
-test_that("memoise works in general", {
+test_that("memoise works in theory", {
   # Internal function is memoised
   expect_true(
     memoise::is.memoised(list_my_projects_mem)
@@ -98,7 +98,7 @@ test_that("memoise works in general", {
 })
 
 
-test_that("memoise functions as assumed", {
+test_that("memoise works in practice", {
   skip_on_cran()
   skip_on_runiverse()
 
