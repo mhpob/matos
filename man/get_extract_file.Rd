@@ -35,10 +35,10 @@ Passed to httr::write_disk.}
 conjunction with \code{\link{list_extract_files}}.
 }
 \examples{
-\dontrun{
+\dontshow{if (all(skip_example_on_cran(), skip_example_on_runiverse())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # If you know the direct URL to your file, you don't need the file or project names:
 get_extract_file(url = "https://matos.asascience.com/projectfile/download/327")
 
 get_extract_file(file = 1, project = 87)
-}
+\dontshow{\}) # examplesIf}
 }

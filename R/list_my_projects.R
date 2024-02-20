@@ -9,11 +9,9 @@
 #'      Defaults to false.
 #'
 #' @export
-#' @examples
-#' \dontrun{
+#' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
 #' # After logging in, just type the following:
 #' list_my_projects()
-#' }
 list_my_projects <- function(read_access = TRUE,
                              force = FALSE) {
   if (isTRUE(force)) {

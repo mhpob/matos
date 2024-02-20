@@ -48,7 +48,7 @@ of your project page.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (all(skip_example_on_cran(), skip_example_on_runiverse())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # List files using project number:
 list_project_files(87)
 
@@ -63,5 +63,5 @@ List_project_files(87, c("receiver_metadata", "tag_metadata"))
 
 # Cheat and use shorter names
 List_project_files(87, c("receiver", "tag"))
-}
+\dontshow{\}) # examplesIf}
 }

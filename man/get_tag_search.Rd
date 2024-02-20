@@ -26,11 +26,11 @@ downloads can take a \emph{long} time, especially if you have many tags or are
 searching over a long period of time.
 }
 \examples{
-\dontrun{
+\dontshow{if (all(skip_example_on_cran(), skip_example_on_runiverse())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 get_tag_search(
-  tags = paste0("A69-1601-254", seq(60, 90, 1)),
+  tags = paste0("A69-1601-254", seq(60, 65, 1)),
   start_date = "03/01/2016",
   end_date = "04/01/2016"
 )
-}
+\dontshow{\}) # examplesIf}
 }

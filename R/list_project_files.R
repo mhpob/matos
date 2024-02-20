@@ -29,8 +29,7 @@
 #' @return A data frame with columns of "project", "file_type", "upload_date", and "file_name".
 #'
 #' @export
-#' @examples
-#' \dontrun{
+#' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
 #' # List files using project number:
 #' list_project_files(87)
 #'
@@ -45,7 +44,6 @@
 #'
 #' # Cheat and use shorter names
 #' List_project_files(87, c("receiver", "tag"))
-#' }
 list_project_files <- function(project = NULL,
                                file_type = c(
                                  "all", "detections",

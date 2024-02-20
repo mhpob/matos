@@ -50,14 +50,14 @@ are files listed on the \emph{Data Extraction Files} page.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (all(skip_example_on_cran(), skip_example_on_runiverse())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # List all extraction files using project number
 list_extract_files(87)
 
 # Or, just grab the matched receiver detections
-list_files(project = 87, detection_type = "qualified")
+list_extract_files(project = 87, detection_type = "qualified")
 
 # OR list files using the project name
-list_files("umces boem offshore wind energy")
-}
+list_extract_files("umces boem offshore wind energy")
+\dontshow{\}) # examplesIf}
 }

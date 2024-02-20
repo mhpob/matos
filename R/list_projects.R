@@ -19,14 +19,12 @@
 #'      Defaults to false.
 #'
 #' @export
-#' @examples
+#' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
 #' # List all projects, the default:
 #' list_projects()
 #'
-#' \dontrun{
 #' # List your projects (which may contain some for which you do not have read access):
 #' list_projects("mine", read_access = F)
-#' }
 list_projects <- function(what = c("all", "mine"),
                           read_access = TRUE,
                           quiet = FALSE,

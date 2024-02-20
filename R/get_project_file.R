@@ -14,14 +14,13 @@
 #'      Passed to httr::write_disk.
 #'
 #' @export
-#' @examples
-#' \dontrun{
+#' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
 #' # If you know the index of the file, you can provide some numbers
 #' get_project_file(file = 1, project = 87)
 #'
 #' # If you know the direct URL to your file, you don't need the file or project names:
 #' get_project_file(url = "https://matos.asascience.com/projectfile/download/327")
-#' }
+
 get_project_file <- function(file = NULL, project = NULL,
                              url = NULL, out_dir = getwd(), overwrite = F) {
   # Check that only one file or URL has been provided

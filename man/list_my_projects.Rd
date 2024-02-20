@@ -18,8 +18,8 @@ Defaults to false.}
 This function lists the functions for which the logged-on user has permissions.
 }
 \examples{
-\dontrun{
+\dontshow{if (all(skip_example_on_cran(), skip_example_on_runiverse())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # After logging in, just type the following:
 list_my_projects()
-}
+\dontshow{\}) # examplesIf}
 }

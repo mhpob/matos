@@ -27,11 +27,11 @@ Ocean Tracking Network metadata template in XLSX format.
 Download Ocean-Tracking-Network-style metadata templates
 }
 \examples{
-\dontrun{
+\dontshow{if (all(skip_example_on_cran(), skip_example_on_runiverse())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Tag metadata template downloaded to working directory
 get_otn_template()
 
 # Glider metadata template downloaded to temporary directory
 get_otn_template("glider", out_dir = tempdir())
-}
+\dontshow{\}) # examplesIf}
 }

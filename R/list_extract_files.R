@@ -30,17 +30,15 @@
 #' @return A data frame with columns of "project", "file_type", "detection_type", 'detection_year', 'upload_date', 'file_name', and "url".
 #'
 #' @export
-#' @examples
-#' \dontrun{
+#' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
 #' # List all extraction files using project number
 #' list_extract_files(87)
 #'
 #' # Or, just grab the matched receiver detections
-#' list_files(project = 87, detection_type = "qualified")
+#' list_extract_files(project = 87, detection_type = "qualified")
 #'
 #' # OR list files using the project name
-#' list_files("umces boem offshore wind energy")
-#' }
+#' list_extract_files("umces boem offshore wind energy")
 list_extract_files <- function(project = NULL,
                                detection_type = c(
                                  "all", "matched", "external",

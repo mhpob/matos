@@ -32,11 +32,11 @@ Passed to httr::write_disk.}
 conjunction with \code{\link{list_project_files}}.
 }
 \examples{
-\dontrun{
+\dontshow{if (all(skip_example_on_cran(), skip_example_on_runiverse())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # If you know the index of the file, you can provide some numbers
 get_project_file(file = 1, project = 87)
 
 # If you know the direct URL to your file, you don't need the file or project names:
 get_project_file(url = "https://matos.asascience.com/projectfile/download/327")
-}
+\dontshow{\}) # examplesIf}
 }

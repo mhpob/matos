@@ -15,13 +15,11 @@
 #' @param to_vue Logical. Convert to VUE export format?
 #'
 #' @export
-#' @examples
-#' \dontrun{
+#' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
 #' # If you know the direct URL to your file, you don't need the file or project names:
 #' get_extract_file(url = "https://matos.asascience.com/projectfile/download/327")
 #'
 #' get_extract_file(file = 1, project = 87)
-#' }
 get_extract_file <- function(file = NULL, project = NULL,
                              url = NULL, out_dir = getwd(), overwrite = F,
                              to_vue = F) {

@@ -11,6 +11,9 @@
 #' @param to_vue Logical. Should the data be converted to match that of VUE's
 #'      CSV export?
 #'
+#' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
+#' # example code
+#'
 #' @export
 get_extract_updates <- function(..., out_dir = getwd(), overwrite = F, to_vue = F) {
   files <- list_extract_files(...)

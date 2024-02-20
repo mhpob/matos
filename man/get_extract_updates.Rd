@@ -22,3 +22,8 @@ CSV export?}
 \description{
 This is a loop around \code{\link{get_extract_file}}.
 }
+\examples{
+\dontshow{if (all(skip_example_on_cran(), skip_example_on_runiverse())) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# example code
+\dontshow{\}) # examplesIf}
+}
