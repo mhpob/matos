@@ -36,10 +36,9 @@ get_extract_updates <- function(project,
                                 to_vue = FALSE,
                                 progress = TRUE,
                                 quiet = TRUE) {
-
   files <- list_extract_files(project, detection_type, since)
 
-  if(is.null(since)) {
+  if (is.null(since)) {
     cli::cli_alert_warning(c(
       "No \"since\" date has been provided.",
       "All extract files will be downloaded!"
@@ -52,11 +51,11 @@ get_extract_updates <- function(project,
     file_location <- vector("list", length(files$url))
     if (isTRUE(progress)) {
       cli::cli_progress_bar("Downloading files",
-                            type = "tasks",
-                            total = length(files$url))
+        type = "tasks",
+        total = length(files$url)
+      )
     }
     for (i in seq_along(files$url)) {
-
       file_location[[i]] <- get_extract_file(
         url = files$url[i],
         out_dir = out_dir, overwrite = overwrite,

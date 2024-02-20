@@ -37,12 +37,12 @@ get_tag_search <- function(tags, start_date, end_date, import = F) {
       tagSearch = paste(tags, collapse = ",")
     ),
     httr::write_disk(paste("MATOS_Export",
-                           time_of_query$year + 1900,
-                           time_of_query$mon + 1,
-                           time_of_query$mday,
-                           time_of_query$hour,
-                           paste0(time_of_query$min, ".csv"),
-                           sep = "_"
+      time_of_query$year + 1900,
+      time_of_query$mon + 1,
+      time_of_query$mday,
+      time_of_query$hour,
+      paste0(time_of_query$min, ".csv"),
+      sep = "_"
     ))
   )
 

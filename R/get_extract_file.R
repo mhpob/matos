@@ -84,7 +84,7 @@ get_extract_file <- function(file = NULL, project = NULL,
       }
 
       file_url <- file_table[grep(file, file_table$file_name,
-                                  ignore.case = TRUE
+        ignore.case = TRUE
       ), ]$url
 
       file_location <- download_process(
