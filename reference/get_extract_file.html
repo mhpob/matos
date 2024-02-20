@@ -68,8 +68,9 @@ conjunction with <code><a href="list_extract_files.html">list_extract_files</a><
 <span>  project <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  url <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  overwrite <span class="op">=</span> <span class="cn">F</span>,</span>
-<span>  to_vue <span class="op">=</span> <span class="cn">F</span></span>
+<span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  to_vue <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -101,6 +102,10 @@ Passed to httr::write_disk.</p></dd>
 
 <dt>to_vue</dt>
 <dd><p>Logical. Convert to VUE export format?</p></dd>
+
+
+<dt>quiet</dt>
+<dd><p>Logical. Do you want to silence matos' updates? Default is FALSE.</p></dd>
 
 </dl></div>
 
