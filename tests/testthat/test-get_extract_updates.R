@@ -1,6 +1,9 @@
 last_match_date <- max(list_extract_files(87)$upload_date)
 
 test_that("returns files", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   td <- file.path(tempdir(), "test-get_extract_updates")
   dir.create(td)
 
@@ -37,6 +40,9 @@ test_that("errors with no project provided", {
 })
 
 test_that("warns with no \"since\" date", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   td <- file.path(tempdir(), "test-get_extract_updates")
   dir.create(td)
 
@@ -51,6 +57,9 @@ test_that("warns with no \"since\" date", {
 
 
 test_that("informative message with no new files", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   expect_message(
     get_extract_updates(87, since = Sys.Date() + 2),
     "No files uploaded since the provided date\\."
@@ -59,6 +68,9 @@ test_that("informative message with no new files", {
 
 
 test_that("can be shushed", {
+  skip_if_offline()
+  skip_on_runiverse()
+
   td <- file.path(tempdir(), "test-get_extract_updates")
   dir.create(td)
 
