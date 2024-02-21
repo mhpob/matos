@@ -1,4 +1,3 @@
-
 test_that("returns files", {
   skip_if_offline()
   skip_on_runiverse()
