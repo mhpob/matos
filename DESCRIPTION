@@ -1,7 +1,7 @@
 Package: matos
 Type: Package
 Title: Interface with the Mid-Atlantic Acoustic Telemetry Observing System (MATOS)
-Version: 0.4.0.9007
+Version: 0.4.0.9008
 Authors@R: person("Michael", "O'Brien", email = "mike@obrien.page",
                   role = c("aut", "cre"),
                   comment = c(ORCID = "0000-0003-1420-6395"))
