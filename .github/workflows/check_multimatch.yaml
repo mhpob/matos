@@ -32,7 +32,7 @@ jobs:
         shell: Rscript {0}
         run: |
           testthat::test_that('No multimatch',
-          testthat::expect_no_warning(matos::list_projects()))
+          {testthat::expect_no_warning(matos::list_projects())})
 
       - name: Show multimatches
         if: steps.multi-test.outcome == 'failure'
