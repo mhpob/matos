@@ -27,8 +27,10 @@ test_that("passing \"mine\" to \"what\" argument works", {
 
   projects <- list_projects(quiet = T, warn_multimatch = FALSE)
   my_projects <- list_projects(what = "mine", warn_multimatch = FALSE)
-  my_projects_no_read <- list_projects(what = "mine", read_access = FALSE,
-                                       warn_multimatch = FALSE)
+  my_projects_no_read <- list_projects(
+    what = "mine", read_access = FALSE,
+    warn_multimatch = FALSE
+  )
 
 
   # Read-access projects is a subset of all projects

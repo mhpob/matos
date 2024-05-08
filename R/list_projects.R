@@ -97,12 +97,12 @@ list_projects_mem <- function(
 
     ## Match MATOS and OTN projects
     exact_matches <- merge(projects, otn_metadata,
-                           by = "match_names"
+      by = "match_names"
     )
 
     ### Warn if there are multiple matches
     if (length(unique(exact_matches$match_names)) != nrow(exact_matches) &
-        isTRUE(warn_multimatch)) {
+      isTRUE(warn_multimatch)) {
       warning("MATOS has exactly matched multiple OTN project names.")
     }
 
@@ -110,7 +110,7 @@ list_projects_mem <- function(
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-                                  exact_matches$shortname, ]
+      exact_matches$shortname, ]
     matos_dangler <- projects[!projects$name %in% exact_matches$name, ]
 
 
@@ -127,7 +127,7 @@ list_projects_mem <- function(
     )
 
     ## Create keys
-    if(length(otn_in_matos) > 0 | length(matos_in_otn) > 0){
+    if (length(otn_in_matos) > 0 | length(matos_in_otn) > 0) {
       otn_in_matos <- data.frame(
         matos = unlist(otn_in_matos, use.names = F),
         otn = names(otn_in_matos)
@@ -156,8 +156,10 @@ list_projects_mem <- function(
         by.y = c("match_names", "matos")
       )
     } else {
-      within_matches <- data.frame(name = character(),
-                                   shortname = character())
+      within_matches <- data.frame(
+        name = character(),
+        shortname = character()
+      )
     }
 
 
@@ -165,15 +167,15 @@ list_projects_mem <- function(
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-                                  c(
-                                    exact_matches$shortname,
-                                    within_matches$shortname
-                                  ), ]
+      c(
+        exact_matches$shortname,
+        within_matches$shortname
+      ), ]
     matos_dangler <- projects[!projects$name %in%
-                                c(
-                                  exact_matches$name,
-                                  within_matches$name
-                                ), ]
+      c(
+        exact_matches$name,
+        within_matches$name
+      ), ]
 
 
 
@@ -189,7 +191,7 @@ list_projects_mem <- function(
     )
 
     ## Create keys
-    if(length(otn_in_matos) > 0 | length(matos_in_otn) > 0){
+    if (length(otn_in_matos) > 0 | length(matos_in_otn) > 0) {
       otn_in_matos <- data.frame(
         matos = unlist(otn_in_matos, use.names = F),
         otn = names(otn_in_matos)
@@ -218,26 +220,27 @@ list_projects_mem <- function(
         by.x = c("otn", "match_names"),
         by.y = c("match_names", "matos")
       )
-
     } else {
-      fuzzy_matches <- data.frame(name = character(),
-                                  shortname = character())
+      fuzzy_matches <- data.frame(
+        name = character(),
+        shortname = character()
+      )
     }
 
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-                                  c(
-                                    exact_matches$shortname,
-                                    within_matches$shortname,
-                                    fuzzy_matches$shortname
-                                  ), ]
+      c(
+        exact_matches$shortname,
+        within_matches$shortname,
+        fuzzy_matches$shortname
+      ), ]
     matos_dangler <- projects[!projects$name %in%
-                                c(
-                                  exact_matches$name,
-                                  within_matches$name,
-                                  fuzzy_matches$name
-                                ), ]
+      c(
+        exact_matches$name,
+        within_matches$name,
+        fuzzy_matches$name
+      ), ]
 
 
 
@@ -261,7 +264,7 @@ list_projects_mem <- function(
 
     missing_otn <- projects[is.na(projects$collectioncode), ]
     missing_act <- otn_metadata[!otn_metadata$collectioncode %in%
-                                  projects$collectioncode, ]
+      projects$collectioncode, ]
 
     projects$collectioncode <- gsub("ACT\\.", "", projects$collectioncode)
 
@@ -287,8 +290,10 @@ list_projects_mem <- function(
   }
 
   if (what == "mine") {
-    projects <- list_my_projects(read_access = read_access,
-                                 warn_multimatch = warn_multimatch)
+    projects <- list_my_projects(
+      read_access = read_access,
+      warn_multimatch = warn_multimatch
+    )
   }
 
   projects

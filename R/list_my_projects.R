@@ -46,8 +46,10 @@ list_my_projects_mem <- function(read_access,
   names <- rvest::html_text(names)
   names <- names[names != ""]
 
-  all_projects <- list_projects(what = "all", quiet = TRUE,
-                                warn_multimatch = warn_multimatch)
+  all_projects <- list_projects(
+    what = "all", quiet = TRUE,
+    warn_multimatch = warn_multimatch
+  )
 
   if (read_access == T) {
     project_numbers <- unique(unlist(sapply(names, get_project_number)))

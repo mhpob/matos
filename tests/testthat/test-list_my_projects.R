@@ -2,10 +2,14 @@ test_that("passes the sniff test", {
   skip_on_cran()
   skip_on_runiverse()
 
-  all_projects <- list_projects(quiet = TRUE, force = TRUE,
-                                warn_multimatch = FALSE)
-  my_projects <- list_my_projects(force = TRUE,
-                                  warn_multimatch = FALSE)
+  all_projects <- list_projects(
+    quiet = TRUE, force = TRUE,
+    warn_multimatch = FALSE
+  )
+  my_projects <- list_my_projects(
+    force = TRUE,
+    warn_multimatch = FALSE
+  )
 
   # Read-access projects is a subset of all projects
   expect_contains(
