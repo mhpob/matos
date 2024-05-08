@@ -2,8 +2,10 @@ test_that("passes the sniff test", {
   skip_on_cran()
   skip_on_runiverse()
 
-  all_projects <- list_projects(quiet = TRUE, force = TRUE)
-  my_projects <- list_my_projects(force = TRUE)
+  all_projects <- list_projects(quiet = TRUE, force = TRUE,
+                                warn_multimatch = FALSE)
+  my_projects <- list_my_projects(force = TRUE,
+                                  warn_multimatch = FALSE)
 
   # Read-access projects is a subset of all projects
   expect_contains(
@@ -24,7 +26,7 @@ test_that("has correct classes", {
   skip_on_cran()
   skip_on_runiverse()
 
-  my_projects <- list_my_projects()
+  my_projects <- list_my_projects(warn_multimatch = FALSE)
 
   expect_s3_class(my_projects, "data.frame")
   expect_type(my_projects$name, "character")
@@ -50,10 +52,10 @@ test_that("`read_access = FALSE` works", {
   # Faster run without read access filtering
   expect_lt(
     system.time({
-      no_read <- list_my_projects(read_access = FALSE)
+      no_read <- list_my_projects(read_access = FALSE, warn_multimatch = FALSE)
     })["elapsed"],
     system.time({
-      read <- list_my_projects(read_access = TRUE, force = TRUE)
+      read <- list_my_projects(read_access = TRUE, force = TRUE, warn_multimatch = FALSE)
     })["elapsed"]
   )
 
@@ -78,7 +80,7 @@ test_that("shushes list_projects under the hood", {
   skip_on_runiverse()
 
   expect_no_message(
-    list_my_projects(force = TRUE)
+    list_my_projects(force = TRUE, warn_multimatch = FALSE)
   )
 })
 
@@ -107,25 +109,27 @@ test_that("memoise works in practice", {
 
   # First run takes time
   expect_gt(
-    time_to_run <- system.time(list_my_projects())["elapsed"],
+    time_to_run <- system.time(list_my_projects(warn_multimatch = FALSE))["elapsed"],
     0
   )
 
   # Creates cache
   expect_true(
-    memoise::has_cache(list_my_projects_mem)(read_access = TRUE)
+    memoise::has_cache(list_my_projects_mem)(
+      read_access = TRUE, warn_multimatch = FALSE
+    )
   )
 
   # Next call hits cache
   expect_gt(
     time_to_run,
-    time_to_run_cached <- system.time(list_my_projects())["elapsed"]
+    time_to_run_cached <- system.time(list_my_projects(warn_multimatch = FALSE))["elapsed"]
   )
 
 
   # Forcing works
   expect_gt(
-    system.time(list_my_projects(force = TRUE))["elapsed"],
+    system.time(list_my_projects(force = TRUE, warn_multimatch = FALSE))["elapsed"],
     time_to_run_cached
   )
 })

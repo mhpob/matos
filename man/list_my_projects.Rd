@@ -4,7 +4,7 @@
 \alias{list_my_projects}
 \title{List personal MATOS projects}
 \usage{
-list_my_projects(read_access = TRUE, force = FALSE)
+list_my_projects(read_access = TRUE, force = FALSE, warn_multimatch = TRUE)
 }
 \arguments{
 \item{read_access}{Do you want to only list projects for which you have
@@ -13,6 +13,9 @@ speed up if switched to FALSE.}
 
 \item{force}{Do you want to reset the cache and re-ping the database?
 Defaults to false.}
+
+\item{warn_multimatch}{Warn you if there have been multiple project matches?
+Defaults to TRUE.}
 }
 \description{
 This function lists the functions for which the logged-on user has permissions.

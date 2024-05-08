@@ -16,7 +16,9 @@
 #' @param quiet Do you want to suppress messages regarding matched projects?
 #'      Defaults to FALSE.
 #' @param force Do you want to reset the cache and re-ping the database?
-#'      Defaults to false.
+#'      Defaults to FALSE.
+#' @param warn_multimatch Warn you if there have been multiple project matches?
+#'      Defaults to TRUE.
 #'
 #' @export
 #' @examplesIf all(skip_example_on_cran(), skip_example_on_runiverse())
@@ -28,7 +30,8 @@
 list_projects <- function(what = c("all", "mine"),
                           read_access = TRUE,
                           quiet = FALSE,
-                          force = FALSE) {
+                          force = FALSE,
+                          warn_multimatch = TRUE) {
   if (isTRUE(force)) {
     memoise::forget(list_projects_mem)
   }
@@ -38,7 +41,8 @@ list_projects <- function(what = c("all", "mine"),
   list_projects_mem(
     what = what,
     read_access = read_access,
-    quiet = quiet
+    quiet = quiet,
+    warn_multimatch = warn_multimatch
   )
 }
 
@@ -50,7 +54,8 @@ list_projects <- function(what = c("all", "mine"),
 list_projects_mem <- function(
     what,
     read_access,
-    quiet) {
+    quiet,
+    warn_multimatch) {
   if (what == "all") {
     # Download and parse MATOS project page
     project_list <- httr::GET(
@@ -92,19 +97,20 @@ list_projects_mem <- function(
 
     ## Match MATOS and OTN projects
     exact_matches <- merge(projects, otn_metadata,
-      by = "match_names"
+                           by = "match_names"
     )
 
-    ### Throw an error if there are multiple matches
-    if (length(unique(exact_matches$match_names)) != nrow(exact_matches)) {
-      stop("MATOS has exactly matched multiple OTN project names.")
+    ### Warn if there are multiple matches
+    if (length(unique(exact_matches$match_names)) != nrow(exact_matches) &
+        isTRUE(warn_multimatch)) {
+      warning("MATOS has exactly matched multiple OTN project names.")
     }
 
 
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-      exact_matches$shortname, ]
+                                  exact_matches$shortname, ]
     matos_dangler <- projects[!projects$name %in% exact_matches$name, ]
 
 
@@ -121,48 +127,53 @@ list_projects_mem <- function(
     )
 
     ## Create keys
-    otn_in_matos <- data.frame(
-      matos = unlist(otn_in_matos, use.names = F),
-      otn = names(otn_in_matos)
-    )
-    matos_in_otn <- data.frame(
-      matos = names(matos_in_otn),
-      otn = unlist(matos_in_otn, use.names = F)
-    )
+    if(length(otn_in_matos) > 0 | length(matos_in_otn) > 0){
+      otn_in_matos <- data.frame(
+        matos = unlist(otn_in_matos, use.names = F),
+        otn = names(otn_in_matos)
+      )
+      matos_in_otn <- data.frame(
+        matos = names(matos_in_otn),
+        otn = unlist(matos_in_otn, use.names = F)
+      )
 
-    within_matches <- merge(otn_in_matos, matos_in_otn, all = T)
+      within_matches <- merge(otn_in_matos, matos_in_otn, all = T)
 
-    ## Select metadata of within matches
-    otn_match <- merge(
-      otn_metadata, within_matches,
-      by.x = "match_names", by.y = "otn"
-    )
-    matos_match <- merge(
-      projects, within_matches,
-      by.x = "match_names", by.y = "matos"
-    )
+      ## Select metadata of within matches
+      otn_match <- merge(
+        otn_metadata, within_matches,
+        by.x = "match_names", by.y = "otn"
+      )
+      matos_match <- merge(
+        projects, within_matches,
+        by.x = "match_names", by.y = "matos"
+      )
 
 
-    within_matches <- merge(
-      matos_match, otn_match,
-      by.x = c("otn", "match_names"),
-      by.y = c("match_names", "matos")
-    )
+      within_matches <- merge(
+        matos_match, otn_match,
+        by.x = c("otn", "match_names"),
+        by.y = c("match_names", "matos")
+      )
+    } else {
+      within_matches <- data.frame(name = character(),
+                                   shortname = character())
+    }
 
 
 
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-      c(
-        exact_matches$shortname,
-        within_matches$shortname
-      ), ]
+                                  c(
+                                    exact_matches$shortname,
+                                    within_matches$shortname
+                                  ), ]
     matos_dangler <- projects[!projects$name %in%
-      c(
-        exact_matches$name,
-        within_matches$name
-      ), ]
+                                c(
+                                  exact_matches$name,
+                                  within_matches$name
+                                ), ]
 
 
 
@@ -178,51 +189,55 @@ list_projects_mem <- function(
     )
 
     ## Create keys
-    otn_in_matos <- data.frame(
-      matos = unlist(otn_in_matos, use.names = F),
-      otn = names(otn_in_matos)
-    )
-    matos_in_otn <- data.frame(
-      matos = names(matos_in_otn),
-      otn = unlist(matos_in_otn, use.names = F)
-    )
+    if(length(otn_in_matos) > 0 | length(matos_in_otn) > 0){
+      otn_in_matos <- data.frame(
+        matos = unlist(otn_in_matos, use.names = F),
+        otn = names(otn_in_matos)
+      )
+      matos_in_otn <- data.frame(
+        matos = names(matos_in_otn),
+        otn = unlist(matos_in_otn, use.names = F)
+      )
 
-    ## Merge matches
-    fuzzy_matches <- merge(otn_in_matos, matos_in_otn, all = T)
+      ## Merge matches
+      fuzzy_matches <- merge(otn_in_matos, matos_in_otn, all = T)
 
-    ## Select metadata of fuzzy matches
-    otn_match <- merge(
-      otn_metadata, fuzzy_matches,
-      by.x = "match_names", by.y = "otn"
-    )
-    matos_match <- merge(
-      projects, fuzzy_matches,
-      by.x = "match_names", by.y = "matos"
-    )
+      ## Select metadata of fuzzy matches
+      otn_match <- merge(
+        otn_metadata, fuzzy_matches,
+        by.x = "match_names", by.y = "otn"
+      )
+      matos_match <- merge(
+        projects, fuzzy_matches,
+        by.x = "match_names", by.y = "matos"
+      )
 
-    ## Merge keys
-    fuzzy_matches <- merge(
-      matos_match, otn_match,
-      by.x = c("otn", "match_names"),
-      by.y = c("match_names", "matos")
-    )
+      ## Merge keys
+      fuzzy_matches <- merge(
+        matos_match, otn_match,
+        by.x = c("otn", "match_names"),
+        by.y = c("match_names", "matos")
+      )
 
-
+    } else {
+      fuzzy_matches <- data.frame(name = character(),
+                                  shortname = character())
+    }
 
 
     ## Find which are left over from the OTN and MATOS data sets
     otn_dangler <- otn_metadata[!otn_metadata$shortname %in%
-      c(
-        exact_matches$shortname,
-        within_matches$shortname,
-        fuzzy_matches$shortname
-      ), ]
+                                  c(
+                                    exact_matches$shortname,
+                                    within_matches$shortname,
+                                    fuzzy_matches$shortname
+                                  ), ]
     matos_dangler <- projects[!projects$name %in%
-      c(
-        exact_matches$name,
-        within_matches$name,
-        fuzzy_matches$name
-      ), ]
+                                c(
+                                  exact_matches$name,
+                                  within_matches$name,
+                                  fuzzy_matches$name
+                                ), ]
 
 
 
@@ -246,7 +261,7 @@ list_projects_mem <- function(
 
     missing_otn <- projects[is.na(projects$collectioncode), ]
     missing_act <- otn_metadata[!otn_metadata$collectioncode %in%
-      projects$collectioncode, ]
+                                  projects$collectioncode, ]
 
     projects$collectioncode <- gsub("ACT\\.", "", projects$collectioncode)
 
@@ -272,7 +287,8 @@ list_projects_mem <- function(
   }
 
   if (what == "mine") {
-    projects <- list_my_projects(read_access = read_access)
+    projects <- list_my_projects(read_access = read_access,
+                                 warn_multimatch = warn_multimatch)
   }
 
   projects

@@ -2,7 +2,7 @@ test_that("returns correct classes", {
   skip_if_offline()
   skip_on_runiverse()
 
-  projects <- list_projects(quiet = TRUE)
+  projects <- list_projects(quiet = TRUE, warn_multimatch = FALSE)
 
   expect_s3_class(projects, "data.frame")
   expect_type(projects$name, "character")
@@ -25,9 +25,10 @@ test_that("passing \"mine\" to \"what\" argument works", {
   skip_on_cran()
   skip_on_runiverse()
 
-  projects <- list_projects(quiet = T)
-  my_projects <- list_projects(what = "mine")
-  my_projects_no_read <- list_projects(what = "mine", read_access = FALSE)
+  projects <- list_projects(quiet = T, warn_multimatch = FALSE)
+  my_projects <- list_projects(what = "mine", warn_multimatch = FALSE)
+  my_projects_no_read <- list_projects(what = "mine", read_access = FALSE,
+                                       warn_multimatch = FALSE)
 
 
   # Read-access projects is a subset of all projects
@@ -67,13 +68,13 @@ test_that("can shush", {
   skip_on_runiverse()
 
   expect_message(
-    list_projects(force = T),
+    list_projects(force = T, warn_multimatch = FALSE),
     "These ACT projects were unable to be matched with OTN"
   ) |>
     expect_message("These OTN projects were unable to be matched with ACT")
 
   expect_no_message(
-    list_projects(quiet = TRUE, force = TRUE)
+    list_projects(quiet = TRUE, force = TRUE, warn_multimatch = FALSE)
   )
 })
 
@@ -98,7 +99,7 @@ test_that("memoise works in practice", {
   # Pings the server and returns a message
   expect_message(
     time_to_run <- system.time(
-      projects <- list_projects()
+      projects <- list_projects(warn_multimatch = FALSE)
     ),
     "These ACT projects were unable to be matched with OTN"
   ) |>
@@ -111,14 +112,15 @@ test_that("memoise works in practice", {
     memoise::has_cache(list_projects_mem)(
       what = "all",
       read_access = TRUE,
-      quiet = FALSE
+      quiet = FALSE,
+      warn_multimatch = FALSE
     )
   )
 
   # Returns cached result (as indicated by not returning the message)
   expect_no_message(
     time_to_run_cached <- system.time(
-      projects <- list_projects()
+      projects <- list_projects(warn_multimatch = FALSE)
     )
   )
 
@@ -131,7 +133,7 @@ test_that("memoise works in practice", {
   # `force=T` pings server and returns message
   expect_message(
     time_to_run_forced <- system.time(
-      projects <- list_projects(force = T)
+      projects <- list_projects(force = T, warn_multimatch = FALSE)
     ),
     "These ACT projects were unable to be matched with OTN"
   ) |>

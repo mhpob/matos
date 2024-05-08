@@ -4,7 +4,7 @@
 \alias{list_projects_mem}
 \title{Memoised list_projects function for internal use.}
 \usage{
-list_projects_mem(what, read_access, quiet)
+list_projects_mem(what, read_access, quiet, warn_multimatch)
 }
 \arguments{
 \item{what}{What list of projects do you want returned: all projects ("all",
@@ -16,6 +16,9 @@ though there is significant speed up if switched to FALSE.}
 
 \item{quiet}{Do you want to suppress messages regarding matched projects?
 Defaults to FALSE.}
+
+\item{warn_multimatch}{Warn you if there have been multiple project matches?
+Defaults to TRUE.}
 }
 \description{
 Memoised list_projects function for internal use.

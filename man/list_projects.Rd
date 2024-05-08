@@ -8,7 +8,8 @@ list_projects(
   what = c("all", "mine"),
   read_access = TRUE,
   quiet = FALSE,
-  force = FALSE
+  force = FALSE,
+  warn_multimatch = TRUE
 )
 }
 \arguments{
@@ -23,7 +24,10 @@ though there is significant speed up if switched to FALSE.}
 Defaults to FALSE.}
 
 \item{force}{Do you want to reset the cache and re-ping the database?
-Defaults to false.}
+Defaults to FALSE.}
+
+\item{warn_multimatch}{Warn you if there have been multiple project matches?
+Defaults to TRUE.}
 }
 \description{
 This function scrapes the table found at \url{https://matos.asascience.com/project}
