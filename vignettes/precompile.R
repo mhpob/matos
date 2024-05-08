@@ -12,6 +12,5 @@ setwd(file.path(orig_wd, "vignettes"))
 knit("_introduction.Rmd", "introduction.Rmd")
 knit("_matos-otndo.Rmd", "matos-otndo.Rmd")
 knit("_multiple-projects.Rmd", "multiple-projects.Rmd")
-knit("_matos-rvdat.Rmd", "matos-rvdat.Rmd")
 
 setwd(orig_wd)
