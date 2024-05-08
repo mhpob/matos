@@ -27,15 +27,17 @@ jobs:
         with:
           extra-packages: any::testthat
 
-      - name: Check test-list_projects
+      - name: Check for multimatch
+        id: multi-test
         shell: Rscript {0}
         run: |
-          testthat::test_file(path = 'tests/testthat/test-list_projects.R',
-          package = "matos", load_package = "source")
+          testthat::test_that('No multimatch',
+          testthat::expect_no_warning(matos::list_projects()))
 
-      - name: Show testthat output
-        if: always()
+      - name: Show multimatches
+        if: steps.multi-test.outcome == 'failure'
+        shell: Rscript {0}
         run: |
-          ## --------------------------------------------------------------------
-          find ${{ runner.temp }}/package -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
+          hold <- matos::list_projects()
+          khold[duplicated(hold$name) | duplicated(hold$name, fromLast = TRUE),]
+
