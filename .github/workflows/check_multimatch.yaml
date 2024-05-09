@@ -40,5 +40,5 @@ jobs:
         shell: Rscript {0}
         run: |
           hold <- matos::list_projects()
-          khold[duplicated(hold$name) | duplicated(hold$name, fromLast = TRUE),]
+          hold[duplicated(hold$name) | duplicated(hold$name, fromLast = TRUE),]
 
