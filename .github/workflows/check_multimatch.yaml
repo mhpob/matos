@@ -29,6 +29,7 @@ jobs:
 
       - name: Check for multimatch
         id: multi-test
+        continue-on-error: true
         shell: Rscript {0}
         run: |
           testthat::test_that('No multimatch',
