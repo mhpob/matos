@@ -18,7 +18,7 @@
 #'
 #' @details
 #'     If data_type is "new_tags", "receivers", or "glider", only CSV and XLS/XLSX
-#'     files are accepted; if "detections", only VRL and CSV files are accepted;
+#'     files are accepted; if "detections", only VRL, VDAT, and CSV files are accepted;
 #'     if "events" or "gps", only CSV is accepted.
 #'
 #'     Multiple files can be uploaded at once, but they must all be the same data type
@@ -95,10 +95,10 @@ upload_file <- function(project, file,
       )
     ))
   } else if (any(grepl("detections", data_type)) &&
-    any(grepl("vrl|csv", file_extension) == F)) {
+    any(grepl("vrl|vdat|csv", file_extension) == F)) {
     stop(paste0(
-      "File is not the correct type: should be VRL or CSV. Namely:\n\n",
-      paste(file[!grepl("vrl|csv", file_extension)],
+      "File is not the correct type: should be VRL, VDAT, or CSV. Namely:\n\n",
+      paste(file[!grepl("vrl|vdat|csv", file_extension)],
         collapse = "\n"
       )
     ))
@@ -159,7 +159,7 @@ upload_file <- function(project, file,
     post_body <- construct_body(file, project, unique(data_num))
     post_body <- list(post_body)
   } else {
-    # Split by file extension if trying to upload a mix of VRL and CSV detection files
+    # Split by file extension if trying to upload a mix of detection file types
     post_body <- split(data.frame(file, data_num), file_extension)
     names(post_body) <- NULL
 

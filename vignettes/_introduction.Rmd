@@ -86,9 +86,9 @@ my_detections <- tag_search(
 
 There are times when you want to upload new data to MATOS. The currently accepted data types and formats are:
 
-- newly-deployed transmitters (CSV/XLS(X))
-- detection logs (CSV/VRL)
-- receiver and glider deployment metadata (CSV/XLS(X))
+- newly-deployed transmitters (CSV/XLS[X])
+- detection logs (CSV/VRL/VDAT)
+- receiver and glider deployment metadata (CSV/XLS[X])
 - receiver events like temperature, tilt, etc. (CSV)
 - glider GPS tracks (CSV)
 

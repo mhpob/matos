@@ -37,7 +37,7 @@ before uploading.
 and the type of file you want to upload (defaulting to VRL transmitter detections).
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{If data_type is "new_tags", "receivers", or "glider", only CSV and XLS/XLSX
-files are accepted; if "detections", only VRL and CSV files are accepted;
+files are accepted; if "detections", only VRL, VDAT, and CSV files are accepted;
 if "events" or "gps", only CSV is accepted.
 
 Multiple files can be uploaded at once, but they must all be the same data type

@@ -86,7 +86,7 @@ test_that("errors if file extension doesn't match data type", {
       file = dummy_file,
       data_type = "detections"
     ),
-    "should be VRL or CSV\\."
+    "should be VRL, VDAT, or CSV\\."
   )
 
   unlink(dummy_file)

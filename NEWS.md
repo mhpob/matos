@@ -1,4 +1,10 @@
-# matos 0.4.00
+# matos 0.4
+
+## 0.4.1
+
+  - Allow upload of VDAT files exported through Innovasea's Fathom Connect.
+
+## 0.4.0
 
   - API calls are cached via the [memoise package](https://memoise.r-lib.org/index.html), meaning that MATOS is not queryed unless **absolutely** necessary. Big speed up when listing your files/projects!
 

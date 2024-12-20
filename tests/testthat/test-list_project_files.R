@@ -53,7 +53,7 @@ test_that("lists detection files", {
     all(grepl("^Tag Detections.*file$", detections$file_type))
   )
   expect_true(
-    all(grepl("\\.(vrl|csv)$", detections$file_name))
+    all(grepl("\\.(vrl|vdat|csv)$", detections$file_name))
   )
 })
 

@@ -10,8 +10,11 @@ vignette: >
 
 
 
-```r
+``` r
 library(matos)
+#> By continuing, you are agreeing to the ACT Network MATOS User Agreement and Data Policy, Version 1.2:
+#> 
+#> <https://matos.asascience.com/static/MATOS.User.Agreement.V1.1.pdf>
 ```
 
 
@@ -20,49 +23,99 @@ library(matos)
 First, `list_projects` returns the [project page](https://matos.asascience.com/project), which is useful to figure out what URLs are associated with each project. You do not need MATOS permissions in order to view this page.
 
 
-```r
+``` r
 all_projects <- list_projects()
+#> ℹ These ACT projects were unable to be matched with OTN: "MDR
+#> Great White Shark Project", "Mid-Atlantic MBON", "NEFSC
+#> STELLWAGEN MPA", "USGS Gulf of Maine sturgeon", "USGS
+#> Merrimack River sturgeon", "USGS Piscataqua River sturgeon",
+#> and "USGS Upper Connecticut River"
+#> ℹ These OTN projects were unable to be matched with ACT:
+#> "APG: Sturgeon Monitoring", "NEFSC Assessment of MPAs within
+#> GoM", and "NEFSC_Ecosystem_Assessment"
 
 head(all_projects)
-#>                                   name number
-#> 1                            ACK Array    168
-#> 2  APG Atlantic and Shortnose Sturgeon    176
-#> 3 ASI - White Shark Study, Montauk, NY    211
-#> 4                   ASI Acoustic Array    100
-#> 5              ASI Spinner Shark Study    227
-#> 6   ASI White Shark Study, Southern NE    232
-#>                                               url
-#> 1 https://matos.asascience.com/project/detail/168
-#> 2 https://matos.asascience.com/project/detail/176
-#> 3 https://matos.asascience.com/project/detail/211
-#> 4 https://matos.asascience.com/project/detail/100
-#> 5 https://matos.asascience.com/project/detail/227
-#> 6 https://matos.asascience.com/project/detail/232
+#>                                            name
+#> 1           APG Atlantic and Shortnose Sturgeon
+#> 2                          ASI - Acoustic Array
+#> 3                   ASI - Porbeagle Shark Study
+#> 4                  ASI - Sand Tiger Shark Study
+#> 5                     ASI - Sandbar Shark Study
+#> 6 ASI & O'Seas - White Shark Study, Montauk, NY
+#>   collectioncode number
+#> 1          ATSHS    176
+#> 2       ASIARRAY    100
+#> 3     ASIPORBEAG    295
+#> 4     ASISANDTIG    296
+#> 5     ASISANDBAR    297
+#> 6     ASIWHITE21    211
+#>                                               url    status
+#> 1 https://matos.asascience.com/project/detail/176   ongoing
+#> 2 https://matos.asascience.com/project/detail/100   ongoing
+#> 3 https://matos.asascience.com/project/detail/295   ongoing
+#> 4 https://matos.asascience.com/project/detail/296   ongoing
+#> 5 https://matos.asascience.com/project/detail/297   ongoing
+#> 6 https://matos.asascience.com/project/detail/211 completed
+#>                                                                                                               longname
+#> 1                                          Aberdeen Proving Ground - Atlantic and Shortnose Sturgeon Telemetry Project
+#> 2 Using acoustic telemetry and video-based methods to characterize elasmobranch assemblage in Block Island, RI waters.
+#> 3                                          This study involves the porbeagle shark in New England and adjacent waters.
+#> 4                                              This study focuses on sand tiger sharks in Southern New England waters.
+#> 5                                                 This study focuses on sandbar sharks in Southern New England waters.
+#> 6                           Atlantic Shark Institute & O'Sea's Conservation Foundation- YOY/Juvenile White Shark Study
+#>   citation                                 website
+#> 1                                                 
+#> 2          https://www.atlanticsharkinstitute.org/
+#> 3            http://www.atlanticsharkinstitute.org
+#> 4            http://www.atlanticsharkinstitute.org
+#> 5            http://www.atlanticsharkinstitute.org
+#> 6            http://www.atlanticsharkinstitute.org
+#>   collaborationtype
+#> 1              Data
+#> 2              Data
+#> 3              Data
+#> 4              Data
+#> 5              Data
+#> 6           Tracker
+#>                                                        locality
+#> 1                                       Aberdeen Proving Ground
+#> 2 Block Island, Point Judith, Watch Hill and Fishers Island, NY
+#> 3                                                              
+#> 4                                                              
+#> 5                                                              
+#> 6                                            Block Island Sound
+#>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            abstract
+#> 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Tracking Atlantic and shortnose sturgeon in the main stem of the upper Chesapeake Bay and in the Bush River. Tracking migration and spawning patterns is done to keep in compliance with the ESA. Mitigation is performed by the U.S. Army to prevent any adverse effects to the populations.
+#> 2 Acoustic receivers had never been deployed in Rhode Island waters until 2019. In collaboration with the RI Department of Environmental Management, the Atlantic Shark Institute now has 19 receivers deployed, including the waters adjacent to Fisher’s Island, NY. When combined with the RI DEM, we are now have approximately 45 receivers actively monitoring these waters.  The goal is use this acoustic telemetry data to document all the activity taking place in these waters for the very first time. We also plan to combine it with video obtained through Baited Remote Underwater Video Systems (BRUVS). We've deployed BRUVS for several years with the goal of characterizing and quantifying shark assemblages in Rhode Island state waters.  
+#> 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      This study involves the porbeagle shark in New England and adjacent waters. 
+#> 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           This study focuses on sand tiger sharks in Southern New England waters.
+#> 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              This study focuses on sandbar sharks in Southern New England waters.
+#> 6                                                                                                                                                                                                                                                                    The Atlantic Shark Institute partnered with Dr. Craig O'Connell from the O'Seas Conservation Foundation and Dr. Greg Skomal from MA Division of Marine Fisheries to use a variety of tagging technologies and methods to quantify the broad and fine-scale movements of white sharks, their feeding ecology and behavior, in the Montauk, NY area. This project was then expanded into a larger study area to get into greater specificity, more study elements, and with more tagged animals.
 ```
 
 I can also view the files that I've uploaded to my projects using `list_project_files`, but that requires logging in first. The family of `list_` functions in this package will prompt you to log in before moving on. Note that I'll be entering my MATOS username and password behind the scenes here.
 
 
-```r
-project_files <- list_project_files(project = 'umces boem offshore wind energy')
+``` r
+project_files <- list_project_files(project = "umces boem offshore wind energy")
 #> ! Please log in.
 #> ✔ Login successful!
 
 head(project_files)
-#>   project                                file_type upload_date
-#> 1      87 Deployed Receivers – Deployment Metadata  2020-03-30
-#> 2      87               Tag Detections - .vfl file  2020-05-28
-#> 3      87               Tag Detections - .vfl file  2020-05-28
-#> 4      87               Tag Detections - .vfl file  2020-05-28
-#> 5      87               Tag Detections - .vfl file  2020-05-28
-#> 6      87               Tag Detections - .vfl file  2020-05-28
-#>                      file_name
-#> 1 BOEM_metadata_deployment.xls
-#> 2  VR2AR_546455_20170328_1.vrl
-#> 3  VR2AR_546456_20170328_1.vrl
-#> 4  VR2AR_546457_20170329_1.vrl
-#> 5  VR2AR_546458_20170329_1.vrl
-#> 6  VR2AR_546459_20170328_1.vrl
+#>   project                                file_type
+#> 1      87 Deployed Receivers – Deployment Metadata
+#> 2      87               Tag Detections - .vfl file
+#> 3      87               Tag Detections - .vfl file
+#> 4      87               Tag Detections - .vfl file
+#> 5      87               Tag Detections - .vfl file
+#> 6      87               Tag Detections - .vfl file
+#>   upload_date                    file_name
+#> 1  2020-03-30 BOEM_metadata_deployment.xls
+#> 2  2020-05-28  VR2AR_546455_20170328_1.vrl
+#> 3  2020-05-28  VR2AR_546456_20170328_1.vrl
+#> 4  2020-05-28  VR2AR_546457_20170329_1.vrl
+#> 5  2020-05-28  VR2AR_546458_20170329_1.vrl
+#> 6  2020-05-28  VR2AR_546459_20170328_1.vrl
 #>                                                      url
 #> 1  https://matos.asascience.com/projectfile/download/375
 #> 2 https://matos.asascience.com/projectfile/download/1810
@@ -79,9 +132,11 @@ A side note on your MATOS username and password: `matos` defaults to asking you 
 I can also list any of my OTN node *Data Extraction Files*.
 
 
-```r
-ACT_MATOS_files <- list_extract_files(project = 'umces boem offshore wind energy',
-                                      detection_type = 'all')
+``` r
+ACT_MATOS_files <- list_extract_files(
+  project = "umces boem offshore wind energy",
+  detection_type = "all"
+)
 
 head(ACT_MATOS_files)
 #>   project            file_type detection_type detection_year
@@ -93,11 +148,11 @@ head(ACT_MATOS_files)
 #> 6      87 Data Extraction File        matched           2022
 #>   upload_date                         file_name
 #> 1  2023-07-06 mdwea_matched_detections_2017.zip
-#> 2  2023-07-06 mdwea_matched_detections_2018.zip
-#> 3  2023-07-06 mdwea_matched_detections_2019.zip
-#> 4  2023-07-06 mdwea_matched_detections_2020.zip
-#> 5  2023-07-06 mdwea_matched_detections_2021.zip
-#> 6  2023-07-06 mdwea_matched_detections_2022.zip
+#> 2  2024-11-08 mdwea_matched_detections_2018.zip
+#> 3  2024-11-08 mdwea_matched_detections_2019.zip
+#> 4  2024-11-08 mdwea_matched_detections_2020.zip
+#> 5  2024-11-08 mdwea_matched_detections_2021.zip
+#> 6  2024-11-08 mdwea_matched_detections_2022.zip
 #>                                                                url
 #> 1 https://matos.asascience.com/projectfile/downloadExtraction/87_1
 #> 2 https://matos.asascience.com/projectfile/downloadExtraction/87_2
@@ -113,31 +168,29 @@ head(ACT_MATOS_files)
 There are a few ways to download the different types of files held by MATOS. I can download directly if I know the URL of the file:
 
 
-```r
+``` r
 project_files$url[1]
 #> [1] "https://matos.asascience.com/projectfile/download/375"
 
 get_project_file(url = project_files$url[1])
 #> 
-#> ── Downloading files ──────────────────────────────────────────────
+#> ── Downloading files ─────────────────────────────────────────
 #> ✔ File(s) saved to:
 #>    C:\Users\darpa2\Analysis\matos\vignettes\BOEM_metadata_deployment.xls
-#> 
-#> ── Unzipping files ────────────────────────────────────────────────
 #> [1] "C:\\Users\\darpa2\\Analysis\\matos\\vignettes\\BOEM_metadata_deployment.xls"
 ```
 
 I can download by using an index from the `ACT_MATOS_files` table above, here the file on the second row.
 
 
-```r
-get_extract_file(file = 2, project = 'umces boem offshore wind energy')
+``` r
+get_extract_file(file = 2, project = "umces boem offshore wind energy")
 #> 
-#> ── Downloading files ──────────────────────────────────────────────
+#> ── Downloading files ─────────────────────────────────────────
 #> ✔ File(s) saved to:
 #>    C:\Users\darpa2\Analysis\matos\vignettes\mdwea_matched_detections_2018.zip
 #> 
-#> ── Unzipping files ────────────────────────────────────────────────
+#> ── Unzipping files ───────────────────────────────────────────
 #> ✔ File(s) unzipped to:
 #>    C:/Users/darpa2/Analysis/matos/vignettes/mdwea_matched_detections_2018.csv
 #>    C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt
@@ -150,20 +203,22 @@ get_extract_file(file = 2, project = 'umces boem offshore wind energy')
 Using the `tag_search` function, I can interface with MATOS' [tag search page](https://matos.asascience.com/search). Be very careful with this function -- it can take a *very*, **VERY** long time to return your files. This function downloads the requested CSV into your working directory, and, if `import = T` is used, reads it into your R session.
 
 
-```r
-my_detections <- tag_search(tags = paste0('A69-1601-254', seq(60, 90, 1)),
-                            start_date = '03/01/2016',
-                            end_date = '04/01/2016', 
-                            import = T)
+``` r
+my_detections <- tag_search(
+  tags = paste0("A69-1601-254", seq(60, 90, 1)),
+  start_date = "03/01/2016",
+  end_date = "04/01/2016",
+  import = T
+)
 ```
 
 ## Upload files to MATOS
 
 There are times when you want to upload new data to MATOS. The currently accepted data types and formats are:
 
-- newly-deployed transmitters (CSV/XLS(X))
-- detection logs (CSV/VRL)
-- receiver and glider deployment metadata (CSV/XLS(X))
+- newly-deployed transmitters (CSV/XLS[X])
+- detection logs (CSV/VRL/VDAT)
+- receiver and glider deployment metadata (CSV/XLS[X])
 - receiver events like temperature, tilt, etc. (CSV)
 - glider GPS tracks (CSV)
 
@@ -175,15 +230,18 @@ A few data types use designated Ocean Tracking Network templates:
 
 If you don't have one of these templates downloaded, you can download it through the package. For example:
 
-```r
-get_otn_template('glider')
+``` r
+get_otn_template("glider")
+#> [1] "C:/Users/darpa2/Analysis/matos/vignettes/glider-deployment-metadata-v2.xlsx"
 ```
 
 Then, get to uploading!
 
-```r
-upload_file(project = 'umces boem offshore wind energy',
-            file = c('this_is_a_dummy_file.csv', 'so_is_this.csv'),
-            data_type = 'new_tags')
+``` r
+upload_file(
+  project = "umces boem offshore wind energy",
+  file = c("this_is_a_dummy_file.csv", "so_is_this.csv"),
+  data_type = "new_tags"
+)
 ```
 
