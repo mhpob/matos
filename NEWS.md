@@ -2,7 +2,8 @@
 
 ## 0.4.1
 
-  - Allow upload of VDAT files exported through Innovasea's Fathom Connect.
+  - Allow upload of VDAT files exported through Innovasea's Fathom Connect [`9934bee`
+](https://github.com/mhpob/matos/commit/9934bee6112fb29a5cced7018aa9024fa8a78ef9).
 
 ## 0.4.0
 
