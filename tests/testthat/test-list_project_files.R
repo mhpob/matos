@@ -68,7 +68,7 @@ test_that("lists receiver metadata", {
     all(rec_meta$file_type == "Deployed Receivers – Deployment Metadata")
   )
   expect_true(
-    all(grepl("\\.xls(x)?$", rec_meta$file_name))
+    all(grepl("\\.(xls(x)?|csv)$", rec_meta$file_name))
   )
 })
 
