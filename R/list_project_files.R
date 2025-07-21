@@ -45,15 +45,14 @@
 #' # Cheat and use shorter names
 #' List_project_files(87, c("receiver", "tag"))
 list_project_files <- function(
-  project,
-  file_type = c(
-    "all",
-    "detections",
-    "receiver_metadata",
-    "tag_metadata"
-  ),
-  since = NULL
-) {
+    project,
+    file_type = c(
+      "all",
+      "detections",
+      "receiver_metadata",
+      "tag_metadata"
+    ),
+    since = NULL) {
   # Check and coerce input args
   file_type <- match.arg(
     file_type,
@@ -67,8 +66,7 @@ list_project_files <- function(
   )
 
   file_type_fix <- function(provided_type) {
-    switch(
-      provided_type,
+    switch(provided_type,
       detections = "Raw Receiver Detection Files",
       receiver_metadata = "Deployed Receivers \u2013 Deployment Metadata",
       tag_metadata = "Tagged Fish \u2013 Tag Metadata"
