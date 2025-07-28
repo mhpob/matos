@@ -390,12 +390,11 @@ scrape_file_urls <- function(html_file_list) {
 #' @rdname utilities
 #'
 download_process <- function(
-  url,
-  out_dir,
-  overwrite,
-  to_vue = FALSE,
-  quiet = FALSE
-) {
+    url,
+    out_dir,
+    overwrite,
+    to_vue = FALSE,
+    quiet = FALSE) {
   if (isFALSE(quiet)) {
     cli::cli_h1("Downloading files")
   }
@@ -474,8 +473,7 @@ download_process <- function(
         matos$sensorunit <- ""
       }
 
-      columns_to_include <- switch(
-        type,
+      columns_to_include <- switch(type,
         matched = c(
           "datecollected",
           "receiver",
@@ -569,11 +567,10 @@ download_process <- function(
 #' @keywords internal
 
 act_file_download <- function(
-  type,
-  temp_dir = NULL,
-  matos_project = NULL,
-  project_files = NULL
-) {
+    type,
+    temp_dir = NULL,
+    matos_project = NULL,
+    project_files = NULL) {
   cli::cli_alert_info(paste("Downloading", type, "detections..."))
 
   if (type == "deployment") {
