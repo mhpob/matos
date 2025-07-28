@@ -1,3 +1,7 @@
+# matos 0.5
+
+  - Update `list_project_files` to address MATOS' new indexing as "Raw Receiver Detection Files".
+
 # matos 0.4
 
 ## 0.4.1
