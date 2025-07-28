@@ -43,7 +43,8 @@ matos_login <- function(credentials = NULL) {
     )
   } else {
     warning(
-      paste("You have provided your credentials as an argument to this function.",
+      paste(
+        "You have provided your credentials as an argument to this function.",
         "Because your credentials are now stored in your R history, this is risky and only an option for testing purposes.",
         "Consider wiping your history and providing credentials interactively or in your .Reviron.",
         sep = "\n"
@@ -58,7 +59,8 @@ matos_login <- function(credentials = NULL) {
   )
 
   if (grepl("login", login_response)) {
-    cli::cli_abort("Login unsuccessful.",
+    cli::cli_abort(
+      "Login unsuccessful.",
       "i" = "Please re-run the funtion and try again."
     )
   } else {
@@ -82,8 +84,6 @@ matos_logoff <- function() {
 
   cli::cli_alert_success("Logged out.")
 }
-
-
 
 
 #' Internal functions used by \code{matos}
@@ -138,7 +138,8 @@ get_file_list <- function(project_number, data_type, force = FALSE) {
 #' #inheritParams get_file_list
 #' @rdname utilities
 get_file_list_mem <- function(project_number, data_type) {
-  url <- paste("https://matos.asascience.com/project",
+  url <- paste(
+    "https://matos.asascience.com/project",
     data_type,
     project_number,
     sep = "/"
@@ -149,7 +150,8 @@ get_file_list_mem <- function(project_number, data_type) {
   file_list <- httr::GET(url)
 
   content_check <- httr::content(file_list)
-  content_check <- rvest::html_element(content_check,
+  content_check <- rvest::html_element(
+    content_check,
     xpath = '//*[@id="content"]/table'
   )
 
@@ -182,15 +184,18 @@ get_project_number <- function(project_name, matos_projects = NULL) {
   if (length(number) == 0) {
     collection_code <- tolower(matos_projects$collectioncode)
 
-    number <- matos_projects[collection_code == project_name_clean &
-      !is.na(collection_code), ]$number
+    number <- matos_projects[
+      collection_code == project_name_clean &
+        !is.na(collection_code),
+    ]$number
 
     if (length(number) == 0) {
       possible_matches <- matos_projects[
         c(
           agrep(project_name_clean, matos_projects_clean, 0.25),
           agrep(project_name_clean, collection_code)
-        ), "name"
+        ),
+        "name"
       ]
 
       if (length(possible_matches) != 0) {
@@ -264,8 +269,13 @@ html_table_to_df <- function(html_file_list) {
         )
       )
       df <- df[, c(
-        "project", "file_type", "detection_type", "detection_year",
-        "upload_date", "file_name", "url"
+        "project",
+        "file_type",
+        "detection_type",
+        "detection_year",
+        "upload_date",
+        "file_name",
+        "url"
       )]
     } else {
       df <- df[, c("project", "file_type", "upload_date", "file_name", "url")]
@@ -282,17 +292,23 @@ html_table_to_df <- function(html_file_list) {
     if (grepl("dataextractionfiles", html_file_list$url)) {
       df <- data.frame(
         detection_type = gsub(
-          ".*_(.*)+_detections.*", "\\1",
+          ".*_(.*)+_detections.*",
+          "\\1",
           df$file_name
         ),
         detection_year = as.numeric(
-          gsub(".*_|.zip", "", df$file_name)
+          gsub(".*_|\\.(zip|parquet)", "", df$file_name)
         ),
         df
       )
       df <- df[, c(
-        "project", "file_type", "detection_type", "detection_year",
-        "upload_date", "file_name", "url"
+        "project",
+        "file_type",
+        "detection_type",
+        "detection_year",
+        "upload_date",
+        "file_name",
+        "url"
       )]
     } else {
       df <- df[, c("project", "file_type", "upload_date", "file_name", "url")]
@@ -373,9 +389,16 @@ scrape_file_urls <- function(html_file_list) {
 #' @param quiet Logical. Do you want to silence matos' updates? Default is FALSE.
 #' @rdname utilities
 #'
-download_process <- function(url, out_dir, overwrite,
-                             to_vue = FALSE, quiet = FALSE) {
-  if (isFALSE(quiet)) cli::cli_h1("Downloading files")
+download_process <- function(
+  url,
+  out_dir,
+  overwrite,
+  to_vue = FALSE,
+  quiet = FALSE
+) {
+  if (isFALSE(quiet)) {
+    cli::cli_h1("Downloading files")
+  }
 
   GET_header <- httr::GET(url)
 
@@ -385,7 +408,8 @@ download_process <- function(url, out_dir, overwrite,
       path = file.path(
         out_dir,
         gsub(
-          '.*filename=|\\"', "",
+          '.*filename=|\\"',
+          "",
           httr::headers(GET_header)$"content-disposition"
         )
       ),
@@ -401,7 +425,9 @@ download_process <- function(url, out_dir, overwrite,
   }
 
   if (grepl("zip", file_loc)) {
-    if (isFALSE(quiet)) cli::cli_h1("Unzipping files")
+    if (isFALSE(quiet)) {
+      cli::cli_h1("Unzipping files")
+    }
 
     file_loc <- unzip(file_loc, exdir = out_dir, setTimes = FALSE)
 
@@ -423,19 +449,21 @@ download_process <- function(url, out_dir, overwrite,
     }
   } else {
     if (isTRUE(to_vue)) {
-      if (isFALSE(quiet)) cli::cli_h1("Converting to VUE CSV format")
+      if (isFALSE(quiet)) {
+        cli::cli_h1("Converting to VUE CSV format")
+      }
 
       file_csv <- grep(".csv", file_loc, value = T)
       matos <- read.csv(
         file_csv
       )
 
-
       matos$transmitter.name <- ""
       matos$transmitter.serial <- ""
 
       type <- gsub(
-        "(.*?)_(.*)_detections.*$", "\\2",
+        "(.*?)_(.*)_detections.*$",
+        "\\2",
         basename(file_csv)
       )
 
@@ -446,40 +474,71 @@ download_process <- function(url, out_dir, overwrite,
         matos$sensorunit <- ""
       }
 
-
-      columns_to_include <- switch(type,
-        matched =
-          c(
-            "datecollected", "receiver", "tagname", "transmitter.name",
-            "transmitter.serial", "sensorraw", "sensorunit", "station",
-            "latitude", "longitude"
-          ),
-        qualified =
-          c(
-            "datecollected", "collectornumber", "fieldnumber",
-            "transmitter.name", "transmitter.serial", "sensorraw", "sensorunit",
-            "station", "latitude", "longitude"
-          ),
-        sentinel_tag =
-          c(
-            "datecollected", "collectornumber", "fieldnumber",
-            "transmitter.name", "transmitter.serial", "sensorraw", "sensorunit",
-            "station", "latitude", "longitude"
-          ),
-        unqualified =
-          c(
-            "datecollected", "collectornumber", "fieldnumber",
-            "transmitter.name", "transmitter.serial", "sensorraw", "sensorunit",
-            "station", "latitude", "longitude"
-          )
+      columns_to_include <- switch(
+        type,
+        matched = c(
+          "datecollected",
+          "receiver",
+          "tagname",
+          "transmitter.name",
+          "transmitter.serial",
+          "sensorraw",
+          "sensorunit",
+          "station",
+          "latitude",
+          "longitude"
+        ),
+        qualified = c(
+          "datecollected",
+          "collectornumber",
+          "fieldnumber",
+          "transmitter.name",
+          "transmitter.serial",
+          "sensorraw",
+          "sensorunit",
+          "station",
+          "latitude",
+          "longitude"
+        ),
+        sentinel_tag = c(
+          "datecollected",
+          "collectornumber",
+          "fieldnumber",
+          "transmitter.name",
+          "transmitter.serial",
+          "sensorraw",
+          "sensorunit",
+          "station",
+          "latitude",
+          "longitude"
+        ),
+        unqualified = c(
+          "datecollected",
+          "collectornumber",
+          "fieldnumber",
+          "transmitter.name",
+          "transmitter.serial",
+          "sensorraw",
+          "sensorunit",
+          "station",
+          "latitude",
+          "longitude"
+        )
       )
 
       matos <- matos[, columns_to_include]
 
       names(matos) <- c(
-        "Date and Time (UTC)", "Receiver", "Transmitter",
-        "Transmitter Name", "Transmitter Serial", "Sensor Value",
-        "Sensor Unit", "Station Name", "Latitude", "Longitude"
+        "Date and Time (UTC)",
+        "Receiver",
+        "Transmitter",
+        "Transmitter Name",
+        "Transmitter Serial",
+        "Sensor Value",
+        "Sensor Unit",
+        "Station Name",
+        "Latitude",
+        "Longitude"
       )
 
       file_csv <- file.path(
@@ -488,12 +547,13 @@ download_process <- function(url, out_dir, overwrite,
       )
 
       write.csv(matos, file_csv, row.names = F)
-      if (isFALSE(quiet)) cli::cli_alert_success("CSV converted to VUE format.")
+      if (isFALSE(quiet)) {
+        cli::cli_alert_success("CSV converted to VUE format.")
+      }
 
       file_loc <- c(file_loc, file_csv)
     }
   }
-
 
   file_loc
 }
@@ -508,10 +568,13 @@ download_process <- function(url, out_dir, overwrite,
 #'
 #' @keywords internal
 
-act_file_download <- function(type, temp_dir = NULL, matos_project = NULL,
-                              project_files = NULL) {
+act_file_download <- function(
+  type,
+  temp_dir = NULL,
+  matos_project = NULL,
+  project_files = NULL
+) {
   cli::cli_alert_info(paste("Downloading", type, "detections..."))
-
 
   if (type == "deployment") {
     # list project files and select deployment metadata
@@ -533,7 +596,6 @@ act_file_download <- function(type, temp_dir = NULL, matos_project = NULL,
       )
     }
   )
-
 
   files <- unlist(files)
 
