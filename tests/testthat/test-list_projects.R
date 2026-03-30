@@ -19,8 +19,6 @@ test_that("returns correct classes", {
 })
 
 
-
-
 test_that("passing \"mine\" to \"what\" argument works", {
   skip_on_cran()
   skip_on_runiverse()
@@ -63,8 +61,6 @@ test_that("passing \"mine\" to \"what\" argument works", {
 })
 
 
-
-
 test_that("can shush", {
   skip_if_offline()
   skip_on_runiverse()
@@ -79,8 +75,6 @@ test_that("can shush", {
     list_projects(quiet = TRUE, force = TRUE, warn_multimatch = FALSE)
   )
 })
-
-
 
 
 test_that("memoise works in theory", {
@@ -151,8 +145,6 @@ test_that("memoise works in practice", {
 })
 
 
-
-
 #### NON-EXPORTED FUNCTIONS ####
 test_that("internal function `flatten_names` works", {
   otn_names <- paste0(
@@ -195,8 +187,6 @@ test_that("internal function `flatten_names` works", {
 })
 
 
-
-
 test_that("internal function `within_match` works", {
   projects_db1 <- c(
     "abcdefg",
@@ -227,8 +217,6 @@ test_that("internal function `within_match` works", {
     "At least one project name is a subset of multiple other projects."
   )
 })
-
-
 
 
 test_that("internal function `fuzzy_match` works", {

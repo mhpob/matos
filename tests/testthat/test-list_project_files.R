@@ -89,7 +89,6 @@ test_that("lists tag metadata", {
 })
 
 
-
 test_that("gets files since a date", {
   skip_if_offline()
   skip_on_runiverse()
@@ -107,8 +106,6 @@ test_that("gets files since a date", {
     proj_files_since
   )
 })
-
-
 
 
 test_that("warns with bad \"since\" date", {

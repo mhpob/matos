@@ -31,7 +31,6 @@ test_that("returns files", {
 })
 
 
-
 test_that("errors with no project provided", {
   expect_error(
     get_extract_updates(),

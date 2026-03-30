@@ -48,7 +48,6 @@ get_extract_file <- function(file = NULL, project = NULL,
     }
 
 
-
     if (is.character(project)) {
       project <- get_project_number(project)
     }

@@ -252,7 +252,6 @@ test_that("downloads sentinel detections with url", {
 })
 
 
-
 test_that("overwrite works", {
   skip_on_cran()
   skip_on_runiverse()

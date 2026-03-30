@@ -14,9 +14,10 @@
 #' matos_tag_summary(87, since = "2018-11-01")
 #' }
 matos_tag_summary <- function(
-    matos_project = NULL,
-    matched = NULL,
-    ...) {
+  matos_project = NULL,
+  matched = NULL,
+  ...
+) {
   if (all(is.null(matos_project), is.null(matched))) {
     cli::cli_abort("Must provide an ACT/MATOS project or at least one set of OTN-matched data.")
   }

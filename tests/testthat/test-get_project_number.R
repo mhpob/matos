@@ -11,8 +11,6 @@ test_that("direct full name matching works", {
 })
 
 
-
-
 test_that("code matching works", {
   skip_if_offline()
   skip_on_runiverse()
@@ -24,7 +22,6 @@ test_that("code matching works", {
 
   expect_type(proj_num, "double")
 })
-
 
 
 test_that("mixed case matching works", {

@@ -29,11 +29,12 @@
 #' matos_receiver_summary(87, since = "2022-05-01")
 #' }
 matos_receiver_summary <- function(
-    matos_project = NULL,
-    qualified = NULL,
-    unqualified = NULL,
-    deployment = NULL,
-    ...) {
+  matos_project = NULL,
+  qualified = NULL,
+  unqualified = NULL,
+  deployment = NULL,
+  ...
+) {
   if (is.null(matos_project) &
     any(is.null(qualified), is.null(unqualified), is.null(deployment))) {
     cli::cli_abort("Must provide an ACT/MATOS project or at least one each of qualified detections, unqualified detections, and deployment.")
@@ -67,7 +68,6 @@ matos_receiver_summary <- function(
     project_files <- list_extract_files(project_number, "all")
     cli::cli_alert_success("   Files found.")
   }
-
 
 
   # Qualified detections ----

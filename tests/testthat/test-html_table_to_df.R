@@ -19,7 +19,6 @@ test_that("converts data extraction files to df", {
 })
 
 
-
 test_that("converts project files to df", {
   skip_if_offline()
   skip_on_runiverse()
@@ -36,8 +35,6 @@ test_that("converts project files to df", {
     c("project", "file_type", "upload_date", "file_name", "url")
   )
 })
-
-
 
 
 test_that("handles projects that have no files", {

@@ -13,8 +13,6 @@ test_that("gets cookie", {
 })
 
 
-
-
 test_that("errors with incorrect creds", {
   skip_if_offline()
   skip_on_runiverse()

@@ -59,14 +59,12 @@ test_that("lists by project number", {
 })
 
 
-
 test_that("error if no project listed", {
   expect_error(
     list_extract_files(),
     "argument \"project\" is missing, with no default"
   )
 })
-
 
 
 test_that("project with no files returns empty data frame", {
@@ -81,7 +79,6 @@ test_that("project with no files returns empty data frame", {
 })
 
 
-
 test_that("lists matched files", {
   skip_on_cran()
   skip_on_runiverse()
@@ -94,7 +91,6 @@ test_that("lists matched files", {
     all(grepl("_matched_detections_\\d{4}.zip$", matched_files$file_name))
   )
 })
-
 
 
 test_that("lists external partner matches", {
@@ -116,7 +112,6 @@ test_that("lists external partner matches", {
     )
   )
 })
-
 
 
 test_that("lists qualified detections", {
@@ -173,8 +168,6 @@ test_that("lists unqualified detections", {
 })
 
 
-
-
 test_that("gets files since a date", {
   skip_if_offline()
   skip_on_runiverse()
@@ -192,8 +185,6 @@ test_that("gets files since a date", {
     extracts_since
   )
 })
-
-
 
 
 test_that("warns with bad \"since\" date", {

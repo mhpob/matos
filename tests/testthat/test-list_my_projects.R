@@ -25,7 +25,6 @@ test_that("passes the sniff test", {
 })
 
 
-
 test_that("has correct classes", {
   skip_on_cran()
   skip_on_runiverse()
@@ -45,8 +44,6 @@ test_that("has correct classes", {
     )
   )
 })
-
-
 
 
 test_that("`read_access = FALSE` works", {
@@ -77,8 +74,6 @@ test_that("`read_access = FALSE` works", {
 })
 
 
-
-
 test_that("shushes list_projects under the hood", {
   skip_on_cran()
   skip_on_runiverse()
@@ -87,8 +82,6 @@ test_that("shushes list_projects under the hood", {
     list_my_projects(force = TRUE, warn_multimatch = FALSE)
   )
 })
-
-
 
 
 test_that("memoise works in theory", {

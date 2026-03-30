@@ -26,8 +26,6 @@ test_that("ACT projects are summarized", {
 })
 
 
-
-
 test_that("errors with no way to find files", {
   expect_error(
     matos_tag_summary(),

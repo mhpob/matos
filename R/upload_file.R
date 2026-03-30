@@ -172,9 +172,6 @@ upload_file <- function(project, file,
   }
 
 
-
-
-
   # Upload.
   cat("Uploading...\n")
 
