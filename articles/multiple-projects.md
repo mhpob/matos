@@ -1,0 +1,156 @@
+# \`matos\` for the power user
+
+``` r
+library(matos)
+```
+
+If you’re a data manager for a lab that partakes in fish telemetry, you
+are likely balancing a number of projects at any one time. It can be
+pretty hard to keep track of what’s new when an OTN data push occurs.
+
+For example, I have 12 projects for which I am responsible.
+
+``` r
+projects <- list_my_projects()
+
+head(projects)
+#>                                             name number
+#> 33      Maryland Department of Natural Resources     90
+#> 46              Navy Kennebec ME Telemetry Array    192
+#> 51         NCBO-MD DNR Chesapeake Backbone North    181
+#> 52           NCBO-VMRC Chesapeake Backbone South    164
+#> 118 UMCES Black Sea Bass & Offshore Construction     97
+#> 119          UMCES BOEM Marine Mammal Monitoring    242
+#>                                                 url
+#> 33   https://matos.asascience.com/project/detail/90
+#> 46  https://matos.asascience.com/project/detail/192
+#> 51  https://matos.asascience.com/project/detail/181
+#> 52  https://matos.asascience.com/project/detail/164
+#> 118  https://matos.asascience.com/project/detail/97
+#> 119 https://matos.asascience.com/project/detail/242
+```
+
+## Parallel
+
+I like to use the [`future` family of
+packages](https://www.futureverse.org/packages-overview.html) to run
+things in parallel specifically,
+[`future.apply`](https://future.apply.futureverse.org/). When you get
+quite a few projects, this speeds up pulling your files from MATOS quite
+a bit.
+
+## Listing
+
+``` r
+library(future.apply)
+plan(multisession)
+
+# List files in all of my projects
+extraction_files <- future_lapply(projects$number, 
+                                  function(x){
+                                    list_extract_files(x)
+                                    }
+                                  )
+
+# Bind together into one data frame
+extraction_files <- do.call(rbind, extraction_files)
+
+head(extraction_files)
+#>   project            file_type detection_type detection_year
+#> 1      90 Data Extraction File        matched           2015
+#> 2      90 Data Extraction File        matched           2016
+#> 3      90 Data Extraction File        matched           2017
+#> 4      90 Data Extraction File        matched           2018
+#> 5      90 Data Extraction File        matched           2019
+#> 6      90 Data Extraction File        matched           2020
+#>   upload_date                            file_name
+#> 1  2023-03-21 mddnr1nr_matched_detections_2015.zip
+#> 2  2023-03-21 mddnr1nr_matched_detections_2016.zip
+#> 3  2023-03-21 mddnr1nr_matched_detections_2017.zip
+#> 4  2023-03-21 mddnr1nr_matched_detections_2018.zip
+#> 5  2023-03-21 mddnr1nr_matched_detections_2019.zip
+#> 6  2023-07-06 mddnr1nr_matched_detections_2020.zip
+#>                                                                url
+#> 1 https://matos.asascience.com/projectfile/downloadExtraction/90_1
+#> 2 https://matos.asascience.com/projectfile/downloadExtraction/90_2
+#> 3 https://matos.asascience.com/projectfile/downloadExtraction/90_3
+#> 4 https://matos.asascience.com/projectfile/downloadExtraction/90_4
+#> 5 https://matos.asascience.com/projectfile/downloadExtraction/90_5
+#> 6 https://matos.asascience.com/projectfile/downloadExtraction/90_6
+```
+
+That’s 142 files of which I need to keep track! It really adds up.
+
+## Downloading
+
+If we want to download all of those files, we can do something similar.
+We just need to change the function we’re running in parallel to
+`get_extract_file` and provide it the URLs from the list we made via
+`list_extract_files`. I’ll download the first three files for
+demonstration purposes.
+
+``` r
+future_lapply(extraction_files$url[1:3], 
+              function(x){
+                get_extract_file(url = x)
+              }
+)
+#>    C:\Users\darpa2\Analysis\matos\vignettes\mddnr1nr_matched_detections_2015.zip 
+#>    C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2015.csv
+#>    C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt
+#> 
+#> ── Downloading files ──────────────────────────────────────────────
+#> ✔ File(s) saved to:
+#> 
+#> ── Unzipping files ────────────────────────────────────────────────
+#> ✔ File(s) unzipped to:
+#>    C:\Users\darpa2\Analysis\matos\vignettes\mddnr1nr_matched_detections_2016.zip 
+#>    C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2016.csv
+#>    C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt
+#> 
+#> ── Downloading files ──────────────────────────────────────────────
+#> ✔ File(s) saved to:
+#> 
+#> ── Unzipping files ────────────────────────────────────────────────
+#> ✔ File(s) unzipped to:
+#>    C:\Users\darpa2\Analysis\matos\vignettes\mddnr1nr_matched_detections_2017.zip 
+#>    C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2017.csv
+#>    C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt
+#> 
+#> ── Downloading files ──────────────────────────────────────────────
+#> ✔ File(s) saved to:
+#> 
+#> ── Unzipping files ────────────────────────────────────────────────
+#> ✔ File(s) unzipped to:
+#> [[1]]
+#> [1] "C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2015.csv"
+#> [2] "C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt"                
+#> 
+#> [[2]]
+#> [1] "C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2016.csv"
+#> [2] "C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt"                
+#> 
+#> [[3]]
+#> [1] "C:/Users/darpa2/Analysis/matos/vignettes/mddnr1nr_matched_detections_2017.csv"
+#> [2] "C:/Users/darpa2/Analysis/matos/vignettes/data_description.txt"
+```
+
+## Summarizing
+
+We can do the same by looping through receiver and transmitter push
+summaries. For me, this will create 24 reports! Still a lot, but quite a
+bit easier to digest than millions of detections spread over 142 files.
+
+``` r
+future_lapply(projects$number[1:2], 
+              function(x){
+                matos_receiver_summary(x)
+              }
+)
+
+future_lapply(projects$number[1:2], 
+              function(x){
+                matos_tag_summary(x)
+              }
+)
+```

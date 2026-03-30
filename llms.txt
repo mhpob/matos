@@ -1,0 +1,161 @@
+# matos
+
+{matos} is an API to the [Mid-Atlantic Acoustic Telemetry Observing
+System website](https://matos.asascience.com/), powered by a suite of
+[httr](https://httr.r-lib.org/) and
+[rvest](https://rvest.tidyverse.org/) functions.
+
+Please note that you will need a MATOS account, [which you can sign up
+for here](https://matos.asascience.com/account/signup), in order to
+interface with any project-specific files.
+
+## Installation
+
+You can install the most-up-to-date version from
+[R-universe](https://mhpob.r-universe.dev/matos) or
+[GitHub](https://github.com/mhpob/matos).
+
+R-universe:
+
+``` r
+install.packages(
+  "matos",
+  repos = c(
+    "https://mhpob.r-universe.dev",
+    "https://cloud.r-project.org"
+  )
+)
+```
+
+GitHub:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("mhpob/matos")
+```
+
+## Quick start
+
+There are functions to list, download, and upload files to MATOS – check
+out the vignettes for some worked examples. If you don’t want to read
+and just want to get your detection files, here are the bare bones to
+get you up and running:
+
+### `list_my_projects`
+
+Logs you into the MATOS database and pings each project in turn to see
+if you have read/write access, listing those that you do.
+
+### `list_extract_files`
+
+Once you have a project name or number from `list_my_projects`, use this
+function to list all of the files containing Ocean Tracking Network
+matched detections.
+
+### `get_extract_file`
+
+Now that you have the URLs of the detection extract files from
+`list_extract_files`, put it in here to download the file to your
+computer.
+
+## Development
+
+As is noted above, this package is undergoing a ton of development. If
+there’s something I missed, please [open an issue on
+GitHub](https://github.com/mhpob/matos/issues) or [email me (Mike
+O’Brien: obrien@umces.edu) directly](mailto:obrien@umces.edu).
+
+# Package index
+
+## Listing
+
+Functions to list your MATOS files or projects
+
+- [`list_extract_files()`](https://www.obrien.page/matos/reference/list_extract_files.md)
+  : List OTN data extraction files
+- [`list_my_projects()`](https://www.obrien.page/matos/reference/list_my_projects.md)
+  : List personal MATOS projects
+- [`list_project_files()`](https://www.obrien.page/matos/reference/list_project_files.md)
+  : List MATOS project files
+- [`list_projects()`](https://www.obrien.page/matos/reference/list_projects.md)
+  : List MATOS projects
+
+## Downloading
+
+Functions to download your files from MATOS
+
+- [`get_extract_file()`](https://www.obrien.page/matos/reference/get_extract_file.md)
+  : Download OTN data extraction files from the MATOS website
+
+- [`get_extract_updates()`](https://www.obrien.page/matos/reference/get_extract_updates.md)
+  : Download all data extraction files that were updated after a certain
+  date
+
+- [`get_otn_template()`](https://www.obrien.page/matos/reference/get_otn_template.md)
+  : Download Ocean-Tracking-Network-style metadata templates
+
+- [`get_project_file()`](https://www.obrien.page/matos/reference/get_project_file.md)
+  : Download project files from the MATOS website
+
+- [`get_tag_search()`](https://www.obrien.page/matos/reference/get_tag_search.md)
+  : Search for tags on the MATOS website
+
+- [`get_file_list()`](https://www.obrien.page/matos/reference/utilities.md)
+  [`get_file_list_mem()`](https://www.obrien.page/matos/reference/utilities.md)
+  [`get_project_number()`](https://www.obrien.page/matos/reference/utilities.md)
+  [`get_project_name()`](https://www.obrien.page/matos/reference/utilities.md)
+  [`html_table_to_df()`](https://www.obrien.page/matos/reference/utilities.md)
+  [`login_check()`](https://www.obrien.page/matos/reference/utilities.md)
+  [`project_check()`](https://www.obrien.page/matos/reference/utilities.md)
+  [`scrape_file_urls()`](https://www.obrien.page/matos/reference/utilities.md)
+  [`download_process()`](https://www.obrien.page/matos/reference/utilities.md)
+  :
+
+  Internal functions used by `matos`
+
+## Summarizing
+
+- [`matos_login()`](https://www.obrien.page/matos/reference/matos_login.md)
+  : Log in to your MATOS account
+- [`matos_logoff()`](https://www.obrien.page/matos/reference/matos_logoff.md)
+  : Log out of your MATOS account
+- [`matos_receiver_summary()`](https://www.obrien.page/matos/reference/matos_receiver_summary.md)
+  : Create summary reports of receiver project data from the OTN data
+  push
+- [`matos_tag_summary()`](https://www.obrien.page/matos/reference/matos_tag_summary.md)
+  : Create summary reports of receiver project data from the OTN data
+  push
+
+## Uploading
+
+- [`upload_file()`](https://www.obrien.page/matos/reference/upload_file.md)
+  : Upload files to MATOS
+
+## Utilities
+
+- [`matos_login()`](https://www.obrien.page/matos/reference/matos_login.md)
+  : Log in to your MATOS account
+
+- [`set_matos_credentials()`](https://www.obrien.page/matos/reference/set_matos_credentials.md)
+  :
+
+  Install your MATOS username and password in your `.Renviron` File for
+  repeated use
+
+- [`matos_logoff()`](https://www.obrien.page/matos/reference/matos_logoff.md)
+  : Log out of your MATOS account
+
+- [`skip_example_on_ci()`](https://www.obrien.page/matos/reference/CI_utilities.md)
+  [`skip_example_on_runiverse()`](https://www.obrien.page/matos/reference/CI_utilities.md)
+  [`skip_example_on_cran()`](https://www.obrien.page/matos/reference/CI_utilities.md)
+  : Miscellaneous functions for package checking, building, and CI
+
+# Articles
+
+### Articles
+
+- [Introduction](https://www.obrien.page/matos/articles/introduction.md):
+- [\`matos\` for the power
+  user](https://www.obrien.page/matos/articles/multiple-projects.md):
+- [Summarizing with
+  otndo](https://www.obrien.page/matos/articles/matos-otndo.md):
