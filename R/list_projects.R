@@ -28,11 +28,12 @@
 #' # List your projects (which may contain some for which you do not have read access):
 #' list_projects("mine", read_access = F)
 list_projects <- function(
-    what = c("all", "mine"),
-    read_access = TRUE,
-    quiet = FALSE,
-    force = FALSE,
-    warn_multimatch = TRUE) {
+  what = c("all", "mine"),
+  read_access = TRUE,
+  quiet = FALSE,
+  force = FALSE,
+  warn_multimatch = TRUE
+) {
   if (isTRUE(force)) {
     memoise::forget(list_projects_mem)
   }
@@ -53,10 +54,11 @@ list_projects <- function(
 #'
 #' @keywords internal
 list_projects_mem <- function(
-    what,
-    read_access,
-    quiet,
-    warn_multimatch) {
+  what,
+  read_access,
+  quiet,
+  warn_multimatch
+) {
   if (what == "all") {
     # Download and parse MATOS project page
     project_list <- httr::GET(
@@ -373,7 +375,7 @@ fuzzy_match <- function(a, b) {
 
   # Error if there are multiple matches
   if (sum(match_lengths) != length(unique(unlist(hold)))) {
-    stop(
+    warning(
       "At least one project name can be fuzzy-matched to multiple other projects."
     )
   }
