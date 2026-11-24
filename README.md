@@ -5,6 +5,9 @@
 
 # matos
 
+## The MATOS database tool has been shut down, circa July 2026.
+## Check out the [`otndata`](https://github.com/trackyverse/otndata) R package for your ACT Network data needs from now on.
+
 <!-- badges: start -->
 
 [![Active – The project has reached a stable, usable state and is being
